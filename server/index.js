@@ -3,10 +3,10 @@ const app = express()
 const port = 5000
 const bodyParser = require('body-parser'); //req.body에 넣을 수 있게 해줌
 const cookieParser = require('cookie-parser');
-const config = require('./config/key');
+const config = require('../server/config/key');
 
-const { auth } = require("./middleware/auth");
-const { User } = require("./models/User");
+const { auth } = require("../server/middleware/auth");
+const { User } = require("../server/models/User");
 
 //application/x-www-form-urlencoded
 app.use(bodyParser.urlencoded({extended: true}));
@@ -25,6 +25,10 @@ mongoose.connect(config.mongoURI, {
 
 app.get('/', (req, res) => {
   res.send('Hello World! 안녕하세요!')
+})
+
+app.get('/api/hello', (req, res) => {
+  res.send("안녕하세요~")
 })
 
 //회원가입 라우트
@@ -93,7 +97,9 @@ app.get('/api/users/auth', auth, (req, res) => {
 })
 
 app.get('/api/users/logout', auth, (req, res) => {
-  User.findOneAndUpdate({ _id: req.user._id }, { token: "" }, (err, user) => {
+  User.findOneAndUpdate({ _id: req.user._id }, 
+    { token: "" }, 
+    (err, user) => {
     if(err) return res.json({ success: false, err });
     return res.status(200).send({
       success: true
