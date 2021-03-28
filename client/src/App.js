@@ -14,6 +14,17 @@ import Auth from './hoc/auth';
 function App() {
   return (
     <Router>
+      {<header>
+        <Link to="/">
+          <button>Home</button>
+        </Link>
+        <Link to="/login">
+          <button>Login</button>
+        </Link>
+        <Link to="/register">
+          <button>Register</button>
+        </Link>
+      </header>}
       <div>
 
         {/*

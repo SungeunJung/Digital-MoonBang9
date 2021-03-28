@@ -17,7 +17,7 @@ const userSchema = mongoose.Schema({
         type: String,
         minlength: 5
     },
-    lastname: {
+    id: {
         type: String,
         maxlength: 50
     },
@@ -52,6 +52,7 @@ userSchema.pre('save', function( next ){ //user 정보를 저장하기 전에 �
         next()
     }
 }) 
+
 
 userSchema.methods.comparePassword = function(plainPassword, cb) {
     //plainPassword 1234567와 암호화된 비밀번호가 같은지 확인. plainPassword를 암호화하여 확인.

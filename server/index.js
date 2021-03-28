@@ -1,10 +1,11 @@
-const express = require('express')
-const app = express()
-const port = 5000
+const express = require('express');
+const app = express();
+const port = 4000
 const bodyParser = require('body-parser'); //req.body에 넣을 수 있게 해줌
 const cookieParser = require('cookie-parser');
 const config = require('../server/config/key');
 
+const { sendEmail } = require('../mail');
 const { auth } = require("../server/middleware/auth");
 const { User } = require("../server/models/User");
 
@@ -15,21 +16,28 @@ app.use(bodyParser.urlencoded({extended: true}));
 app.use(bodyParser.json());
 app.use(cookieParser());
 
-const mongoose = require('mongoose')
+const mongoose = require('mongoose');
+
 mongoose.connect(config.mongoURI, {
     useNewUrlParser: true, useUnifiedTopology: true, useCreateIndex: true, useFindAndModify: false
 }).then(() => console.log('MongoDB Connected...'))
 .catch(err => console.log(err))
 
-
-
+/*
 app.get('/', (req, res) => {
   res.send('Hello World! 안녕하세요!')
 })
+*/
 
-app.get('/api/hello', (req, res) => {
-  res.send("안녕하세요~")
+//인증코드 이메일로 보내기
+app.post('/api/users/sendEmail', (req, res) => {
+  //console.log(req.body)
+  sendEmail(req.body.email, req.body.name, req.body.auth)
+  return res.status(200).json({
+    success: true
+  })
 })
+
 
 //회원가입 라우트
 app.post('/api/users/register', (req, res) => {
@@ -42,6 +50,8 @@ app.post('/api/users/register', (req, res) => {
     password: "123"
   }
   */
+ 
+  console.log(req.body)
   const user = new User(req.body)
 
   user.save((err, userInfo) => { //정보들이 user model에 저장
@@ -50,6 +60,7 @@ app.post('/api/users/register', (req, res) => {
       success: true
     })
   })  
+ 
 })
 
 //로그인 라우트
