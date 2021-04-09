@@ -14,7 +14,7 @@ function RegisterPage(props) {
     const [Email, setEmail] = useState("")
     const [AuthCode, setAuthCode] = useState("")
     const [Name, setName] = useState("")
-    const [ID, setID] = useState("")
+    const [Nickname, setNickname] = useState("")
     const [Password, setPassword] = useState("")
     const [ConfirmPassword, setConfirmPassword] = useState("")
 
@@ -27,8 +27,8 @@ function RegisterPage(props) {
     const onNameHandler = (event) => {
         setName(event.currentTarget.value)
     }
-    const onIDHandler = (event) => {
-        setID(event.currentTarget.value)
+    const onNickHandler = (event) => {
+        setNickname(event.currentTarget.value)
     }
     const onPasswordHandler = (event) => {
         setPassword(event.currentTarget.value)
@@ -77,7 +77,7 @@ function RegisterPage(props) {
         let body = {
             email: Email,
             name: Name,
-            id: ID,
+            nickname: Nickname,
             password: Password
         }
 
@@ -126,7 +126,7 @@ function RegisterPage(props) {
                 <label>Name</label>
                 <input type="text" value={Name} onChange={onNameHandler} required/>
                 <label>User ID</label>
-                <input type="text" value={ID} onChange={onIDHandler} required/>
+                <input type="text" value={Nickname} onChange={onNickHandler} required/>
                 <label>Password</label>
                 <input type="password" value={Password} onChange={onPasswordHandler} required/>
                 <label>Confirm Password</label>

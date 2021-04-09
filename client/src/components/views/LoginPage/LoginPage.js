@@ -6,9 +6,17 @@ import { withRouter } from 'react-router-dom';
 
 function LoginPage(props) {
     const dispatch = useDispatch()
-    const [Email, setEmail] = useState("")
-    const [Password, setPassword] = useState("")
+    const rememberMeChecked = localStorage.getItem("rememberMe") ? true : false;
+    const [rememberMe, setRememberMe] = useState(rememberMeChecked)
 
+    const handleRememberMe = () => {
+        setRememberMe(!rememberMe)
+      };
+    
+      const initialEmail = localStorage.getItem("rememberMe") ? localStorage.getItem("rememberMe") : '';
+
+    const [Email, setEmail] = useState(initialEmail)
+    const [Password, setPassword] = useState("")
 
     const onEmailHandler = (event) => {
         setEmail(event.currentTarget.value)
@@ -27,6 +35,11 @@ function LoginPage(props) {
         dispatch(loginUser(body)) //loginUser = action
             .then(response => {
                 if(response.payload.loginSuccess) {
+                    if (rememberMe === true) {
+                        window.localStorage.setItem('rememberMe', body.email);
+                      } else {
+                        localStorage.removeItem('rememberMe');
+                      }
                     props.history.push('/') //LandingPage로 이동
                 } else {
                     alert('Error')
@@ -46,7 +59,8 @@ function LoginPage(props) {
                 <input type="email" value={Email} onChange={onEmailHandler} />
                 <label>Password</label>
                 <input type="password" value={Password} onChange={onPasswordHandler} />
-
+                <br/>
+                <label>이메일 저장하기 <input id="rememberMe" type="checkbox" onChange={handleRememberMe} checked={rememberMe} /></label>
                 <br/>
                 <button type="submit">
                     Login

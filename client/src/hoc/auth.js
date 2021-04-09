@@ -1,19 +1,16 @@
 import React, { useEffect } from 'react';
-import axios from 'axios';
-import { useDispatch } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
 import { auth } from '../_actions/user_action';
 //import { response } from 'express';
 
 export default function (SpecificComponent, option, adminRoute = null) {
 
     function AuthenticationCheck(props) {
-
+        let user = useSelector(state => state.user);
         const dispatch = useDispatch();
 
         useEffect(() => {
             dispatch(auth()).then(response => {
-                console.log(response)
-
                 //로그인 하지 않은 상태
                 if(!response.payload.isAuth) {
                     if(option) { //option이 true인 페이지 진입하려고 하면
@@ -33,7 +30,7 @@ export default function (SpecificComponent, option, adminRoute = null) {
         //axios.get('/api/users/auth')
 
         return (
-            <SpecificComponent />
+            <SpecificComponent {...props} user={user}/>
         )
     }
 

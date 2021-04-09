@@ -13,7 +13,7 @@ const getEmailData = (to, name, authCode) => {
     return data;
 }
 
-const sendEmail = (to, name, type) => {
+const sendEmail = (to, name, authCode) => {
     const smtpTransport = mailer.createTransport({
         service: "Gmail",
         auth: {
@@ -22,7 +22,7 @@ const sendEmail = (to, name, type) => {
         }
     })
 
-    const mail = getEmailData(to, name, type)
+    const mail = getEmailData(to, name, authCode)
 
     smtpTransport.sendMail(mail, function(error, response) {
         if(error) {

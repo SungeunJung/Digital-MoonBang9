@@ -2,39 +2,51 @@ import axios from 'axios';
 import {
     LOGIN_USER,
     REGISTER_USER,
-    AUTH_USER
+    AUTH_USER,
+    LOGOUT_USER,
 } from './types';
+import { USER_SERVER } from '../components/Config.js';
 
 
-export function loginUser(dataToSubmit) {
+export function registerUser(dataToSubmit) {
 
-    const request = axios.post('/api/users/login', dataToSubmit) //server에 요청
+    const request = axios.post(`${USER_SERVER}/register`, dataToSubmit) //server에 요청
             .then(response => response.data)
 
     return { //request를 reducer로 넘겨줌
-        type: "LOGIN_USER",
+        type: REGISTER_USER,
         payload: request
     }
 }
 
-export function registerUser(dataToSubmit) {
+export function loginUser(dataToSubmit) {
 
-    const request = axios.post('/api/users/register', dataToSubmit) //server에 요청
+    const request = axios.post(`${USER_SERVER}/login`, dataToSubmit) //server에 요청
             .then(response => response.data)
 
     return { //request를 reducer로 넘겨줌
-        type: "REGISTER_USER",
+        type: LOGIN_USER,
         payload: request
     }
 }
 
 export function auth() {
 
-    const request = axios.get('/api/users/auth') //server에 요청
+    const request = axios.get(`${USER_SERVER}/auth`) //server에 요청
             .then(response => response.data)
 
     return { //request를 reducer로 넘겨줌
-        type: "AUTH_USER",
+        type: AUTH_USER,
+        payload: request
+    }
+}
+
+export function logoutUser(){
+    const request = axios.get(`${USER_SERVER}/logout`)
+    .then(response => response.data);
+
+    return {
+        type: LOGOUT_USER,
         payload: request
     }
 }
