@@ -13,6 +13,7 @@ import LandingPage from './views/LandingPage/LandingPage'
 import LoginPage from './views/LoginPage/LoginPage'
 import RegisterPage from './views/RegisterPage/RegisterPage'
 import UploadTemplatePage from './views/UploadTemplatePage/UploadTemplatePage'
+import DetailTemplatePage from './views/DetailTemplatePage/DetailTemplatePage'
 import MyPage from './views/MyPage/MyPage'
 import Auth from '../hoc/auth';
 import './App.css';
@@ -43,6 +44,7 @@ function App() {
           <Route exact path="/login" component={ Auth(LoginPage, false) } />
           <Route exact path="/register" component={ Auth(RegisterPage, false) } />
           <Route exact path="/template/upload" component={ Auth(UploadTemplatePage, true) } />
+          <Route exact path="/template/:templateId" component={ Auth(DetailTemplatePage, null) } />
           <Route exact path="/mypage" component={ Auth(MyPage, true) } />
         </Switch>
         

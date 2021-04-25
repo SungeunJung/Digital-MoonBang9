@@ -4,6 +4,7 @@ import axios from 'axios';
 import { Col, Card, Row } from 'antd';
 import { withRouter } from 'react-router-dom';
 import ImageSlider from '../../utils/ImageSlider'
+import SearchFeature from './Sections/SearchFeature'
 import CheckBox from './Sections/CheckBox'
 
 const { Meta } = Card;
@@ -13,6 +14,7 @@ function LandingPage() {
     const [Skip, setSkip] = useState(0)
     const [Limit, setLimit] = useState(4)
     const [PostSize, setPostSize] = useState(0)
+    const [SearchTerm, setSearchTerm] = useState("")
     const [Filters, setFilters] = useState({
         category: [],
         detail: []
@@ -96,6 +98,22 @@ function LandingPage() {
         setFilters(newFilters)
     }
 
+    const updateSeachTerm = (newSearchTerm) => {
+        
+        const variables = {
+            skip: 0,
+            limit: Limit,
+            filters: Filters,
+            searchTerm: newSearchTerm
+        }
+
+        setSkip(0)
+        setSearchTerm(newSearchTerm)
+
+        getTemplates(variables)
+
+    }
+
     return (
         <div style ={{ width: '75%', margin:'3rem auto' }}>
             <div style ={{ textAlign: 'center' }}>
@@ -107,6 +125,11 @@ function LandingPage() {
                 handleFilters={filters => handleFilters(filters, "category")}
             />
             {/* Search */}
+            <div style={{ display:'flex', justifyContent:'flex-end', margin:'1rem auto' }}>
+                <SearchFeature
+                    refreshFunction={updateSeachTerm} //검색어 입력시 자동으로 결과 페이지 보여줌
+                />
+            </div>
 
             <br/>
             {Templates.length === 0 ?

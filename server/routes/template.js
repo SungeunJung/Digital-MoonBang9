@@ -54,9 +54,10 @@ router.post("/getTemplates", (req, res) => {
     let sortBy = req.body.sortBy ? req.body.sortBy : -1;
     let limit = req.body.limit ? parseInt(req.body.limit) : 20;
     let skip = parseInt(req.body.skip);
+    let term = req.body.searchTerm
 
     let findArgs = {};
-
+    
     for(let key in req.body.filters) {
         if(req.body.filters[key].length > 0) {
             if(key === "detail") {
@@ -69,17 +70,52 @@ router.post("/getTemplates", (req, res) => {
         }
     }
 
-    Template.find(findArgs)
-    .populate("writer")
-    .sort([[sortBy, order]])
-    .skip(skip)
-    .limit(limit)
-    .exec((err, templates) => {
-        if(err) {console.log('err');return res.status(400).json({ success: false, err })}
-        console.log('here')
-        console.log(templates)
-        res.status(200).json({ success: true, templates, postSize: templates.length })
-    })
+    if(term) {
+        Template.find(findArgs)
+            .find({ $text: { $search: term } }) //몽고디비 메소드 
+            .populate("writer")
+            .sort([[sortBy, order]])
+            .skip(skip)
+            .limit(limit)
+            .exec((err, templates) => {
+                if(err) {return res.status(400).json({ success: false, err })}
+                res.status(200).json({ success: true, templates, postSize: templates.length })
+            })
+    } else {
+        Template.find(findArgs)
+            .populate("writer")
+            .sort([[sortBy, order]])
+            .skip(skip)
+            .limit(limit)
+            .exec((err, templates) => {
+                if(err) {return res.status(400).json({ success: false, err })}
+                //console.log(templates)
+                res.status(200).json({ success: true, templates, postSize: templates.length })
+            })
+    }
+    
+});
+
+//?id=${templateId}&type=single
+//여러개 가져올 때는 type=array
+router.get("/templates_by_id", (req, res) => {
+    let type = req.query.type
+    let templateIds = req.query.id
+
+    if(type === "array") {
+        let ids = req.query.id.split(',');
+        templateIds = [];
+        templateIds = ids.map(item => {
+            return item
+        })
+    }
+    //we need to find the template information that belongs to template id
+    Template.find({ '_id':{ $in: templateIds } })
+        .populate('writer')
+        .exec((err, template) => {
+            if(err) return req.status(400).send(err)
+            return res.status(200).send(template)
+        })
 });
 
 

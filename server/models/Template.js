@@ -39,6 +39,16 @@ const templateSchema = mongoose.Schema({
     }
 }, {timestamps: true}) //timestamps를 통해서 생성 및 갱신 시간을 알 수 있음
 
+templateSchema.index({
+    title: 'text',
+    description: 'text'
+}, {
+    weights: {
+        title:5,
+        description:1
+    }
+})
+
 const Template = mongoose.model('Template', templateSchema)
 
 module.exports = { Template }
