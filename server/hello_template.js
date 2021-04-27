@@ -9,7 +9,7 @@ const Hello = data => {
             <body style="margin: 0; padding: 0;">
                 <br />
                 <br />
-                <div>인증번호는 ${data} 입니다.</div>
+                <div>인증번호는 ${data} 입니다. 안녕하세요</div>
                 <br />
                 <br />
             </body>
