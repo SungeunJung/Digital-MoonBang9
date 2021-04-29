@@ -37,20 +37,13 @@ const formItemLayout = {
 
 function RegisterPage(props) {
     const dispatch = useDispatch()
-    const [Email, setEmail] = useState("")
-    const [AuthCode, setAuthCode] = useState("")
-    const [Name, setName] = useState("")
-    const [Nickname, setNickname] = useState("")
-    const [Password, setPassword] = useState("")
-    const [ConfirmPassword, setConfirmPassword] = useState("")
-
-
+    
     const onSendMailHandler = (event) => {
         state.createdAuthCode = Math.random().toString(36).substr(2,6);
 
         const dataToSubmit = {
-            name: Name,
-            email: Email,
+            email: values.email,
+            name: values.name,
             auth: state.createdAuthCode
         }
         console.log('authCode = '+state.createdAuthCode)
