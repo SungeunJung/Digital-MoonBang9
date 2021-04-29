@@ -2,7 +2,7 @@ const express = require('express');
 const app = express();
 const path = require("path");
 const cors = require('cors')
-const port = process.env.PORT || 4000;
+const port = process.env.PORT || 2000;
 
 const bodyParser = require('body-parser'); //req.body에 넣을 수 있게 해줌
 const cookieParser = require('cookie-parser');

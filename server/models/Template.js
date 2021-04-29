@@ -17,12 +17,13 @@ const templateSchema = mongoose.Schema({
         type: String,
     },
     category: {
-        type: Number,
-        default: 1
+        type: String,
     },
     detail: {
-        type: Number,
-        default: 1
+        type: String,
+    },
+    styles: {
+        type: String,
     },
     images: {
         type: Array,
