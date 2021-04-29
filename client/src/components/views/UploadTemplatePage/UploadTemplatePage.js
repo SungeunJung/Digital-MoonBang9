@@ -10,29 +10,53 @@ const { TextArea } = Input;
 const Categories = [
     { key:1, value: "다이어리" },
     { key:2, value: "플래너" },
-    { key:3, value: "트래커" },
-    { key:4, value: "노트" },
+    { key:3, value: "노트" },
+    { key:4, value: "라이프" },
+    { key:5, value: "스티커" },
+    { key:6, value: "기타" },
 ]
 const Detail_1 = [
     { key:1, value: "날짜형" },
     { key:2, value: "만년형" },
-    { key:3, value: "육아일기" },
+    { key:3, value: "일기장" },
 ]
 const Detail_2 = [
-    { key:1, value: "스터디플래너" },
+    { key:1, value: "먼슬리" },
     { key:2, value: "데일리" },
     { key:3, value: "위클리" },
+    { key:4, value: "업무" },
 ]
 const Detail_3 = [
-    { key:1, value: "무드트래커" },
-    { key:2, value: "해빗트래커" },
+    { key:1, value: "줄" },
+    { key:2, value: "무지" },
+    { key:3, value: "분할" },
+    { key:4, value: "코넬" },
+    { key:5, value: "단어장" },
+    { key:6, value: "기타" },
 ]
 const Detail_4 = [
-    { key:1, value: "독서노트" },
-    { key:2, value: "필사노트" },
-    { key:3, value: "수학노트" },
+    { key:1, value: "가계부" },
+    { key:2, value: "운동" },
+    { key:3, value: "독서" },
+    { key:4, value: "여행" },
+    { key:6, value: "기타" },
+]
+const Detail_5 = [
+    { key:1, value: "트래커" },
+    { key:2, value: "체크리스트" },
 ]
 var Detail = Detail_1;
+
+const Styles = [
+    { key:1, value: "심플" },
+    { key:2, value: "빈티지" },
+    { key:3, value: "귀여운" },
+    { key:4, value: "레트로" },
+    { key:5, value: "캐릭터" },
+    { key:6, value: "키치" },
+    { key:7, value: "클래식" },
+    { key:8, value: "일러스트" },
+]
 
 
 function UploadTemplatePage(props) {
@@ -41,6 +65,7 @@ function UploadTemplatePage(props) {
     const [DescriptionValue, setDescriptionValue] = useState("")
     const [CategoryValue, setCategoryValue] = useState(1)
     const [DetailValue, setDetailValue] = useState(1)
+    const [StyleValue, setStyleValue] = useState(1)
     
     const onTitleChange = (event) => {
         setTitleValue(event.currentTarget.value)
@@ -67,12 +92,19 @@ function UploadTemplatePage(props) {
                 Detail = Detail_4.slice();
                 setDetailValue(1);
                 break; 
+            case '5': 
+                Detail = Detail_5.slice();
+                setDetailValue(1);
+                break; 
             default:
                 break;
         }
     }
     const onDetailSelectChange = (event) => {
         setDetailValue(event.currentTarget.value)
+    }
+    const onStyleSelectChange = (event) => {
+        setStyleValue(event.currentTarget.value)
     }
     const updateImages = (newImages) =>{
         console.log(newImages)
@@ -93,6 +125,7 @@ function UploadTemplatePage(props) {
             images: Images,
             category: CategoryValue,
             detail: DetailValue,
+            styles: StyleValue,
         }
 
         console.log(Images)
@@ -135,18 +168,30 @@ function UploadTemplatePage(props) {
                 />
                 <br/>
                 <br/>
+                <span style={{ marginRight: '15px' }}>
                 <label>Category </label>
                 <select onChange={onCategorySelectChange}>
                     {Categories.map(item => (
                         <option key={item.key} value={item.key}>{item.value}</option>
                     ))}
                 </select>
+                </span>
+                <span style={{ marginRight: '15px' }}>
                 <label> Detail </label>
                 <select onChange={onDetailSelectChange}>
                     {Detail.map(item => (
                         <option key={item.key} value={item.key}>{item.value}</option>
                     ))}
                 </select>
+                </span>
+                <span>
+                <label>Style </label>
+                <select onChange={onStyleSelectChange}>
+                    {Styles.map(item => (
+                        <option key={item.key} value={item.key}>{item.value}</option>
+                    ))}
+                </select>
+                </span>
                 <br/>
                 <br/>
                 <Button

@@ -3,48 +3,47 @@ import { useDispatch } from 'react-redux';
 import { registerUser } from '../../../_actions/user_action';
 import { withRouter } from 'react-router-dom';
 import axios from 'axios';
+import { Form, Input, Button, Row, Col, Typography } from 'antd';
+
+const { Title } = Typography;
 
 var state = {
     createdAuthCode: "",
     authCodeCheck: false
 }
 
+const formItemLayout = {
+    labelCol: {
+      xs: { span: 24 },
+      sm: { span: 8 },
+    },
+    wrapperCol: {
+      xs: { span: 24 },
+      sm: { span: 16 },
+    },
+  };
+  const tailFormItemLayout = {
+    wrapperCol: {
+      xs: {
+        span: 24,
+        offset: 0,
+      },
+      sm: {
+        span: 16,
+        offset: 8,
+      },
+    },
+  };
+
 function RegisterPage(props) {
     const dispatch = useDispatch()
-    const [Email, setEmail] = useState("")
-    const [AuthCode, setAuthCode] = useState("")
-    const [Name, setName] = useState("")
-    const [Nickname, setNickname] = useState("")
-    const [Password, setPassword] = useState("")
-    const [ConfirmPassword, setConfirmPassword] = useState("")
-
-    const onEmailHandler = (event) => {
-        setEmail(event.currentTarget.value)
-    }
-    const onAuthCodeHandler = (event) => {
-        setAuthCode(event.currentTarget.value)
-    }
-    const onNameHandler = (event) => {
-        setName(event.currentTarget.value)
-    }
-    const onNickHandler = (event) => {
-        setNickname(event.currentTarget.value)
-    }
-    const onPasswordHandler = (event) => {
-        setPassword(event.currentTarget.value)
-    }
-    const onConfirmPasswordHandler = (event) => {
-        setConfirmPassword(event.currentTarget.value)
-    }
-
+    
     const onSendMailHandler = (event) => {
-        event.preventDefault();
-        
         state.createdAuthCode = Math.random().toString(36).substr(2,6);
 
         const dataToSubmit = {
-            name: Name,
-            email: Email,
+            email: values.email,
+            name: values.name,
             auth: state.createdAuthCode
         }
         console.log('authCode = '+state.createdAuthCode)
@@ -53,92 +52,190 @@ function RegisterPage(props) {
             alert("인증코드가 발송되었습니다.")
         })
     }
-    const onCheckHandler = (event) => {
-        event.preventDefault(); //page refresh 막아줌
 
-        console.log(state.createdAuthCode +" == "+AuthCode)
+    //ant design
+    const [form] = Form.useForm();
 
-        if(state.createdAuthCode == AuthCode) {
-            state.authCodeCheck = true;
-            alert("이메일 인증에 성공하셨습니다")
-        }
-        else {
-            state.authCodeCheck = false;
-            alert("인증 코드가 일치하지 않습니다.")
-        }
-    }
-    const onSubmitHandler = (event) => {
-        event.preventDefault(); //page refresh 막아줌
-    
-        if(Password !== ConfirmPassword) {
-            return alert('비밀번호와 비밀번호 확인은 같아야 합니다.')
-        }
+    const onFinish = (values) => {
+        console.log('Received values of form: ', values);
+        setTimeout(() => {
 
-        let body = {
-            email: Email,
-            name: Name,
-            nickname: Nickname,
-            password: Password
-        }
-
-        console.log(body)
-        console.log(state.authCodeCheck)
-        dispatch(registerUser(body)) //loginUser = action
-            .then(response => {
-                if(response.payload.success&&state.authCodeCheck) {
-                    props.history.push("/login")
-                } else {
-                    alert("Failed to sign up")
-                }
+            let dataToSubmit = {
+              email: values.email,
+              password: values.password,
+              name: values.name,
+              nickname: values.nickname
+            };
+  
+            dispatch(registerUser(dataToSubmit)).then(response => {
+              if (response.payload.success) {
+                props.history.push("/login");
+              } else {
+                alert(response.payload.err.errmsg)
+              }
             })
-    }
+  
+          }, 500);
+    };
 
-    return (
-        <div style ={{ display: 'flex', justifyContent: 'center', alignItems: 'center',
-        width: '100%', height: '100vh' }}>
-            <div >
-            <form style={{ display: 'flex', flexDirection: 'column' }}
-                onSubmit={onSendMailHandler}>
-                <h2>RegisterPage</h2>
-                <br/>
-                <label>Email</label>
-                <div>
-                    <input type="email" value={Email} onChange={onEmailHandler} required/>
-                    <button type="submit">
-                        send code
-                    </button>
-                </div>
-            </form>
-            <form style={{ display: 'flex', flexDirection: 'column' }}
-                onSubmit={onCheckHandler}
+
+    return (    
+        <div className="app">
+            <Title level={2}>Sign up</Title>
+            <br/>
+            <Form
+                style={{ minWidth: '375px', maxWidth: '475px' }}
+                {...formItemLayout}
+                form={form}
+                name="register"
+                onFinish={onFinish}
+                initialValues={{
+                    email: '',
+                    name: '',
+                    nickname: '',
+                    authCode: '',
+                    password: '',
+                    confirm: ''
+                }}
+                scrollToFirstError
             >
-                <label>Authentication Code</label>
-                <div>
-                    <input type="text" value={AuthCode} onChange={onAuthCodeHandler} required/>
-                    <button type="submit">
-                        check
-                    </button>
-                </div>
-            </form>
-            <form style={{ display: 'flex', flexDirection: 'column' }}
-                onSubmit={onSubmitHandler}
-            >
-                <label>Name</label>
-                <input type="text" value={Name} onChange={onNameHandler} required/>
-                <label>User ID</label>
-                <input type="text" value={Nickname} onChange={onNickHandler} required/>
-                <label>Password</label>
-                <input type="password" value={Password} onChange={onPasswordHandler} required/>
-                <label>Confirm Password</label>
-                <input type="password" value={ConfirmPassword} onChange={onConfirmPasswordHandler} required/>
-                <br/>
-                <button type="submit">
-                    Sign Up
-                </button>
-            </form>
-            </div>
+                <Form.Item
+                    name="email"
+                    label="E-mail"
+                    rules={[
+                    {
+                        type: 'email',
+                        message: 'The input is not valid E-mail!',
+                    },
+                    {
+                        required: true,
+                        message: 'Please input your E-mail!',
+                    },
+                    ]}
+                >
+                    <Input 
+                        placeholder="Enter your E-mail"
+                    />
+                </Form.Item>
+
+                <Form.Item required label="Auth Code">
+                    <Row gutter={8}>
+                        <Col span={12}>
+                            <Form.Item
+                                name="authCode"
+                                dependencies={[state.createdAuthCode]}
+                                rules={[
+                                    {
+                                        required: true,
+                                        message: 'Please input your Auth Code!',
+                                    },
+                                    ({ getFieldValue }) => ({
+                                        validator(_, value) {
+                                        if (!value || state.createdAuthCode === value) {
+                                            return Promise.resolve();
+                                        }
+                
+                                        return Promise.reject(new Error('Auth code is not correct!'));
+                                        },
+                                    }),
+                                    ]}
+                            >
+                                <Input 
+                                    placeholder="Auth Code"
+                                />
+                            </Form.Item>
+                        </Col>
+                        <Col span ={12}>
+                            <Button onClick={onSendMailHandler}>Send Code</Button>
+                        </Col>
+                    </Row>
+                </Form.Item>
+
+                <Form.Item 
+                    name="name"
+                    label="Name"
+                    rules={[
+                        {
+                            required: true,
+                            message: 'Please input your name!',
+                            whitespace: true,
+                        },
+                    ]}
+                >
+                    <Input
+                        placeholder="Enter your name"
+                        type="text"
+                    />
+                </Form.Item>
+
+                <Form.Item
+                    name="nickname"
+                    label="Nickname"
+                    tooltip="What do you want others to call you?"
+                    rules={[
+                    {
+                        required: true,
+                        message: 'Please input your nickname!',
+                        whitespace: true,
+                    },
+                    ]}
+                >
+                    <Input 
+                        placeholder="Enter your nickname"
+                        type="text"
+                    />
+                </Form.Item>
+
+                <Form.Item
+                    name="password"
+                    label="Password"
+                    rules={[
+                    {
+                        required: true,
+                        message: 'Please input your password!',
+                    },
+                    ]}
+                    hasFeedback
+                >
+                    <Input.Password 
+                        placeholder="Enter your password"
+                    />
+                </Form.Item>
+
+                <Form.Item
+                    name="confirm"
+                    label="Confirm Password"
+                    dependencies={['password']}
+                    hasFeedback
+                    rules={[
+                    {
+                        required: true,
+                        message: 'Please confirm your password!',
+                    },
+                    ({ getFieldValue }) => ({
+                        validator(_, value) {
+                        if (!value || getFieldValue('password') === value) {
+                            return Promise.resolve();
+                        }
+
+                        return Promise.reject(new Error('The two passwords that you entered do not match!'));
+                        },
+                    }),
+                    ]}
+                >
+                    <Input.Password 
+                        placeholder="Confirm your password"
+                    />
+                </Form.Item>
+
+                <Form.Item {...tailFormItemLayout}>
+                    <Button type="primary" htmlType="submit">
+                    Register
+                    </Button>
+                </Form.Item>
+            </Form>
         </div>
-    )
+      );
 }
 
 export default withRouter(RegisterPage)

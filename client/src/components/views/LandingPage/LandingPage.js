@@ -6,6 +6,7 @@ import { withRouter } from 'react-router-dom';
 import ImageSlider from '../../utils/ImageSlider'
 import SearchFeature from './Sections/SearchFeature'
 import CheckBox from './Sections/CheckBox'
+import { styles } from './Sections/Datas';
 
 const { Meta } = Card;
 
@@ -16,8 +17,7 @@ function LandingPage() {
     const [PostSize, setPostSize] = useState(0)
     const [SearchTerm, setSearchTerm] = useState("")
     const [Filters, setFilters] = useState({
-        category: [],
-        detail: []
+        styles: [],
     })
     
     useEffect(() => {
@@ -121,9 +121,9 @@ function LandingPage() {
             </div>
 
             {/* Filter */}
-            <CheckBox 
-                handleFilters={filters => handleFilters(filters, "category")}
-            />
+            <CheckBox list={styles} 
+                handleFilters={filters => handleFilters(filters, "styles")} 
+            />  
             {/* Search */}
             <div style={{ display:'flex', justifyContent:'flex-end', margin:'1rem auto' }}>
                 <SearchFeature
