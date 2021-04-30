@@ -36,14 +36,16 @@ const formItemLayout = {
   };
 
 function RegisterPage(props) {
-    const dispatch = useDispatch()
-    
-    const onSendMailHandler = (event) => {
+    const dispatch = useDispatch();
+    const [form] = Form.useForm();
+
+    const onSendMailHandler = (values) => {
         state.createdAuthCode = Math.random().toString(36).substr(2,6);
 
-        const dataToSubmit = {
-            email: values.email,
-            name: values.name,
+        if(!form.getFieldValue('email')) return alert("이메일을 입력해주세요.")
+
+        let dataToSubmit = {
+            email: form.getFieldValue('email'),
             auth: state.createdAuthCode
         }
         console.log('authCode = '+state.createdAuthCode)
@@ -52,9 +54,6 @@ function RegisterPage(props) {
             alert("인증코드가 발송되었습니다.")
         })
     }
-
-    //ant design
-    const [form] = Form.useForm();
 
     const onFinish = (values) => {
         console.log('Received values of form: ', values);

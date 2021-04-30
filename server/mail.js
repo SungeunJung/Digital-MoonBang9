@@ -7,7 +7,7 @@ const getEmailData = (to, name, authCode) => {
     data = {
         from: "BabyAngel",
         to,
-        subject: `Hello ${name}`,
+        subject: `Hello from the Digital MoonBang9`,
         html: Hello(authCode)
     }
     return data;
