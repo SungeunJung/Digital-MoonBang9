@@ -17,7 +17,7 @@ function TemplateInfo(props) {
     return (
         <div>
             <Descriptions title="Template Info">
-                <Descriptions.Item label="Designer">{Template.designer}</Descriptions.Item>
+                <Descriptions.Item label="Designer">{Template.designery}</Descriptions.Item>
                 <Descriptions.Item label="Style">{Style}</Descriptions.Item>
                 <Descriptions.Item label="nickname">{Template.nickname}</Descriptions.Item>
                 <Descriptions.Item label="Description">{Template.description}</Descriptions.Item>    
