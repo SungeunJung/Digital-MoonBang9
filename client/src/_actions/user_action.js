@@ -4,6 +4,7 @@ import {
     REGISTER_USER,
     AUTH_USER,
     LOGOUT_USER,
+    ADD_TO_LIKE,
 } from './types';
 import { USER_SERVER } from '../components/Config.js';
 
@@ -50,3 +51,16 @@ export function logoutUser(){
         payload: request
     }
 }
+
+export function addToLike(id) {
+    let body = {
+         templateId: id
+     }
+     const request = axios.post(`${USER_SERVER}/addToLike`, body)
+         .then(response => response.data);
+ 
+     return {
+         type: ADD_TO_LIKE,
+         payload: request
+     }
+ }
