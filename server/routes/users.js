@@ -28,6 +28,7 @@ router.get("/auth", auth, (req, res) => {
         name: req.user.name,
         role: req.user.role,
         image: req.user.image,
+        like: req.user.like
     });
 });
 
@@ -88,6 +89,7 @@ router.get("/logout", auth, (req, res) => {
     });
 });
 
+<<<<<<< HEAD
 router.post("/modifyinfo", auth, (req, res) => {
     const user = new User(req.body);
 
@@ -100,5 +102,67 @@ router.post("/modifyinfo", auth, (req, res) => {
     });
     
   });
+=======
+router.post("/addToLike", auth, (req, res) => {
+    //먼저  User Collection에 해당 유저의 정보를 가져오기 
+    User.findOne({ _id: req.user._id },
+         (err, userInfo) => {
+             // 가져온 정보에서 카트에다 넣으려 하는 상품이 이미 들어 있는지 확인
+             let duplicate = false;
+             userInfo.like.forEach((item) => {
+                 if (item.id === req.body.templateId) {
+                     duplicate = true;
+                 }
+             })
+             //상품이 이미 있을때
+             if (duplicate) {
+                 User.findOneAndUpdate(
+                     { _id: req.user._id, "like.id": req.body.templateId },
+                     {
+                        $pull: {
+                            like: {
+                               id: req.body.templateId,
+                               quantity: 1
+                            }
+                        }
+                    },
+                     { new: true },
+                     (err, userInfo) => {
+                         if (err) return res.status(200).json({ success: false, err })
+                         res.status(200).send(userInfo.like)
+                     }
+                 )
+             }
+             //상품이 이미 있지 않을때 
+             else {
+                 User.findOneAndUpdate(
+                     { _id: req.user._id },
+                     {
+                         $push: {
+                             like: {
+                                id: req.body.templateId,
+                                quantity: 1,
+                                date: Date.now()
+                             }
+                         }
+                     },
+                     { new: true },
+                     (err, userInfo) => {
+                         if (err) return res.status(400).json({ success: false, err })
+                         res.status(200).send(userInfo.like)
+                     }
+                 )
+             }
+         })
+ });
+
+router.get("/getLikes", auth, (req, res) => {
+    res.status(200).json({
+        success: true, 
+        likes:req.user.like
+    });
+});
+
+>>>>>>> master
 
 module.exports = router;

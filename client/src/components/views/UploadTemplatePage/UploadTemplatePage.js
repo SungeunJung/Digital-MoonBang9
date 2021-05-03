@@ -29,10 +29,11 @@ const Detail_2 = [
 const Detail_3 = [
     { key:1, value: "줄" },
     { key:2, value: "무지" },
-    { key:3, value: "분할" },
-    { key:4, value: "코넬" },
-    { key:5, value: "단어장" },
-    { key:6, value: "기타" },
+    { key:3, value: "모눈" },
+    { key:4, value: "분할" },
+    { key:5, value: "코넬" },
+    { key:6, value: "단어장" },
+    { key:7, value: "기타" },
 ]
 const Detail_4 = [
     { key:1, value: "가계부" },
@@ -49,10 +50,10 @@ var Detail = Detail_1;
 
 const Styles = [
     { key:1, value: "심플" },
-    { key:2, value: "빈티지" },
-    { key:3, value: "귀여운" },
-    { key:4, value: "레트로" },
-    { key:5, value: "캐릭터" },
+    { key:2, value: "귀여운" },
+    { key:3, value: "캐릭터" },
+    { key:4, value: "빈티지" },
+    { key:5, value: "레트로" },
     { key:6, value: "키치" },
     { key:7, value: "클래식" },
     { key:8, value: "일러스트" },
@@ -62,6 +63,7 @@ const Styles = [
 function UploadTemplatePage(props) {
     const [Images, setImages] = useState([])
     const [TitleValue, setTitleValue] = useState("")
+    const [DesignerValue, setDesignerValue] = useState("")
     const [DescriptionValue, setDescriptionValue] = useState("")
     const [CategoryValue, setCategoryValue] = useState(1)
     const [DetailValue, setDetailValue] = useState(1)
@@ -69,6 +71,9 @@ function UploadTemplatePage(props) {
     
     const onTitleChange = (event) => {
         setTitleValue(event.currentTarget.value)
+    }
+    const onDesignerChange = (event) => {
+        setDesignerValue(event.currentTarget.value)
     }
     const onDescriptionChange = (event) => {
         setDescriptionValue(event.currentTarget.value)
@@ -113,7 +118,7 @@ function UploadTemplatePage(props) {
     const onSubmit = (event) => {
         event.preventDefault()
 
-        if(!TitleValue || !DescriptionValue || Images.length == 0) {
+        if(!TitleValue || !DesignerValue || !DescriptionValue || Images.length == 0) {
             return alert('Fill all the fields first!')
         }
 
@@ -121,6 +126,7 @@ function UploadTemplatePage(props) {
             writer: props.user.userData._id,
             nickname: props.user.userData.nickname,
             title: TitleValue,
+            designer: DesignerValue,
             description: DescriptionValue,
             images: Images,
             category: CategoryValue,
@@ -161,6 +167,13 @@ function UploadTemplatePage(props) {
                 />
                 <br/>
                 <br/>
+                <label>Designer</label>
+                <Input
+                    onChange={onDesignerChange}
+                    value={DesignerValue}
+                />
+                <br/>
+                <br/>
                 <label>Description</label>
                 <TextArea
                     onChange={onDescriptionChange}
@@ -184,14 +197,14 @@ function UploadTemplatePage(props) {
                     ))}
                 </select>
                 </span>
-                <span>
+                <br />
+                <br />
                 <label>Style </label>
                 <select onChange={onStyleSelectChange}>
                     {Styles.map(item => (
                         <option key={item.key} value={item.key}>{item.value}</option>
                     ))}
                 </select>
-                </span>
                 <br/>
                 <br/>
                 <Button
