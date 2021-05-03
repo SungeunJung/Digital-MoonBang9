@@ -10,8 +10,8 @@ function SearchFeature(props) {
 
     const onSearch = (value) => {
         setSearchTerm(value)
-        console.log(`Search Category ${SearchCategory}`);
-        props.refreshFunction(value)
+        //console.log(`Search Category ${SearchCategory}`);
+        props.refreshFunction(value, SearchCategory)
     }
     const onSearchSelectChange = (value) => {
         //console.log(`selected ${value}`);
@@ -29,7 +29,7 @@ function SearchFeature(props) {
                 <Option value="total">전체</Option>
                 <Option value="title">제목</Option>
                 <Option value="designer">작가</Option>
-                <Option value="writer">작성자</Option>
+                <Option value="nickname">작성자</Option>
 
             </Select>
 
@@ -38,7 +38,7 @@ function SearchFeature(props) {
                 enterButton
                 onSearch={onSearch}
                 placeholder="Search By Typing..."
-                style={{ width: 200 }}
+                style={{ width: 325 }}
             />
         </div>
     )

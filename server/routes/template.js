@@ -50,13 +50,21 @@ router.post("/uploadTemplate", auth, (req, res) => {
 });
 
 router.post("/getTemplates", (req, res) => {
-    let order = req.body.order ? req.body.order : "desc";
-    let sortBy = req.body.sortBy ? req.body.sortBy : -1;
+    //let sortBy = req.body.sortBy ? req.body.sortBy : 1;
     let limit = req.body.limit ? parseInt(req.body.limit) : 20;
     let skip = parseInt(req.body.skip);
-    let term = req.body.searchTerm
-
-    let findArgs = {};
+    let term = req.body.searchTerm;
+    let field = {}, sortBy={}, findArgs={};
+    if(req.body.searchField!="total") {
+        field[req.body.searchField] = term;
+    }
+    if(req.body.sortBy=="createdAt") {
+        sortBy[req.body.sortBy] = -1
+    } else {
+        sortBy[req.body.sortBy] = 1
+    }
+    
+    //let findArgs = {};
     
     for(let key in req.body.filters) {
         if(req.body.filters[key].length > 0) {
@@ -71,20 +79,35 @@ router.post("/getTemplates", (req, res) => {
     }
 
     if(term) {
-        Template.find(findArgs)
-            .find({ $text: { $search: term } }) //몽고디비 메소드 
+        if(req.body.searchField!="total") {
+            Template.find(findArgs)
+            .find(field) //몽고디비 메소드 
             .populate("writer")
-            .sort([[sortBy, order]])
+            .sort(sortBy)
             .skip(skip)
             .limit(limit)
             .exec((err, templates) => {
                 if(err) {return res.status(400).json({ success: false, err })}
                 res.status(200).json({ success: true, templates, postSize: templates.length })
             })
+        }
+        else {
+            Template.find(findArgs)
+            .find({ $text: { $search: term } }) //몽고디비 메소드 
+            .populate("writer")
+            .sort(sortBy)
+            .skip(skip)
+            .limit(limit)
+            .exec((err, templates) => {
+                if(err) {return res.status(400).json({ success: false, err })}
+                res.status(200).json({ success: true, templates, postSize: templates.length })
+            })
+        }
+        
     } else {
         Template.find(findArgs)
             .populate("writer")
-            .sort([[sortBy, order]])
+            .sort(sortBy)
             .skip(skip)
             .limit(limit)
             .exec((err, templates) => {
