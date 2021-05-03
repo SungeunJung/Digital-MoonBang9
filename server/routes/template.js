@@ -56,7 +56,7 @@ router.post("/getTemplates", (req, res) => {
     let term = req.body.searchTerm;
     let field = {}, sortBy={}, findArgs={};
     if(req.body.searchField!="total") {
-        field[req.body.searchField] = term;
+        field[req.body.searchField] = {'$regex':term};
     }
     if(req.body.sortBy=="createdAt") {
         sortBy[req.body.sortBy] = -1

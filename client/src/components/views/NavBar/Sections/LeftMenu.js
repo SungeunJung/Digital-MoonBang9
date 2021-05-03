@@ -13,11 +13,11 @@ function LeftMenu(props) {
   return (
     <Menu onClick={menuHandler} mode={props.mode}>
       <Menu.Item key="mail">
-        <a href="/">추천속지</a>
+        <a href="/recommend">추천속지</a>
       </Menu.Item>
       <SubMenu title={<span>모든속지</span>}>
         <Menu.Item key="all">ALL</Menu.Item>
-        <SubMenu key="1" title={<span>다이어리</span>}>
+        <SubMenu key="1" title={<a href='/'>다이어리</a>}>
           <Menu.Item key="1_1">날짜형</Menu.Item>
           <Menu.Item key="1_2">만년형</Menu.Item>
         </SubMenu>

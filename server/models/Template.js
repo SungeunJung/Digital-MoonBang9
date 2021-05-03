@@ -45,11 +45,15 @@ const templateSchema = mongoose.Schema({
 
 templateSchema.index({
     title: 'text',
-    description: 'text'
+    description: 'text',
+    designer: 'text',
+    nickname: 'text'
 }, {
     weights: {
         title:5,
-        description:1
+        description:31,
+        designer: 2, 
+        nickname: 4
     }
 })
 
