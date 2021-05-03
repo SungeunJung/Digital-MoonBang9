@@ -44,7 +44,6 @@ function ModifyUserInfoPage(props) {
     const onFinish = (values) => {
         console.log('Received values of form: ', values);
         setTimeout(() => {
-
             let dataToSubmit = {              
               password: values.password,              
               nickname: values.nickname
@@ -57,8 +56,7 @@ function ModifyUserInfoPage(props) {
               } else {
                 alert(response.payload.err.errmsg)
               }
-            })
-  
+            })  
           }, 500);
     };
 
@@ -88,10 +86,10 @@ function ModifyUserInfoPage(props) {
                 }}
                 scrollToFirstError
             >
-
+            
             <Form.Item
                 name="nickname"
-                label="Nickname"
+                label="별명"
                 tooltip="What do you want others to call you?"
                 rules={[
                 {
@@ -100,16 +98,18 @@ function ModifyUserInfoPage(props) {
                     whitespace: true,
                 },
                 ]}
+                
             >
                 <Input 
                     placeholder='props.user.userData.nickname'
                     type="text"
                 />
+                
             </Form.Item>
-
+            
             <Form.Item
                 name="password"
-                label="New Password"
+                label="새 비밀번호"
                 rules={[
                 {
                     required: true,
@@ -125,7 +125,7 @@ function ModifyUserInfoPage(props) {
 
             <Form.Item
                 name="confirm"
-                label="Confirm Password"
+                label="비밀번호 확인"
                 dependencies={['password']}
                 hasFeedback
                 rules={[
@@ -154,7 +154,7 @@ function ModifyUserInfoPage(props) {
                     확인 
                 </Button>
                 
-                <Button type="default" onClick={onCancel}>
+                <Button onClick={onCancel}>
                     취소
                 </Button>
             </Form.Item>

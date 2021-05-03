@@ -16,34 +16,34 @@ function MyPage(props) {
             </div>         
             
 
-            <Row gutter={[40,16]}>     
-                <Col span={8}> 
-                    <Avatar icon={<UserOutlined />} size={200} style={{backgroundColor:'#a5cbf0'}}/>
-                    <Button >
+            <Row gutter={[40]}>     
+                <Col lg={8} xs={24} > 
+                    <Avatar icon={<UserOutlined />}  size={250} style={{marginLeft:'35px',backgroundColor:'#a5cbf0'}}/>
+                    <Button type="default" block style={{height:'40px',backgroundColor:'#8e8f92', marginTop:'20px', borderRadius:'10px'}}>
                         <a href="/mypage/modifyinfo">회원정보 수정</a>
                     </Button>
                 </Col> 
                 <Col lg={8} xs={24} >
-                    <Button type="primary" block style={{height:'110px'}}>
+                    <Button type="default" block style={{height:'110px', marginTop:'20px',borderRadius:'10px', fontSzie:'50'}}>
                         찜하기 목록
                     </Button>
-                </Col>
-                <Col lg={8} xs={24}>
-                    <Button type="primary" block style={{height:'110px'}} >
-                        작성한 글
-                    </Button>
-                </Col>
-                
-                <Col lg={8} xs={24} offset={8}>
-                    <Button type="primary" block style={{height:'110px'}}>
+                    <Button type="default" block style={{height:'110px', marginTop:'20px',borderRadius:'10px' }}>
                         방문 기록
                     </Button>
                 </Col>
-                <Col lg={8}  xs={24} >
-                    <Button type="primary" block style={{height:'110px'}}>
+                <Col lg={8} xs={24}>
+                    <Button type="default" block style={{height:'110px', marginTop:'20px',borderRadius:'10px'}} >
+                        작성한 글
+                    </Button>
+                    <Button type="default" block style={{height:'110px', marginTop:'20px',borderRadius:'10px'}}>
                         다운로드 기록
                     </Button>
+                    <Button type="default" block style={{height:'40px',backgroundColor:'#8e8f92', marginTop:'40px',borderRadius:'10px'}}>
+                        1:1 문의하기
+                    </Button>
                 </Col>
+                
+                
             </Row>
             
             

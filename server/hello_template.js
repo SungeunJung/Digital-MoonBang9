@@ -9,7 +9,6 @@ const Hello = data => {
             <body style="margin: 0; padding: 0; font-size:15px;">
                 <br />
                 <br />
-<<<<<<< HEAD
                 <div>인증번호는 ${data} 입니다. 안녕하세요</div>
 =======
                 <div>안녕하세요?</div>
