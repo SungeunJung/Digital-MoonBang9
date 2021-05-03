@@ -9,6 +9,9 @@ const templateSchema = mongoose.Schema({
     nickname: {
         type: String, 
     },
+    designer: {
+        type: String, 
+    },
     title: {
         type: String, 
         maxlength: 50
@@ -23,7 +26,7 @@ const templateSchema = mongoose.Schema({
         type: String,
     },
     styles: {
-        type: String,
+        type: Number,
     },
     images: {
         type: Array,

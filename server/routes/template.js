@@ -89,7 +89,6 @@ router.post("/getTemplates", (req, res) => {
             .limit(limit)
             .exec((err, templates) => {
                 if(err) {return res.status(400).json({ success: false, err })}
-                //console.log(templates)
                 res.status(200).json({ success: true, templates, postSize: templates.length })
             })
     }
@@ -118,5 +117,22 @@ router.get("/templates_by_id", (req, res) => {
         })
 });
 
+router.post("/getLikeTemplates", (req, res) => {
+    let order = req.body.order ? req.body.order : "desc";
+    let sortBy = req.body.sortBy ? req.body.sortBy : -1;
+    let limit = req.body.limit ? parseInt(req.body.limit) : 20;
+    let skip = parseInt(req.body.skip);
+
+    Template.find({ '_id' : { $in : req.body.likes} })
+        .populate("writer")
+        .sort([[sortBy, order]])
+        .skip(skip)
+        .limit(limit)
+        .exec((err, templates) => {
+            if(err) {return res.status(400).json({ success: false, err })}
+            res.status(200).json({ success: true, templates, postSize: templates.length})
+        })
+    
+});
 
 module.exports = router;
