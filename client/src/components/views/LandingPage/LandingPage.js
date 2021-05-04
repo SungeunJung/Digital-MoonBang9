@@ -14,7 +14,7 @@ const { Meta } = Card;
 function LandingPage() {
     const [Templates, setTemplates] = useState([])
     const [Skip, setSkip] = useState(0)
-    const [Limit, setLimit] = useState(4)
+    const [Limit, setLimit] = useState(8)
     const [PostSize, setPostSize] = useState(0)
     const [SearchTerm, setSearchTerm] = useState("")
     const [SearchField, setSearchField] = useState("")
@@ -57,6 +57,7 @@ function LandingPage() {
         const variables = {
             skip: skip,
             limit: Limit,
+            filters: Filters,
             sortBy: SortBy,
             loadMore: true,
             searchTerm: SearchTerm,
@@ -64,6 +65,7 @@ function LandingPage() {
         }
 
         getTemplates(variables)
+        setSkip(skip)
     }
 
     const renderCards = Templates.map((template, index) => {

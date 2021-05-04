@@ -10,6 +10,7 @@ import {
 import NavBar from "./views/NavBar/NavBar";
 import Footer from "./views/Footer/Footer"
 import LandingPage from './views/LandingPage/LandingPage'
+import RecommendPage from './views/LandingPage/RecommendPage'
 import LoginPage from './views/LoginPage/LoginPage'
 import RegisterPage from './views/RegisterPage/RegisterPage'
 import UploadTemplatePage from './views/UploadTemplatePage/UploadTemplatePage'
@@ -47,6 +48,7 @@ function App() {
           <Route exact path="/register" component={ Auth(RegisterPage, false) } />
           <Route exact path="/template/upload" component={ Auth(UploadTemplatePage, true) } />
           <Route exact path="/template/:templateId" component={ Auth(DetailTemplatePage, null) } />
+          <Route exact path="/recommend" component={ Auth(RecommendPage, null) } />
           <Route exact path="/mypage" component={ Auth(MyPage, true) } />
           <Route exact path="/mypage/modifyinfo" component={ Auth(ModifyUserInfoPage, true) } />
           <Route exact path="/user/like" component={Auth(LikePage, true)} />
