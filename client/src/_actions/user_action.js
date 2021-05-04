@@ -62,6 +62,7 @@ export function modifyUser(dataToSubmit) {
         payload: request
     }
 }
+
 export function addToLike(id) {
     let body = {
          templateId: id

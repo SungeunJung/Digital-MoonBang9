@@ -89,20 +89,19 @@ router.get("/logout", auth, (req, res) => {
     });
 });
 
-<<<<<<< HEAD
+
 router.post("/modifyinfo", auth, (req, res) => {
-    const user = new User(req.body);
-
-
-    user.save((err, doc) => {
+    User.findOneAndUpdate({ _id: req.user._id }, 
+        { nickname:req.body.nickname, password:req.body.password}, 
+        (err, doc) => {
         if (err) return res.json({ success: false, err });
-        return res.status(200).json({
+        return res.status(200).send({
             success: true
         });
     });
     
-  });
-=======
+});
+
 router.post("/addToLike", auth, (req, res) => {
     //먼저  User Collection에 해당 유저의 정보를 가져오기 
     User.findOne({ _id: req.user._id },
@@ -163,6 +162,5 @@ router.get("/getLikes", auth, (req, res) => {
     });
 });
 
->>>>>>> master
 
 module.exports = router;

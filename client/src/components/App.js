@@ -15,11 +15,8 @@ import RegisterPage from './views/RegisterPage/RegisterPage'
 import UploadTemplatePage from './views/UploadTemplatePage/UploadTemplatePage'
 import DetailTemplatePage from './views/DetailTemplatePage/DetailTemplatePage'
 import MyPage from './views/MyPage/MyPage'
-<<<<<<< HEAD
 import ModifyUserInfoPage from './views/MyPage/ModifyUserInfoPage'
-=======
 import LikePage from './views/LikePage/LikePage';
->>>>>>> master
 import Auth from '../hoc/auth';
 import './App.css';
 
@@ -51,12 +48,9 @@ function App() {
           <Route exact path="/template/upload" component={ Auth(UploadTemplatePage, true) } />
           <Route exact path="/template/:templateId" component={ Auth(DetailTemplatePage, null) } />
           <Route exact path="/mypage" component={ Auth(MyPage, true) } />
-<<<<<<< HEAD
           <Route exact path="/mypage/modifyinfo" component={ Auth(ModifyUserInfoPage, true) } />
-=======
           <Route exact path="/user/like" component={Auth(LikePage, true)} />
           
->>>>>>> master
         </Switch>
         
       </div>

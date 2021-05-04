@@ -44,9 +44,9 @@ function ModifyUserInfoPage(props) {
     const onFinish = (values) => {
         console.log('Received values of form: ', values);
         setTimeout(() => {
-            let dataToSubmit = {              
-              password: values.password,              
-              nickname: values.nickname
+            let dataToSubmit = {                
+                password: values.password,                
+                nickname: values.nickname                      
             };
   
             dispatch(modifyUser(dataToSubmit)).then(response => {
@@ -68,7 +68,7 @@ function ModifyUserInfoPage(props) {
             <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center'}}>
                 <Avatar icon={<UserOutlined />} size={160} style={{backgroundColor:'#a5cbf0'}}/>                
             </div>
-            props.user.userData.email
+            <p>{props.email}</p>
             <br />
            
             <br />
@@ -150,7 +150,7 @@ function ModifyUserInfoPage(props) {
             </Form.Item>
 
             <Form.Item {...tailFormItemLayout}>
-                <Button type="primary" htmlType="submit">
+                <Button type="primary" htmlType="submit" style={{marginRight:'10px'}}>
                     확인 
                 </Button>
                 

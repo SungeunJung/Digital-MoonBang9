@@ -56,7 +56,26 @@ userSchema.pre('save', function( next ){ //user 정보를 저장하기 전에 �
     } else {
         next()
     }
-}) 
+});
+
+userSchema.pre('findOneAndUpdate', async function(next){
+    if(user.isModified('password')){ //password 변경시에만
+        //비밀번호 암호화
+        bcrypt.genSalt(saltRounds, function(err, salt) {
+            if(err) return next(err)
+
+            bcrypt.hash(user.password, salt, function(err, hash) {
+                if(err) return next(err)
+                user.password = hash
+                next()
+            })
+        })
+    } else {
+        next()
+    }
+});
+
+
 
 
 userSchema.methods.comparePassword = function(plainPassword, cb) {

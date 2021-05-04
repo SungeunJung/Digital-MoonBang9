@@ -3,11 +3,8 @@ import {
     REGISTER_USER, 
     AUTH_USER,
     LOGOUT_USER,
-<<<<<<< HEAD
     MODIFY_USER,
-=======
     ADD_TO_LIKE,
->>>>>>> master
 } from '../_actions/types';
 
 export default function(state = {}, action) {
@@ -20,10 +17,8 @@ export default function(state = {}, action) {
             return { ...state, userData: action.payload }
         case LOGOUT_USER:
             return {...state }
-<<<<<<< HEAD
         case MODIFY_USER:
             return {...state, userData: action.payload }
-=======
         case ADD_TO_LIKE:
             return {
                 ...state,
@@ -32,7 +27,6 @@ export default function(state = {}, action) {
                     like: action.payload
                 }
             }
->>>>>>> master
         default:
             return state;
     }
