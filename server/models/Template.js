@@ -36,6 +36,9 @@ const templateSchema = mongoose.Schema({
         type: Array,
         default: []
     },
+    uploadedUrl: {
+        type: String,
+    },
     downloads: {
         type: Number,
         maxlength: 1000,

@@ -43,7 +43,7 @@ function FileUpload(props) {
                 onDrop={onDrop}
                 multiple={false}
                 maxSize={80000000}
-                accept={'image/jpg','image/png'}
+                accept={'image/*'}
             >
                 {({getRootProps, getInputProps}) => (
                     <div style={{ width:'300px', height:'240px', border:'1px solid lightgray', 
