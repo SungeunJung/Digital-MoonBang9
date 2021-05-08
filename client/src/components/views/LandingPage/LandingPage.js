@@ -5,6 +5,7 @@ import { Col, Card, Row } from 'antd';
 import { withRouter } from 'react-router-dom';
 import ImageSlider from '../../utils/ImageSlider'
 import SearchFeature from './Sections/SearchFeature'
+import SortFeature from './Sections/SortFeature'
 import CheckBox from './Sections/CheckBox'
 import { styles } from './Sections/Datas';
 
@@ -13,9 +14,11 @@ const { Meta } = Card;
 function LandingPage() {
     const [Templates, setTemplates] = useState([])
     const [Skip, setSkip] = useState(0)
-    const [Limit, setLimit] = useState(4)
+    const [Limit, setLimit] = useState(8)
     const [PostSize, setPostSize] = useState(0)
     const [SearchTerm, setSearchTerm] = useState("")
+    const [SearchField, setSearchField] = useState("")
+    const [SortBy, setSortBy] = useState("createdAt")
     const [Filters, setFilters] = useState({
         styles: [],
     })
@@ -25,6 +28,7 @@ function LandingPage() {
         const variables = {
             skip: Skip,
             limit: Limit,
+            sortBy: SortBy,
         }
 
         getTemplates(variables)
@@ -53,10 +57,15 @@ function LandingPage() {
         const variables = {
             skip: skip,
             limit: Limit,
-            loadMore: true
+            filters: Filters,
+            sortBy: SortBy,
+            loadMore: true,
+            searchTerm: SearchTerm,
+            searchField: SearchField
         }
 
         getTemplates(variables)
+        setSkip(skip)
     }
 
     const renderCards = Templates.map((template, index) => {
@@ -79,7 +88,10 @@ function LandingPage() {
         const variables = {
             skip: 0,
             limit: Limit,
-            filters: filters
+            filters: filters,
+            sortBy: SortBy,
+            searchTerm: SearchTerm,
+            searchField: SearchField
         }
 
         getTemplates(variables)
@@ -98,20 +110,38 @@ function LandingPage() {
         setFilters(newFilters)
     }
 
-    const updateSeachTerm = (newSearchTerm) => {
+    const updateSearchTerm = (newSearchTerm, searchField) => {
         
         const variables = {
             skip: 0,
             limit: Limit,
             filters: Filters,
-            searchTerm: newSearchTerm
+            sortBy: SortBy,
+            searchTerm: newSearchTerm,
+            searchField: searchField
         }
 
         setSkip(0)
         setSearchTerm(newSearchTerm)
+        setSearchField(searchField)
 
         getTemplates(variables)
+    }
 
+    const showSortedResults = (sortBy) => {
+        const variables = {
+            skip: 0,
+            limit: Limit,
+            filters: Filters,
+            sortBy: sortBy,
+            searchTerm: SearchTerm,
+            searchField: SearchField
+        }
+
+        setSkip(0)
+        setSortBy(sortBy)
+
+        getTemplates(variables)
     }
 
     return (
@@ -125,12 +155,19 @@ function LandingPage() {
                 handleFilters={filters => handleFilters(filters, "styles")} 
             />  
             {/* Search */}
-            <div style={{ display:'flex', justifyContent:'flex-end', margin:'1rem auto' }}>
+            <Row>
+            <Col style={{ display:'flex', justifyContent:'flex-end', margin:'1rem 0 1rem auto' }}>
                 <SearchFeature
-                    refreshFunction={updateSeachTerm} //검색어 입력시 자동으로 결과 페이지 보여줌
+                    refreshFunction={updateSearchTerm} //검색어 입력시 자동으로 결과 페이지 보여줌
                 />
-            </div>
+            </Col>
 
+            <Col style={{ display:'flex', justifyContent:'flex-end', margin:'1rem 0 1rem auto' }}>
+                <SortFeature
+                    sortFunction = {showSortedResults}
+                />
+            </Col>
+            </Row>
             <br/>
             {Templates.length === 0 ?
                 <div style ={{ display: 'flex', height:'300px', justifyContent: 'center', alignItems: 'center' }}>

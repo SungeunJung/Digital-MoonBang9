@@ -5,6 +5,7 @@ import { HeartOutlined, HeartFilled } from '@ant-design/icons';
 import { useDispatch } from 'react-redux';
 import { addToLike } from '../../../../_actions/user_action'
 import Axios from 'axios';
+import { useSelector } from "react-redux";
 
 const Styles = ["심플", "귀여운", "캐릭터", "빈티지", "레트로", "키치", "클래식", "일러스트"]
 
@@ -13,6 +14,7 @@ function TemplateInfo(props) {
     const [Template, setTemplate] = useState([])
     const [Style, setStyle] = useState("")
     const [LikeAction, setLikeAction] = useState(null)
+    const user = useSelector(state => state.user)
 
     useEffect(() => {
        setTemplate(props.detail)
@@ -27,7 +29,7 @@ function TemplateInfo(props) {
                 }
              })
          } else {
-            alert('Failed to get likes')
+            console.log('Failed to get likes')
          }
       })
        //setLikeAction('liked')//Like필드에서 정보를 받아와서 초기화
@@ -39,18 +41,23 @@ function TemplateInfo(props) {
 
     const onLikeHandler = () => {
         //로그인을 안했으면 로그인을 해달라는 메세지 뜨기
-
-        //로그인을 했으면
-        //필요한 정보를 Like 필드에다가 넣어 준다.
-        dispatch(addToLike(props.detail._id))
-        if (LikeAction === 'liked') {
-            setLikeAction(null)
-            alert('찜하기를 취소했습니다.')
+        if(user.userData && !user.userData.isAuth) {
+            alert('로그인이 필요합니다.')
         }
         else {
-            setLikeAction('liked')
-            alert('이 탬플릿을 찜했습니다.')
+            //로그인을 했으면
+            //필요한 정보를 Like 필드에다가 넣어 준다.
+            dispatch(addToLike(props.detail._id))
+            if (LikeAction === 'liked') {
+                setLikeAction(null)
+                alert('찜하기를 취소했습니다.')
+            }
+            else {
+                setLikeAction('liked')
+                alert('이 탬플릿을 찜했습니다.')
+            }
         }
+        
     }
 
     return (
