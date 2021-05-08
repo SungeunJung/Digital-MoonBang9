@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { Typography, Button, Form, message, Input } from 'antd';
 import FileUpload from '../../utils/FileUpload';
+import TemplateUpload from'../../utils/TemplateUpload';
 import axios from 'axios';
 //import { response } from 'express';
 
@@ -62,6 +63,7 @@ const Styles = [
 
 function UploadTemplatePage(props) {
     const [Images, setImages] = useState([])
+    const [Files, setFiles] = useState([])
     const [TitleValue, setTitleValue] = useState("")
     const [DesignerValue, setDesignerValue] = useState("")
     const [DescriptionValue, setDescriptionValue] = useState("")
@@ -115,6 +117,10 @@ function UploadTemplatePage(props) {
         console.log(newImages)
         setImages(newImages)
     }
+    const updateFiles = (newFiles) =>{
+        console.log(newFiles)
+        setFiles(newFiles)
+    }
     const onSubmit = (event) => {
         event.preventDefault()
 
@@ -129,12 +135,11 @@ function UploadTemplatePage(props) {
             designer: DesignerValue,
             description: DescriptionValue,
             images: Images,
+            uploadedFile: Files,
             category: CategoryValue,
             detail: DetailValue,
             styles: StyleValue,
         }
-
-        console.log(Images)
 
         axios.post('/api/template/uploadTemplate', variables)
             .then(response => {
@@ -179,6 +184,9 @@ function UploadTemplatePage(props) {
                     onChange={onDescriptionChange}
                     value={DescriptionValue}
                 />
+                <br/>
+                <br/>
+                <TemplateUpload refreshFunction={updateFiles}/>
                 <br/>
                 <br/>
                 <span style={{ marginRight: '15px' }}>

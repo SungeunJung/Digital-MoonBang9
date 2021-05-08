@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import DropZone from 'react-dropzone';
-import Icon from '@ant-design/icons';
+import { PlusOutlined } from '@ant-design/icons';
 import axios from 'axios';
 //import { response } from 'express';
 
@@ -18,8 +18,8 @@ function FileUpload(props) {
         axios.post('/api/template/uploadImage', formData, config)
         .then(response => {
             if(response.data.success) {
-                setImages([...Images, response.data.image])
-                props.refreshFunction([...Images, response.data.image])
+                setImages([...Images, response.data.filePath])
+                props.refreshFunction([...Images, response.data.filePath])
             } else {
                 alert('Failed to save the Image in Server')
             }
@@ -43,6 +43,7 @@ function FileUpload(props) {
                 onDrop={onDrop}
                 multiple={false}
                 maxSize={80000000}
+                accept={'image/jpg','image/png'}
             >
                 {({getRootProps, getInputProps}) => (
                     <div style={{ width:'300px', height:'240px', border:'1px solid lightgray', 
@@ -50,7 +51,7 @@ function FileUpload(props) {
                         {...getRootProps()}
                     >
                         <input {...getInputProps()}/>
-                        <Icon type="plus" style={{ fontSize:'3rem' }} />
+                        <PlusOutlined style={{ fontSize:'3rem' }} />
                     </div>
                 )}
             </DropZone>
