@@ -202,6 +202,7 @@ function UploadTemplatePage(props) {
                 />
                 </div>
                 <br/>
+                <br/>
                 <Radio.Group onChange={onUploadRadioChange} value={RadioValue}>
                     <Space direction="vertical">
                         <Radio value={1}>File</Radio>
@@ -217,7 +218,6 @@ function UploadTemplatePage(props) {
                             value={LinkValue}/>
                     </div>
                 }
-
                 <br/>
                 <br/>
                 <span style={{ marginRight: '15px' }}>
