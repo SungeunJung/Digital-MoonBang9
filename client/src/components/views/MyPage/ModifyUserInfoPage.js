@@ -4,7 +4,7 @@ import { UserOutlined } from '@ant-design/icons';
 import { useDispatch } from 'react-redux';
 import { modifyUser } from '../../../_actions/user_action';
 import { withRouter } from 'react-router-dom';
-
+import UserImageEdit from '../../utils/UserImageEdit';
 
 const { Title } = Typography;
 
@@ -36,6 +36,7 @@ function ModifyUserInfoPage(props) {
 
     const dispatch = useDispatch();
     const [form] = Form.useForm();
+    const [Image, setImage] = useState("");
 
     const onCancel = (events) => {
         props.history.push("/mypage");
@@ -46,7 +47,8 @@ function ModifyUserInfoPage(props) {
         setTimeout(() => {
             let dataToSubmit = {                
                 password: values.password,                
-                nickname: values.nickname                      
+                nickname: values.nickname,
+                image: Image                     
             };
   
             dispatch(modifyUser(dataToSubmit)).then(response => {
@@ -60,18 +62,26 @@ function ModifyUserInfoPage(props) {
           }, 500);
     };
 
+    console.log(props.user.userData);
+
+    const updateImage = (newImage) =>{
+        console.log(newImage)
+        setImage(newImage)
+    }
+    
     return (
         <div className="app" style={{ width: '80%', padding: '3rem 4rem', margin:'auto' }}>
             <div style={{ textAlign:'center', marginBottom:'2rem' }}>
                 <Title level={2}>회원정보 수정</Title>
             </div>
-            <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center'}}>
-                <Avatar icon={<UserOutlined />} size={160} style={{backgroundColor:'#a5cbf0'}}/>                
-            </div>
-            <p>{props.email}</p>
-            <br />
+            
+            <UserImageEdit refreshFunction={updateImage}/>                            
            
+                    
             <br />
+            <p style={{fontSize:'15pt'}}>props.user.userData.email</p>
+            <br />           
+            
 
             <Form
                 style={{ minWidth: '375px', maxWidth: '475px' }}
