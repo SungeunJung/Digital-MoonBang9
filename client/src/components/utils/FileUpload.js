@@ -18,8 +18,8 @@ function FileUpload(props) {
         axios.post('/api/template/uploadImage', formData, config)
         .then(response => {
             if(response.data.success) {
-                setImages([...Images, response.data.filePath])
-                props.refreshFunction([...Images, response.data.filePath])
+                setImages([...Images, response.data.image])
+                props.refreshFunction([...Images, response.data.image])
             } else {
                 alert('Failed to save the Image in Server')
             }

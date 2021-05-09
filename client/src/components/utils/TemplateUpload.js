@@ -41,11 +41,11 @@ function TemplateUpload(props) {
         formData.append("file", files[0])
         
         //save the Image we chose inside the node server
-        axios.post('/api/template/uploadImage', formData, config)
+        axios.post('/api/template/uploadFile', formData, config)
         .then(response => {
             if(response.data.success) {
-                setFiles([...Files, response.data.filePath])
-                props.refreshFunction([...Files, response.data.filePath])
+                setFiles([...Files, response.data.fileName])
+                props.refreshFunction([...Files, response.data.fileName])
             } else {
                 alert('Failed to save the File in Server')
             }
