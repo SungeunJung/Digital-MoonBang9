@@ -32,6 +32,13 @@ const templateSchema = mongoose.Schema({
         type: Array,
         default: []
     },
+    uploadedFile: {
+        type: Array,
+        default: []
+    },
+    uploadedUrl: {
+        type: String,
+    },
     downloads: {
         type: Number,
         maxlength: 1000,
