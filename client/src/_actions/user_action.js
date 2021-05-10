@@ -54,7 +54,7 @@ export function logoutUser(){
 }
 
 export function modifyUser(dataToSubmit) {
-    const request = axios.post(`${USER_SERVER}/modifyinfo`,dataToSubmit)
+    const request = axios.post(`${USER_SERVER}/modifyinfo`, dataToSubmit)
     .then(response => response.data);
 
     return {

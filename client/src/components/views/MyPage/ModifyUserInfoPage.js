@@ -50,7 +50,7 @@ function ModifyUserInfoPage(props) {
                 nickname: values.nickname,
                 image: Image                     
             };
-  
+            
             dispatch(modifyUser(dataToSubmit)).then(response => {
               if (response.payload.success) {
                 alert("수정을 완료했습니다.");
@@ -63,7 +63,7 @@ function ModifyUserInfoPage(props) {
     };
 
     console.log(props.user.userData);
-
+    
     const updateImage = (newImage) =>{
         console.log(newImage)
         setImage(newImage)

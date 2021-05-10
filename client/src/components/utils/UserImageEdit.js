@@ -4,14 +4,14 @@ import axios from 'axios';
 
 
 function UserImageEdit(props) {
-  const [Image, setImage] = useState("")
+  const [Image, setImage] = useState([])
 
     const onDrop=(files) => {
         let formData = new FormData();
         const config = {
             header: {'content-type': 'multipart/form-data'}
         }
-        formData.append("image", files[0])
+        formData.append("file", files[0])
         console.log(files[0]);
         
         
@@ -26,7 +26,7 @@ function UserImageEdit(props) {
             }
         })        
     }
-  
+  console.log(Image)
 
   return (
     <div
@@ -49,7 +49,12 @@ function UserImageEdit(props) {
             {...getRootProps()}
           >
             <input {...getInputProps()} />                   
-        
+            {Image.map((image, index) => (
+              <div key={index}>
+                  <img style={{ width:'200px', height:'200px',  borderRadius:"50%" }} 
+                    src={`http://localhost:2000/${image}`} alt={`profileImg-${index}`} />
+              </div>
+            ))}
         </div>)}
       </DropZone>
       
