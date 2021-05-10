@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
-import { Typography, Button, Form, message, Input } from 'antd';
+import { Typography, Button, Form, Radio, Space, Input } from 'antd';
 import FileUpload from '../../utils/FileUpload';
+import TemplateUpload from'../../utils/TemplateUpload';
 import axios from 'axios';
 //import { response } from 'express';
 
@@ -22,8 +23,8 @@ const Detail_1 = [
 ]
 const Detail_2 = [
     { key:1, value: "먼슬리" },
-    { key:2, value: "데일리" },
-    { key:3, value: "위클리" },
+    { key:2, value: "위클리" },
+    { key:3, value: "데일리" },
     { key:4, value: "업무" },
 ]
 const Detail_3 = [
@@ -36,13 +37,22 @@ const Detail_3 = [
     { key:7, value: "기타" },
 ]
 const Detail_4 = [
+    { key:1, value: "메모지" },
+    { key:2, value: "캐릭터" },
+    { key:3, value: "레터링" },
+    { key:4, value: "도형" },
+    { key:5, value: "일상" },
+    { key:6, value: "기념일" },
+    { key:7, value: "기타" },
+]
+const Detail_5 = [
     { key:1, value: "가계부" },
     { key:2, value: "운동" },
     { key:3, value: "독서" },
     { key:4, value: "여행" },
-    { key:6, value: "기타" },
+    { key:5, value: "기타" },
 ]
-const Detail_5 = [
+const Detail_6 = [
     { key:1, value: "트래커" },
     { key:2, value: "체크리스트" },
 ]
@@ -62,8 +72,11 @@ const Styles = [
 
 function UploadTemplatePage(props) {
     const [Images, setImages] = useState([])
+    const [Files, setFiles] = useState([])
     const [TitleValue, setTitleValue] = useState("")
     const [DesignerValue, setDesignerValue] = useState("")
+    const [RadioValue, setRadioValue] = useState(1)
+    const [LinkValue, setLinkValue] = useState("")
     const [DescriptionValue, setDescriptionValue] = useState("")
     const [CategoryValue, setCategoryValue] = useState(1)
     const [DetailValue, setDetailValue] = useState(1)
@@ -77,6 +90,14 @@ function UploadTemplatePage(props) {
     }
     const onDescriptionChange = (event) => {
         setDescriptionValue(event.currentTarget.value)
+    }
+    const onUploadRadioChange = (event) => {
+        setRadioValue(event.target.value)
+        setLinkValue("")
+        setFiles([])
+    }
+    const onLinkChange = (event) => {
+        setLinkValue(event.currentTarget.value)
     }
     const onCategorySelectChange = (event) => {
         setCategoryValue(event.currentTarget.value)
@@ -101,6 +122,10 @@ function UploadTemplatePage(props) {
                 Detail = Detail_5.slice();
                 setDetailValue(1);
                 break; 
+            case '6': 
+                Detail = Detail_6.slice();
+                setDetailValue(1);
+                break; 
             default:
                 break;
         }
@@ -114,6 +139,10 @@ function UploadTemplatePage(props) {
     const updateImages = (newImages) =>{
         console.log(newImages)
         setImages(newImages)
+    }
+    const updateFiles = (newFiles) =>{
+        console.log(newFiles)
+        setFiles(newFiles)
     }
     const onSubmit = (event) => {
         event.preventDefault()
@@ -129,12 +158,12 @@ function UploadTemplatePage(props) {
             designer: DesignerValue,
             description: DescriptionValue,
             images: Images,
+            uploadedFile: Files,
+            uploadedUrl: LinkValue,
             category: CategoryValue,
             detail: DetailValue,
             styles: StyleValue,
         }
-
-        console.log(Images)
 
         axios.post('/api/template/uploadTemplate', variables)
             .then(response => {
@@ -172,13 +201,31 @@ function UploadTemplatePage(props) {
                     onChange={onDesignerChange}
                     value={DesignerValue}
                 />
-                <br/>
+                <div>
                 <br/>
                 <label>Description</label>
                 <TextArea
                     onChange={onDescriptionChange}
                     value={DescriptionValue}
                 />
+                </div>
+                <br/>
+                <br/>
+                <Radio.Group onChange={onUploadRadioChange} value={RadioValue}>
+                    <Space direction="vertical">
+                        <Radio value={1}>File</Radio>
+                        <Radio value={2}>Link</Radio>
+                    </Space>
+                </Radio.Group>
+
+                {RadioValue === 1 ? 
+                    <TemplateUpload refreshFunction={updateFiles}/> : 
+                    <div>
+                        <Input placeholder="Link Here" 
+                            onChange={onLinkChange}
+                            value={LinkValue}/>
+                    </div>
+                }
                 <br/>
                 <br/>
                 <span style={{ marginRight: '15px' }}>
