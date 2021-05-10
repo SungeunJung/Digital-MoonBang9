@@ -11,7 +11,7 @@ import { styles } from './Sections/Datas';
 
 const { Meta } = Card;
 
-function LandingPage() {
+function LandingPage(props) {
     const [Templates, setTemplates] = useState([])
     const [Skip, setSkip] = useState(0)
     const [Limit, setLimit] = useState(8)
@@ -22,10 +22,14 @@ function LandingPage() {
     const [Filters, setFilters] = useState({
         styles: [],
     })
+    const [Category, setCategory] = useState(props.match.params.category);
     
+    console.log(Category)
+
     useEffect(() => {
 
         const variables = {
+            category: Category,
             skip: Skip,
             limit: Limit,
             sortBy: SortBy,
@@ -55,6 +59,7 @@ function LandingPage() {
         let skip = Skip + Limit;
 
         const variables = {
+            category: Category,
             skip: skip,
             limit: Limit,
             filters: Filters,
@@ -86,6 +91,7 @@ function LandingPage() {
     const showFilteredResults = (filters) => {
 
         const variables = {
+            category: Category,
             skip: 0,
             limit: Limit,
             filters: filters,
@@ -113,6 +119,7 @@ function LandingPage() {
     const updateSearchTerm = (newSearchTerm, searchField) => {
         
         const variables = {
+            category: Category,
             skip: 0,
             limit: Limit,
             filters: Filters,
@@ -130,6 +137,7 @@ function LandingPage() {
 
     const showSortedResults = (sortBy) => {
         const variables = {
+            category: Category,
             skip: 0,
             limit: Limit,
             filters: Filters,

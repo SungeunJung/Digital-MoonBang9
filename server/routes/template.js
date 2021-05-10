@@ -63,9 +63,16 @@ router.post("/getTemplates", (req, res) => {
     } else {
         sortBy[req.body.sortBy] = 1
     }
-    
-    //let findArgs = {};
-    
+    let category = req.body.category ? req.body.category.split("")[1] : null;
+    let detail = req.body.category ? req.body.category.split("")[2]? req.body.category.split("")[2]:null : null;
+
+    if(category != null) {
+        findArgs['category'] = category;
+    }
+    if(detail != null) {
+        findArgs['detail'] = detail;
+    }
+
     for(let key in req.body.filters) {
         if(req.body.filters[key].length > 0) {
             if(key === "detail") {
