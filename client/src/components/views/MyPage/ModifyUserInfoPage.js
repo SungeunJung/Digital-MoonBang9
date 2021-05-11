@@ -6,6 +6,7 @@ import { modifyUser } from '../../../_actions/user_action';
 import { withRouter } from 'react-router-dom';
 import UserImageEdit from '../../utils/UserImageEdit';
 
+
 const { Title } = Typography;
 
 const formItemLayout = {
@@ -37,6 +38,7 @@ function ModifyUserInfoPage(props) {
     const dispatch = useDispatch();
     const [form] = Form.useForm();
     const [Image, setImage] = useState("");
+   
 
     const onCancel = (events) => {
         props.history.push("/mypage");
@@ -61,8 +63,6 @@ function ModifyUserInfoPage(props) {
             })  
           }, 500);
     };
-
-    console.log(props.user.userData);
     
     const updateImage = (newImage) =>{
         console.log(newImage)
@@ -75,11 +75,10 @@ function ModifyUserInfoPage(props) {
                 <Title level={2}>회원정보 수정</Title>
             </div>
             
-            <UserImageEdit refreshFunction={updateImage}/>                            
-           
-                    
+            <UserImageEdit refreshFunction={updateImage}/>                           
+                               
             <br />
-            <p style={{fontSize:'15pt'}}>props.user.userData.email</p>
+            <p style={{fontSize:'15pt'}}>{props.user.userData.email}</p>
             <br />           
             
 

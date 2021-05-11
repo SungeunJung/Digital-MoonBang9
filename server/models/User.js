@@ -99,20 +99,20 @@ userSchema.statics.findByToken = function(token, cb) {
     })
 }
 
-/*userSchema.pre('update', function( next ){ //user 정보를 저장하기 전에 실행
-    const password = this.getUpdate().$set.password;
-        if (!password) {
-            return next();
-        }
-        try {
-            const salt = Bcrypt.genSaltSync();
-            const hash = Bcrypt.hashSync(password, salt);
-            this.getUpdate().$set.password = hash;
-            next();
-        } catch (error) {
-            return next(error);
-        }
-});*/
+userSchema.pre('findOneAndUpdate', function(next){ //user 정보를 저장하기 전에 실행    
+    const update = this.getUpdate();
+
+    if (update.password !== '' && update.password !== undefined) {
+        bcrypt.genSalt(10, (err, salt) => {
+            bcrypt.hash(update.password, salt, (err, hash) => {
+                this.getUpdate().password = hash;
+                next();
+            })
+        })
+    } else {
+        next();
+    }
+});
 
 const User = mongoose.model('User', userSchema)
 

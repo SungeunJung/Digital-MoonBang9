@@ -111,19 +111,17 @@ router.get("/logout", auth, (req, res) => {
     });
 });
 
-
 router.post("/modifyinfo", auth, (req, res) => {
-    const user = new User(req.body);
-
-    user.update({ _id: req.user._id },{$set:{ nickname:req.body.nickname, password:req.body.password, image:req.body.image}},
-    (err, doc) => {
+    User.findOneAndUpdate({ _id: req.user._id }, 
+        { nickname:req.body.nickname, password:req.body.password, image:req.body.image }, 
+        (err, doc) => {
         if (err) return res.json({ success: false, err });
-        return res.status(200).json({
+        return res.status(200).send({
             success: true
         });
-    });
     
-    
+    }) .setOptions({ runValidators: true })
+    .exec();   
 });
 
 router.post("/addToLike", auth, (req, res) => {

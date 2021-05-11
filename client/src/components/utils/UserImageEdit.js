@@ -5,6 +5,7 @@ import axios from 'axios';
 
 function UserImageEdit(props) {
   const [Image, setImage] = useState([])
+  
 
     const onDrop=(files) => {
         let formData = new FormData();
@@ -45,9 +46,10 @@ function UserImageEdit(props) {
         
       >
          {({getRootProps, getInputProps}) => (
-          <div style={{ width:'200px', height:'200px',  borderRadius:"50%",  border: "1px dashed"}}
+          <div style={{ width:'200px', height:'200px',  borderRadius:"50%",  border: "1px dashed"} }
             {...getRootProps()}
           >
+            
             <input {...getInputProps()} />                   
             {Image.map((image, index) => (
               <div key={index}>
