@@ -1,6 +1,5 @@
 import React, {useState} from 'react';
 import { Typography, Avatar, Form, Input, Button, Upload } from 'antd';
-import { UserOutlined } from '@ant-design/icons';
 import { useDispatch } from 'react-redux';
 import { modifyUser } from '../../../_actions/user_action';
 import { withRouter } from 'react-router-dom';
@@ -78,7 +77,7 @@ function ModifyUserInfoPage(props) {
             <UserImageEdit refreshFunction={updateImage}/>                           
                                
             <br />
-            <p style={{fontSize:'15pt'}}>{props.user.userData.email}</p>
+            <p style={{fontSize:'15pt'}}>props.user.userData.email</p>
             <br />           
             
 

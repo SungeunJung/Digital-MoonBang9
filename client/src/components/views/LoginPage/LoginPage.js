@@ -4,6 +4,7 @@ import { loginUser } from '../../../_actions/user_action';
 import { withRouter } from 'react-router-dom';
 import { Form, Input, Button, Checkbox, Typography } from 'antd';
 import { UserOutlined, LockOutlined } from '@ant-design/icons';
+import KaKaoLogin from './KaKaoLogin';
 
 const { Title } = Typography;
 
@@ -100,7 +101,9 @@ function LoginPage(props) {
             </div>
         </Form.Item>
         </Form>
+        <KaKaoLogin />
     </div>
+    
   )
 }
 

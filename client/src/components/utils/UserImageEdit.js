@@ -1,7 +1,8 @@
 import React, {useState} from "react";
 import DropZone from 'react-dropzone';
 import axios from 'axios';
-
+import { Avatar } from 'antd';
+import { UserOutlined } from '@ant-design/icons';
 
 function UserImageEdit(props) {
   const [Image, setImage] = useState([])
@@ -50,6 +51,7 @@ function UserImageEdit(props) {
             {...getRootProps()}
           >
             
+            
             <input {...getInputProps()} />                   
             {Image.map((image, index) => (
               <div key={index}>
@@ -57,6 +59,7 @@ function UserImageEdit(props) {
                     src={`http://localhost:2000/${image}`} alt={`profileImg-${index}`} />
               </div>
             ))}
+            
         </div>)}
       </DropZone>
       
