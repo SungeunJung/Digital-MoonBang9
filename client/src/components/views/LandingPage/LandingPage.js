@@ -7,6 +7,7 @@ import ImageSlider from '../../utils/ImageSlider'
 import SearchFeature from './Sections/SearchFeature'
 import SortFeature from './Sections/SortFeature'
 import CheckBox from './Sections/CheckBox'
+import BreadCrumb from './Sections/BreadCrumb'
 import { styles } from './Sections/Datas';
 
 const { Meta } = Card;
@@ -24,7 +25,7 @@ function LandingPage(props) {
     })
     const [Category, setCategory] = useState(props.match.params.category);
     
-    console.log(Category)
+    //console.log(Category)
 
     useEffect(() => {
 
@@ -152,10 +153,15 @@ function LandingPage(props) {
         getTemplates(variables)
     }
 
+    const pageHeader = () => {
+
+    }
+
+
     return (
         <div style ={{ width: '75%', margin:'3rem auto' }}>
             <div style ={{ textAlign: 'center' }}>
-                <h2>모든 속지</h2>
+                <BreadCrumb page = {Category}/>
             </div>
 
             {/* Filter */}
@@ -164,7 +170,7 @@ function LandingPage(props) {
             />  
             {/* Search */}
             <Row>
-            <Col style={{ display:'flex', justifyContent:'flex-end', margin:'1rem 0 1rem auto' }}>
+            <Col style={{ display:'flex', justifyContent:'flex-end', margin:'1rem auto 1rem 0' }}>
                 <SearchFeature
                     refreshFunction={updateSearchTerm} //검색어 입력시 자동으로 결과 페이지 보여줌
                 />

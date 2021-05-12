@@ -19,7 +19,7 @@ function LeftMenu(props) {
       <Menu.Item key="mail">
         <a href="/recommend">추천속지</a>
       </Menu.Item>
-      <SubMenu key="all" title={<a href="/" className="SubMenu">모든속지</a>}>
+      <SubMenu key="all" title={<span>모든속지</span>}>
         <Menu.Item key="all">ALL</Menu.Item>
         <SubMenu key="1" title={<a href='/:1' className="SubMenu">다이어리</a>}>
           <Menu.Item key="11">날짜형</Menu.Item>
@@ -51,7 +51,11 @@ function LeftMenu(props) {
         <SubMenu key="5" title={<a href='/:5' className="SubMenu">스티커</a>}>
           <Menu.Item key="51">메모지</Menu.Item>
           <Menu.Item key="52">캐릭터</Menu.Item>
-          <Menu.Item key="53">도형</Menu.Item>
+          <Menu.Item key="53">레터링</Menu.Item>
+          <Menu.Item key="54">도형</Menu.Item>
+          <Menu.Item key="55">일상</Menu.Item>
+          <Menu.Item key="56">기념일</Menu.Item>
+          <Menu.Item key="57">기타</Menu.Item>
         </SubMenu>
         <SubMenu key="6" title={<a href='/:6' className="SubMenu">기타</a>}>
           <Menu.Item key="61">트래커</Menu.Item>

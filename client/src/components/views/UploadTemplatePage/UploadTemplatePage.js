@@ -37,6 +37,13 @@ const Detail_3 = [
     { key:7, value: "기타" },
 ]
 const Detail_4 = [
+    { key:1, value: "가계부" },
+    { key:2, value: "운동" },
+    { key:3, value: "독서" },
+    { key:4, value: "여행" },
+    { key:5, value: "기타" },
+]
+const Detail_5 = [
     { key:1, value: "메모지" },
     { key:2, value: "캐릭터" },
     { key:3, value: "레터링" },
@@ -44,13 +51,6 @@ const Detail_4 = [
     { key:5, value: "일상" },
     { key:6, value: "기념일" },
     { key:7, value: "기타" },
-]
-const Detail_5 = [
-    { key:1, value: "가계부" },
-    { key:2, value: "운동" },
-    { key:3, value: "독서" },
-    { key:4, value: "여행" },
-    { key:5, value: "기타" },
 ]
 const Detail_6 = [
     { key:1, value: "트래커" },
