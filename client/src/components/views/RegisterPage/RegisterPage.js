@@ -117,12 +117,13 @@ function RegisterPage(props) {
                     />
                 </Form.Item>
 
-                <Form.Item required label="Auth Code">
-                    <Row gutter={8}>
-                        <Col span={12}>
+                <Form.Item required label="Auth Code" style={{marginBottom:"0px"}}>
+                    <Row gutter={12}>
+                        <Col span={14}>
                             <Form.Item
                                 name="authCode"
                                 dependencies={[state.createdAuthCode]}
+                                style={{ minWidth:"150px" }}
                                 rules={[
                                     {
                                         required: true,
@@ -144,7 +145,7 @@ function RegisterPage(props) {
                                 />
                             </Form.Item>
                         </Col>
-                        <Col span ={12}>
+                        <Col>
                             <Button onClick={onSendMailHandler}>Send Code</Button>
                         </Col>
                     </Row>

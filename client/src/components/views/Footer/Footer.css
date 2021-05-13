@@ -1,0 +1,12 @@
+
+div.divideLine{
+    text-align: center;
+    padding-bottom: 20px;
+  }
+div.divideLine:before {
+    content: "";
+    display: block;
+    width: 85%;
+    border-bottom: 1px solid #c9c9c9;
+    margin: 100px auto 20px auto;
+}

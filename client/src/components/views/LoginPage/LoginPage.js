@@ -49,8 +49,9 @@ function LoginPage(props) {
   }
 
   return (
-    <div className="app">
+    <div className="app" >
       <Title level={2}>Log In</Title>
+      <br/>
       <Form
         name="normal_login"
         className="login-form"
