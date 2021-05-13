@@ -1,9 +1,10 @@
 import React, {useState} from 'react';
 import { Typography, Avatar, Form, Input, Button, Upload } from 'antd';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { modifyUser } from '../../../_actions/user_action';
-import { withRouter } from 'react-router-dom';
 import UserImageEdit from '../../utils/UserImageEdit';
+
+
 
 
 const { Title } = Typography;
@@ -37,7 +38,8 @@ function ModifyUserInfoPage(props) {
     const dispatch = useDispatch();
     const [form] = Form.useForm();
     const [Image, setImage] = useState("");
-   
+    const [ImageClient, setImageClient] = useState("")
+    const user = useSelector((state)=> state.user); 
 
     const onCancel = (events) => {
         props.history.push("/mypage");
@@ -45,13 +47,17 @@ function ModifyUserInfoPage(props) {
 
     const onFinish = (values) => {
         console.log('Received values of form: ', values);
+
+        window.localStorage.setItem('userImage', ImageClient);
+        
         setTimeout(() => {
             let dataToSubmit = {                
                 password: values.password,                
                 nickname: values.nickname,
-                image: Image                     
+                image: Image,
+                imageClient: ImageClient                     
             };
-            
+            //DB 저장용
             dispatch(modifyUser(dataToSubmit)).then(response => {
               if (response.payload.success) {
                 alert("수정을 완료했습니다.");
@@ -59,13 +65,18 @@ function ModifyUserInfoPage(props) {
               } else {
                 alert(response.payload.err.errmsg)
               }
-            })  
+            })
           }, 500);
     };
     
     const updateImage = (newImage) =>{
         console.log(newImage)
         setImage(newImage)
+    }
+
+    const updateImageClient = (newImageC) =>{
+        console.log(newImageC)
+        setImageClient(newImageC)
     }
     
     return (
@@ -74,10 +85,10 @@ function ModifyUserInfoPage(props) {
                 <Title level={2}>회원정보 수정</Title>
             </div>
             
-            <UserImageEdit refreshFunction={updateImage}/>                           
+            <UserImageEdit refreshFunction={updateImage} refreshFunctionClient={updateImageClient}/>                           
                                
             <br />
-            <p style={{fontSize:'15pt'}}>props.user.userData.email</p>
+            <p style={{fontSize:'15pt'}}>{localStorage.getItem('userEmail')}</p>
             <br />           
             
 
@@ -109,10 +120,9 @@ function ModifyUserInfoPage(props) {
                 
             >
                 <Input 
-                    placeholder='props.user.userData.nickname'
+                    placeholder='Enter your new nickname'
                     type="text"
-                />
-                
+                />                                           
             </Form.Item>
             
             <Form.Item
@@ -172,4 +182,4 @@ function ModifyUserInfoPage(props) {
 
 
 
-export default withRouter(ModifyUserInfoPage)
+export default ModifyUserInfoPage

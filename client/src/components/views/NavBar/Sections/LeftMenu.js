@@ -62,7 +62,12 @@ function LeftMenu(props) {
           <Menu.Item key="62">체크리스트</Menu.Item>
         </SubMenu>
       </SubMenu>
-      
+      <Menu.Item key="tipandreview">
+        Tip &amp; Review
+      </Menu.Item>
+      <Menu.Item key="notice">
+        공지사항
+      </Menu.Item>
     </Menu>
   )
 }
