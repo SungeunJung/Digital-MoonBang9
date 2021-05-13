@@ -1,49 +1,52 @@
-import React, { useEffect } from 'react';
-import axios from 'axios';
-//import { response } from 'express';
-import { useDispatch } from 'react-redux';
-import { auth } from '../../../_actions/user_action';
-import { withRouter } from 'react-router-dom';
+import React, {useEffect} from 'react';
+import { withRouter, Link } from 'react-router-dom';
+import { Typography, Button, Row, Col, Form, Avatar} from 'antd';
+import { UserOutlined } from '@ant-design/icons';
 
-let user = {
-    name: "",
-    id: "",
-    email: "",
-}
+const { Title } = Typography;
 
-function MyPage(props) {
+
+
+function MyPage(props) { 
     
-    const dispatch = useDispatch();
-
-        useEffect(() => {
-            dispatch(auth()).then(response => {
-                console.log(response)
-                user.name = response.payload.name
-                user.id = response.payload.id
-                user.email = response.payload.email
-            })
-        }, [])
-    
+    const str = (localStorage.getItem("userImage"))   
 
     return (
-        <div style ={{ display: 'flex', justifyContent: 'center', alignItems: 'center',
-        width: '100%', height: '100vh' }}>
-            <h2>MyPage</h2> <br/>
-            <div style={{ display: 'flex', flexDirection: 'column' }}>
-                <b>이름</b>    {user.name} <br/>
-                <b>아이디</b>  {user.id} <br/>
-                <b>이메일</b>  {user.email} <br/>
-            </div>
-            <div style={{ display: 'flex', flexDirection: 'column' }}>
-                <button>찜하기 목록</button><br/>
-                <button>방문 기록</button><br/>
-            </div>
-            <div style={{ display: 'flex', flexDirection: 'column' }}>
-                <button>작성한 글</button><br/>
-                <button>다운로드 기록</button><br/>
-            </div>
+
+        <div style={{ width: '80%', padding: '3rem 4rem', margin:'auto' }}>
+            <div style={{ textAlign:'center', marginBottom:'4rem' }}>
+                <Title level={2}>마이페이지</Title>
+            </div>                   
+            
+            <Row gutter={[40]}>     
+                <Col lg={8} xs={24} > 
+                    <Avatar icon={<UserOutlined />} src={''.concat("\\uploads\\profile\\", str)} size={250} style={{marginLeft:'45px',backgroundColor:'#a5cbf0'}}/>
+                    <Button type="default" block style={{height:'40px',backgroundColor:'#8e8f92', marginTop:'20px', borderRadius:'10px', fontSize:'20px'}}>
+                        <Link to="/mypage/modifyinfo/">회원정보 수정</Link>
+                    </Button>
+                </Col> 
+                <Col lg={8} xs={24} >
+                    <Button type="default" block style={{height:'110px', marginTop:'20px', borderRadius:'10px' }}>
+                        <Link to="/user/like" style={{fontSize:'25px'}}>찜하기 목록</Link>
+                    </Button>
+                    <Button type="default" block style={{height:'110px', marginTop:'20px',borderRadius:'10px', fontSize:'25px' }}>
+                        방문 기록
+                    </Button>
+                </Col>
+                <Col lg={8} xs={24}>
+                    <Button type="default" block style={{height:'110px', marginTop:'20px',borderRadius:'10px', fontSize:'25px'}} >
+                        작성한 글
+                    </Button>
+                    <Button type="default" block style={{height:'110px', marginTop:'20px',borderRadius:'10px', fontSize:'25px'}}>
+                        다운로드 기록
+                    </Button>
+                    <Button type="default" block style={{float: 'right', color: 'white', width:'230px',height:'50px',backgroundColor:'#8e8f92', marginTop:'40px',borderRadius:'10px', fontSize:'20px'}}>
+                        1:1 문의하기
+                    </Button>
+                </Col>
+            </Row>   
         </div>
     )
 }
 
-export default withRouter(MyPage)
+export default MyPage

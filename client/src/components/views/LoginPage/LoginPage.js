@@ -24,11 +24,14 @@ function LoginPage(props) {
           let dataToSubmit = {
             email: values.email,
             password: values.password
-          };
+        };
+
         dispatch(loginUser(dataToSubmit))
             .then(response => {
                 if (response.payload.loginSuccess) {
                     window.localStorage.setItem('userId', response.payload.userId);
+                    window.localStorage.setItem('userEmail', response.payload.userEmail);
+                    window.localStorage.setItem('userImage', response.payload.userImage);
                     if (rememberMe === true) {
                     window.localStorage.setItem('rememberMe', values.email);
                     } else {
@@ -49,9 +52,8 @@ function LoginPage(props) {
   }
 
   return (
-    <div className="app" >
-      <Title level={2}>Log In</Title>
-      <br/>
+    <div className="app" style={{marginBottom:"200px"}}>
+      <Title level={2}>로그인</Title>
       <Form
         name="normal_login"
         className="login-form"
@@ -60,8 +62,9 @@ function LoginPage(props) {
             email: initialEmail,
             password: '',
         }}
-        onFinish={onFinish}
+        onFinish={onFinish}        
         >
+            
         <Form.Item
             name="email"
             rules={[
@@ -102,6 +105,7 @@ function LoginPage(props) {
         </Form.Item>
         </Form>
     </div>
+    
   )
 }
 

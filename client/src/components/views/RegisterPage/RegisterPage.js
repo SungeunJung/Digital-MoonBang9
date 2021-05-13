@@ -80,7 +80,7 @@ function RegisterPage(props) {
 
     return (    
         <div className="app">
-            <Title level={2}>Sign up</Title>
+            <Title level={2}>회원가입</Title>
             <br/>
             <Form
                 style={{ minWidth: '375px', maxWidth: '475px' }}
@@ -100,7 +100,7 @@ function RegisterPage(props) {
             >
                 <Form.Item
                     name="email"
-                    label="E-mail"
+                    label="이메일"
                     rules={[
                     {
                         type: 'email',
@@ -117,13 +117,13 @@ function RegisterPage(props) {
                     />
                 </Form.Item>
 
-                <Form.Item required label="Auth Code" style={{marginBottom:"0px"}}>
+                <Form.Item required label="인증코드" style={{ marginBottom:"0px" }}>
                     <Row gutter={12}>
                         <Col span={14}>
                             <Form.Item
                                 name="authCode"
                                 dependencies={[state.createdAuthCode]}
-                                style={{ minWidth:"150px" }}
+                                style = {{ minwidth : "150px" }}
                                 rules={[
                                     {
                                         required: true,
@@ -135,7 +135,7 @@ function RegisterPage(props) {
                                             return Promise.resolve();
                                         }
                 
-                                        return Promise.reject(new Error('Auth code is not correct!'));
+                                        return Promise.reject(new Error('인증코드가 일치하지 않습니다!'));
                                         },
                                     }),
                                     ]}
@@ -146,14 +146,14 @@ function RegisterPage(props) {
                             </Form.Item>
                         </Col>
                         <Col>
-                            <Button onClick={onSendMailHandler}>Send Code</Button>
+                            <Button onClick={onSendMailHandler}>코드 전송</Button>
                         </Col>
                     </Row>
                 </Form.Item>
 
                 <Form.Item 
                     name="name"
-                    label="Name"
+                    label="이름"
                     rules={[
                         {
                             required: true,
@@ -170,7 +170,7 @@ function RegisterPage(props) {
 
                 <Form.Item
                     name="nickname"
-                    label="Nickname"
+                    label="닉네임"
                     tooltip="What do you want others to call you?"
                     rules={[
                     {
@@ -188,7 +188,7 @@ function RegisterPage(props) {
 
                 <Form.Item
                     name="password"
-                    label="Password"
+                    label="비밀번호"
                     rules={[
                     {
                         required: true,
@@ -204,7 +204,7 @@ function RegisterPage(props) {
 
                 <Form.Item
                     name="confirm"
-                    label="Confirm Password"
+                    label="비밀번호 확인"
                     dependencies={['password']}
                     hasFeedback
                     rules={[
@@ -230,7 +230,7 @@ function RegisterPage(props) {
 
                 <Form.Item {...tailFormItemLayout}>
                     <Button type="primary" htmlType="submit">
-                    Register
+                    회원가입
                     </Button>
                 </Form.Item>
             </Form>

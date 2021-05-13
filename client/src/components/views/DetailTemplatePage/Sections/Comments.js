@@ -38,6 +38,18 @@ function Comments(props) {
         <div>
             <br />
             <p><strong> replies</strong></p>
+            
+            {/* Root Comment Form */}
+            <form style={{ display: 'flex' }} onSubmit={onSubmit}>
+                <TextArea
+                    style={{ width: '100%', borderRadius: '5px' }}
+                    onChange={handleChange}
+                    value={Comment}
+                    placeholder="write some comments"
+                />
+                <br />
+                <Button type="primary" style={{ width: '20%', height: '52px' }} onClick={onSubmit}>Submit</Button>
+            </form>
             <hr />
             {/* Comment Lists  */}
             {console.log(props.CommentLists)}
@@ -53,17 +65,7 @@ function Comments(props) {
 
 
 
-            {/* Root Comment Form */}
-            <form style={{ display: 'flex' }} onSubmit={onSubmit}>
-                <TextArea
-                    style={{ width: '100%', borderRadius: '5px' }}
-                    onChange={handleChange}
-                    value={Comment}
-                    placeholder="write some comments"
-                />
-                <br />
-                <Button type="primary" style={{ width: '20%', height: '52px' }} onClick={onSubmit}>Submit</Button>
-            </form>
+            
 
         </div>
     )

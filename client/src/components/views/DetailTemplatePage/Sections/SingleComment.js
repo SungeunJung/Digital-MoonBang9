@@ -64,7 +64,6 @@ function SingleComment(props) {
                 }
             ></Comment>
 
-
             {OpenReply &&
                 <form style={{ display: 'flex' }} onSubmit={onSubmit}>
                     <TextArea
@@ -77,6 +76,7 @@ function SingleComment(props) {
                     <Button type="primary" style={{ width: '20%', height: '52px' }} onClick={onSubmit}>Submit</Button>
                 </form>
             }
+            
 
         </div>
     )

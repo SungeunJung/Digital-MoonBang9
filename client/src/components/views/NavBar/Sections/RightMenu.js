@@ -12,6 +12,10 @@ function RightMenu(props) {
   const logoutHandler = () => {
     axios.get(`${USER_SERVER}/logout`).then(response => {
       if (response.status === 200) {
+        localStorage.removeItem('userEmail');
+        localStorage.removeItem('userImage');
+        if(localStorage.getItem('newImage'))
+          localStorage.removeItem('newImage')
         props.history.push("/login");
       } else {
         alert('Log Out Failed')
@@ -24,11 +28,11 @@ function RightMenu(props) {
   if (user.userData && !user.userData.isAuth) {
     return (
       <Menu mode={props.mode}>
-        <Menu.Item key="mail">
-          <a href="/login">Signin</a>
+        <Menu.Item key="login">
+          <a href="/login">로그인</a>
         </Menu.Item>
-        <Menu.Item key="app">
-          <a href="/register">Signup</a>
+        <Menu.Item key="register">
+          <a href="/register">회원가입</a>
         </Menu.Item>
       </Menu>
     )
@@ -36,13 +40,13 @@ function RightMenu(props) {
     return (
       <Menu mode={props.mode}>
         <Menu.Item key="upload">
-          <a href={"/template/upload"}>Upload</a>
+          <a href={"/template/upload"}>등록하기</a>
         </Menu.Item>
         <Menu.Item key="mypage">
-          <a href={"/mypage"}>MyPage</a>
+          <a href={"/mypage"}>마이페이지</a>
         </Menu.Item>
         <Menu.Item key="logout">
-          <a onClick={logoutHandler}>Logout</a>
+          <a onClick={logoutHandler}>로그아웃</a>
         </Menu.Item>
       </Menu>
     )
