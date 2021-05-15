@@ -69,9 +69,9 @@ function UserImageEdit(props) {
           >
             
           {Image.length > 0 ? 
-          <Avatar src={''.concat("\\uploads\\profile\\", str_new)} size={250} style={{width:'200px', height:'200px',  borderRadius:"50%",  border: "1px dashed"}}/>
+          <Avatar  src={''.concat("\\uploads\\profile\\", str_new)} style={{width:'200px', height:'200px',  borderRadius:"50%",  border: "1px dashed"}}/>
           :
-          <Avatar src={''.concat("\\uploads\\profile\\", str)} size={250} style={{width:'200px', height:'200px',  borderRadius:"50%",  border: "1px dashed"}}/>
+          <Avatar icon={<UserOutlined />} size={190} src={''.concat("\\uploads\\profile\\", str)} style={{backgroundColor:'#a5cbf0', width:'200px', height:'200px',  borderRadius:"50%",  border: "1px dashed"}}/>
           }
            
           <input {...getInputProps()} />    

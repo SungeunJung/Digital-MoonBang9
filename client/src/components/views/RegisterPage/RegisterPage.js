@@ -230,7 +230,7 @@ function RegisterPage(props) {
 
                 <Form.Item {...tailFormItemLayout}>
                     <Button type="primary" htmlType="submit">
-                    회원가입
+                    확인
                     </Button>
                 </Form.Item>
             </Form>

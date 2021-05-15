@@ -20,7 +20,7 @@ function MyPage(props) {
             
             <Row gutter={[40]}>     
                 <Col lg={8} xs={24} > 
-                    <Avatar icon={<UserOutlined />} src={''.concat("\\uploads\\profile\\", str)} size={250} style={{marginLeft:'45px',backgroundColor:'#a5cbf0'}}/>
+                    <Avatar icon={<UserOutlined />} src={''.concat("\\uploads\\profile\\", str)} size={250} style={{marginLeft:'27px',backgroundColor:'#a5cbf0'}}/>
                     <Button type="default" block style={{height:'40px',backgroundColor:'#8e8f92', marginTop:'20px', borderRadius:'10px', fontSize:'20px'}}>
                         <Link to="/mypage/modifyinfo/">회원정보 수정</Link>
                     </Button>

@@ -1,7 +1,7 @@
 import React, { useState } from 'react' 
 import { useDispatch } from 'react-redux';
 import { loginUser } from '../../../_actions/user_action';
-import { withRouter } from 'react-router-dom';
+import { withRouter, Link } from 'react-router-dom';
 import { Form, Input, Button, Checkbox, Typography } from 'antd';
 import { UserOutlined, LockOutlined } from '@ant-design/icons';
 
@@ -57,7 +57,7 @@ function LoginPage(props) {
       <Form
         name="normal_login"
         className="login-form"
-        style={{ minWidth: '325px' }}
+        style={{ minWidth: '325px', marginTop: '30px' }}
         initialValues={{
             email: initialEmail,
             password: '',
@@ -92,7 +92,7 @@ function LoginPage(props) {
             />
         </Form.Item>
         <Form.Item>
-            <Checkbox id="rememberMe" onChange={handleRememberMe} checked={rememberMe}>Remember me</Checkbox>
+            <Checkbox id="rememberMe" onChange={handleRememberMe} checked={rememberMe}>이메일 저장</Checkbox>
         </Form.Item>
 
         <Form.Item>
@@ -100,7 +100,7 @@ function LoginPage(props) {
             Log in
             </Button>
             <div>
-            Or <a href="/register">register now!</a>
+            <Link to="/register">회원가입 </Link>하러가기
             </div>
         </Form.Item>
         </Form>

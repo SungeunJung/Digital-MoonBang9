@@ -51,23 +51,25 @@ function BreadCrumb(props) {
     )
 
     return (
-        <div style={{ fontSize:"30px" }}>
+        <div>
+            <Title>
                 {Pages==0? 
-                <Breadcrumb>
+                <Breadcrumb style={{ fontSize:"27px" }}>
                     <Breadcrumb.Item>모든속지</Breadcrumb.Item>
                 </Breadcrumb>
                 :
                 Pages==1?
-                <Breadcrumb separator=">">
+                <Breadcrumb style={{ fontSize:"22px" }} separator=">">
                     <Breadcrumb.Item>{pages[Category-1].category}</Breadcrumb.Item>
                     <Breadcrumb.Item overlay={menu}>전체보기</Breadcrumb.Item>
                 </Breadcrumb>
                 :
-                <Breadcrumb separator=">">
+                <Breadcrumb style={{ fontSize:"22px" }} separator=">">
                     <Breadcrumb.Item>{pages[Category-1].category}</Breadcrumb.Item>
                     <Breadcrumb.Item overlay={menu}>{pages[Category-1].detail[Detail-1]}</Breadcrumb.Item>
                 </Breadcrumb>
                 }
+            </Title>
         </div>
     )
 }
