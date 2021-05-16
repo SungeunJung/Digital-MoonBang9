@@ -1,6 +1,6 @@
-import React, {useEffect} from 'react';
+import React from 'react';
 import { withRouter, Link } from 'react-router-dom';
-import { Typography, Button, Row, Col, Form, Avatar} from 'antd';
+import { Typography, Button, Row, Col, Avatar} from 'antd';
 import { UserOutlined } from '@ant-design/icons';
 
 const { Title } = Typography;
@@ -12,15 +12,14 @@ function MyPage(props) {
     const str = (localStorage.getItem("userImage"))   
 
     return (
-
         <div style={{ width: '80%', padding: '3rem 4rem', margin:'auto' }}>
             <div style={{ textAlign:'center', marginBottom:'4rem' }}>
                 <Title level={2}>마이페이지</Title>
             </div>                   
             
-            <Row gutter={[40]}>     
-                <Col lg={8} xs={24} > 
-                    <Avatar icon={<UserOutlined />} src={''.concat("\\uploads\\profile\\", str)} size={250} style={{marginLeft:'27px',backgroundColor:'#a5cbf0'}}/>
+            <Row gutter={40}>     
+                <Col style={{flexDirection:'row', alignItems:"center", justifyContent: "center"}} lg={8} xs={24} > 
+                    <Avatar style={{backgroundColor:'#a5cbf0', width:'95%', height:'80%'}} icon={<UserOutlined />} src={''.concat("\\uploads\\profile\\", str)} />
                     <Button type="default" block style={{height:'40px',backgroundColor:'#8e8f92', marginTop:'20px', borderRadius:'10px', fontSize:'20px'}}>
                         <Link to="/mypage/modifyinfo/">회원정보 수정</Link>
                     </Button>

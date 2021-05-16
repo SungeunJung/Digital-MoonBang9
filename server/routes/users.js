@@ -134,8 +134,7 @@ router.post("/modifyinfo", auth, (req, res) => {
         if (err) return res.json({ success: false, err });
         return res.status(200).send({
             success: true
-        });
-    
+        });    
     }) .setOptions({ runValidators: true })
     .exec();   
 });
@@ -212,6 +211,15 @@ router.post("/uploadUserImageToClient", auth, (req,res) => {
         if(err) return res.json({ success: false, err })
         return res.json({ success: true, image: res.req.file.path, fileName: res.req.file.filename })
     })
+})
+
+router.post("/duplicateCheck", auth, (req, res) => {
+    User.findOne({ nickname : req.body.nickname }, (err, user) => {
+        if (!user)
+            return res.json({success:true})
+            else res.json ({success:false})
+        }
+    )
 })
 
 module.exports = router;
