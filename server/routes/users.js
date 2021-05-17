@@ -89,6 +89,18 @@ router.get("/logout", auth, (req, res) => {
     });
 });
 
+router.post("/modifyinfo", auth, (req, res) => {
+    User.findOneAndUpdate({ _id: req.user._id }, 
+        { nickname:req.body.nickname, password:req.body.password, image:req.body.image, imageClient:req.body.imageClient }, 
+        (err, doc) => {
+        if (err) return res.json({ success: false, err });
+        return res.status(200).send({
+            success: true
+        });    
+    }) .setOptions({ runValidators: true })
+    .exec();   
+});
+
 router.post("/addToLike", auth, (req, res) => {
     //먼저  User Collection에 해당 유저의 정보를 가져오기 
     User.findOne({ _id: req.user._id },
@@ -149,5 +161,14 @@ router.get("/getLikes", auth, (req, res) => {
     });
 });
 
+
+router.post("/duplicateCheck", auth, (req, res) => {
+    User.findOne({ nickname : req.body.nickname }, (err, user) => {
+        if (!user)
+            return res.json({success:true})
+            else res.json ({success:false})
+        }
+    )
+})
 
 module.exports = router;

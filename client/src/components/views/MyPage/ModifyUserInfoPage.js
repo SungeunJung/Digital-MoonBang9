@@ -1,8 +1,9 @@
 import React, {useState} from 'react';
-import { Typography, Avatar, Form, Input, Button, Upload } from 'antd';
+import { Typography, Col, Row, Form, Input, Button } from 'antd';
 import { useDispatch, useSelector } from 'react-redux';
 import { modifyUser } from '../../../_actions/user_action';
 import UserImageEdit from '../../utils/UserImageEdit';
+import axios from 'axios';
 
 
 
@@ -43,6 +44,25 @@ function ModifyUserInfoPage(props) {
 
     const onCancel = (events) => {
         props.history.push("/mypage");
+    }
+
+    const onDuplicateCheckHandler = (values) => {
+        if(!form.getFieldValue('nickname')) return alert("닉네임을 입력해주세요.")
+        
+        let dataToSubmit = {
+            nickname: form.getFieldValue('nickname')
+        }
+        
+        axios.post("/api/users/duplicateCheck", dataToSubmit) 
+        .then(response => {
+            console.log(response.data.success)
+            if(response.data.success) {
+                alert('사용 가능한 닉네임입니다');
+            } else {                
+                alert('이미 사용중인 닉네임입니다')
+                form.resetFields();
+            }
+        })
     }
 
     const onFinish = (values) => {
@@ -105,25 +125,33 @@ function ModifyUserInfoPage(props) {
                 }}
                 scrollToFirstError
             >
-            
-            <Form.Item
-                name="nickname"
-                label="별명"
-                tooltip="What do you want others to call you?"
-                rules={[
-                {
-                    required: true,
-                    message: 'Please input your nickname!',
-                    whitespace: true,
-                },
-                ]}
-                
-            >
-                <Input 
-                    placeholder='Enter your new nickname'
-                    type="text"
-                />                                           
-            </Form.Item>
+
+            <Form.Item required label="별명" style={{ marginBottom:"0px" }}>
+                    <Row gutter={12}>
+                        <Col span={14}>
+                            <Form.Item
+                                name="nickname"
+                                tooltip="What do you want others to call you?"
+                                style = {{ minwidth : "150px" }}
+                                rules={[
+                                    {
+                                        required: true,
+                                        message: 'Please input your nickname!',
+                                        whitespace: true,
+                                    }
+                                ]}
+                            >
+                                <Input 
+                                    placeholder='Nickname'
+                                    type="text"
+                                />
+                            </Form.Item>
+                        </Col>
+                        <Col>
+                            <Button onClick={onDuplicateCheckHandler}>중복 확인</Button>
+                        </Col>
+                    </Row>
+                </Form.Item>
             
             <Form.Item
                 name="password"
@@ -178,7 +206,7 @@ function ModifyUserInfoPage(props) {
             </Form.Item>
         </Form>
     </div>
-    )}
+)}
 
 
 
