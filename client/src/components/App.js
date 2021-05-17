@@ -51,7 +51,7 @@ function App() {
           <Route exact path="/mypage" component={ Auth(MyPage, true) } />
           <Route exact path="/mypage/modifyinfo" component={ Auth(ModifyUserInfoPage, true) } />
           <Route exact path="/user/like" component={Auth(LikePage, true)} />
-          <Route exact path="/recommend" component={ Auth(RecommendPage, true) } />
+          <Route exact path="/recommend" component={ Auth(RecommendPage, null) } />
           <Route exact path="/:category" component={ Auth(LandingPage, null) } />
         </Switch>
         

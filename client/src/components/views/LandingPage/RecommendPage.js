@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Typography, Col, Card, Row } from 'antd';
 import ImageSlider from '../../utils/ImageSlider';
-import { Link } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 import axios from 'axios';
 
@@ -156,7 +155,7 @@ function RecommendPage(props) {
             }
             </div>
             { props.user.userData && !props.user.userData.isAuth ? 
-            <Title level={5}><Link to="/login">로그인</Link> 후 취향에 맞는 속지를 추천해 드립니다.</Title>
+            <Title level={5}><a href="/login">로그인</a> 후 취향에 맞는 속지를 추천해 드립니다.</Title>
             :
             <div>
                 <Title level={5} style={{ marginBottom:'50px' }}>
