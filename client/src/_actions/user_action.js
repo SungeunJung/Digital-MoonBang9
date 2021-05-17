@@ -4,7 +4,6 @@ import {
     REGISTER_USER,
     AUTH_USER,
     LOGOUT_USER,
-    MODIFY_USER,
     ADD_TO_LIKE,
 } from './types';
 import { USER_SERVER } from '../components/Config.js';
@@ -49,16 +48,6 @@ export function logoutUser(){
 
     return {
         type: LOGOUT_USER,
-        payload: request
-    }
-}
-
-export function modifyUser(dataToSubmit) {
-    const request = axios.post(`${USER_SERVER}/modifyinfo`, dataToSubmit)
-    .then(response => response.data);
-
-    return {
-        type: MODIFY_USER,
         payload: request
     }
 }

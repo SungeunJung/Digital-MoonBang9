@@ -30,12 +30,7 @@ const userSchema = mongoose.Schema({
         type: Array,
         default: []
     },
-    image: {
-        type: Array        
-    },
-    imageClient: {
-        type: Array        
-    },
+    image: String, 
     token: {
         type: String
     },
@@ -61,7 +56,8 @@ userSchema.pre('save', function( next ){ //user 정보를 저장하기 전에 �
     } else {
         next()
     }
-});
+}) 
+
 
 userSchema.methods.comparePassword = function(plainPassword, cb) {
     //plainPassword 1234567와 암호화된 비밀번호가 같은지 확인. plainPassword를 암호화하여 확인.
@@ -101,21 +97,6 @@ userSchema.statics.findByToken = function(token, cb) {
         })
     })
 }
-
-userSchema.pre('findOneAndUpdate', function(next){ //user 정보를 저장하기 전에 실행    
-    const update = this.getUpdate();
-
-    if (update.password !== '' && update.password !== undefined) {
-        bcrypt.genSalt(10, (err, salt) => {
-            bcrypt.hash(update.password, salt, (err, hash) => {
-                this.getUpdate().password = hash;
-                next();
-            })
-        })
-    } else {
-        next();
-    }
-});
 
 const User = mongoose.model('User', userSchema)
 

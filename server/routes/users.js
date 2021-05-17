@@ -4,44 +4,6 @@ const { User } = require("../models/User");
 const { sendEmail } = require('../mail');
 const { auth } = require("../middleware/auth");
 
-const multer = require('multer');
-
-var storage = multer.diskStorage({
-    destination: (req, file, cb) => {
-        cb(null, 'uploads/profile')
-    },
-    filename: (req, file, cb) => {
-        cb(null, `${Date.now()}_${file.originalname}`)
-    },
-    fileFilter: (req, file, cb) => {
-        const ext = path.extname(file.originalname)
-        if (ext !== '.jpg' || ext !== '.png') {
-            return cb(res.status(400).end('only jpg, png are allowed'), false)
-        }
-        cb(null, true)
-    }
-})
-
-var client_storage = multer.diskStorage({
-    destination: (req, file, cb) => {
-        cb(null, 'client/public/uploads/profile/')
-    },
-    filename: (req, file, cb) => {
-        cb(null, `${Date.now()}_${file.originalname}`)
-    },
-    fileFilter: (req, file, cb) => {
-        const ext = path.extname(file.originalname)
-        if (ext !== '.jpg' || ext !== '.png') {
-            return cb(res.status(400).end('only jpg, png are allowed'), false)
-        }
-        cb(null, true)
-    }
-})
-
-var upload = multer({ storage: storage }).single("file")
-var client_upload = multer({ storage: client_storage }).single("file")
-
-
 //=================================
 //             User
 //=================================
@@ -109,7 +71,7 @@ router.post("/login", (req, res) => {
                     .cookie("x_auth", user.token)
                     .status(200)
                     .json({
-                        loginSuccess: true, userId: user._id, userEmail: user.email, userImage: user.imageClient
+                        loginSuccess: true, userId: user._id
                     });
             });
         });
@@ -118,26 +80,13 @@ router.post("/login", (req, res) => {
 
 router.get("/logout", auth, (req, res) => {
     User.findOneAndUpdate({ _id: req.user._id }, 
-        { token: "", tokenExp: "" },        
+        { token: "", tokenExp: "" }, 
         (err, doc) => {
         if (err) return res.json({ success: false, err });
         return res.status(200).send({
             success: true
         });
     });
-});
-
-router.post("/modifyinfo", auth, (req, res) => {
-    User.findOneAndUpdate({ _id: req.user._id }, 
-        { nickname:req.body.nickname, password:req.body.password, image:req.body.image, imageClient:req.body.imageClient }, 
-        (err, doc) => {
-        if (err) return res.json({ success: false, err });
-        return res.status(200).send({
-            success: true
-        });
-    
-    }) .setOptions({ runValidators: true })
-    .exec();   
 });
 
 router.post("/addToLike", auth, (req, res) => {
@@ -200,18 +149,5 @@ router.get("/getLikes", auth, (req, res) => {
     });
 });
 
-router.post("/uploadUserImage", auth, (req,res) => {      
-    upload(req, res, err => {
-        if(err) return res.json({ success: false, err })
-        return res.json({ success: true, image: res.req.file.path, fileName: res.req.file.filename })
-    })
-})
-
-router.post("/uploadUserImageToClient", auth, (req,res) => {      
-    client_upload(req, res, err => {
-        if(err) return res.json({ success: false, err })
-        return res.json({ success: true, image: res.req.file.path, fileName: res.req.file.filename })
-    })
-})
 
 module.exports = router;

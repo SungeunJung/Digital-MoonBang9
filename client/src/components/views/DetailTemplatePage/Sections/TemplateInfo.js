@@ -44,7 +44,7 @@ function TemplateInfo(props) {
 
     const onLikeHandler = () => {
         if(user.userData && !user.userData.isAuth) {//로그인을 안했으면 로그인을 해달라는 메세지 뜨기
-            alert('로그인이 필요합니다.')
+            return alert('로그인이 필요합니다.');
         }
         else {
             dispatch(addToLike(props.detail._id))
@@ -65,7 +65,7 @@ function TemplateInfo(props) {
 
     const onLinkHandler = () => {
         if(user.userData && !user.userData.isAuth) {
-            alert('로그인이 필요합니다.')
+            return alert('로그인이 필요합니다.');
         }
         else {     
             window.open(props.detail.uploadedUrl, "_blank")
