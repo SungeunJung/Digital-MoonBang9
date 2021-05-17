@@ -66,7 +66,7 @@ function LeftMenu(props) {
         <a href="/board/tip">Tip &amp; Review</a>
       </Menu.Item>
       <Menu.Item key="notice">
-        <a href="/board/notice">공지사항</a>
+        <a href="/notice">공지사항</a>
       </Menu.Item>
     </Menu>
   )
