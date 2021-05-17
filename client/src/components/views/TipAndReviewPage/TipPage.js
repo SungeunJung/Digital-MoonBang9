@@ -36,6 +36,7 @@ function TipPage() {
 
     const renderCards = (Tips && Tips.map((tip, index) => {
         console.log(tip._id)
+        console.log(tip.writer.image)
         return <Col key={index} lg={8} md={12} xs={24}>
             <Card
                 hoverable
@@ -50,8 +51,9 @@ function TipPage() {
                     avatar={
                         tip.writer.image?
                     <Avatar
-                        src={tip.writer.image}
+                        src={`http://localhost:2000/${tip.writer.image}`}
                         alt="image"
+                        
                     />:
                     <Avatar style={{ backgroundColor: '#87d068' }} icon={<UserOutlined />} />
                     }

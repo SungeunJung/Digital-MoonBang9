@@ -21,6 +21,7 @@ function UserImageEdit(props) {
         axios.post('/api/users/uploadUserImage', formData, config)
         .then(response => {
             if(response.data.success) {
+                window.localStorage.setItem('newImage', response.data.image);
                 setImage([response.data.image])                
                 props.refreshFunction([response.data.image])
             } else {
@@ -28,7 +29,7 @@ function UserImageEdit(props) {
             }
         })
 
-        axios.post('/api/users/uploadUserImageToClient', formData, config)
+        /*axios.post('/api/users/uploadUserImageToClient', formData, config)
         .then(response => {
             if(response.data.success) {
               window.localStorage.setItem('newImage', response.data.fileName);
@@ -37,7 +38,7 @@ function UserImageEdit(props) {
             } else {
                 alert('Failed to save the Image in Client')
             }
-        })
+        })*/
 
     }
 
@@ -69,7 +70,7 @@ function UserImageEdit(props) {
           >
             
           {Image.length > 0 ? 
-          <Avatar  src={''.concat("\\uploads\\profile\\", str_new)} style={{width:'200px', height:'200px',  borderRadius:"50%",  border: "1px dashed"}}/>
+          <Avatar  src={`http://localhost:2000/${str_new}`} style={{width:'200px', height:'200px',  borderRadius:"50%",  border: "1px dashed"}}/>
           :
           <Avatar icon={<UserOutlined />} size={190} src={''.concat("\\uploads\\profile\\", str)} style={{backgroundColor:'#a5cbf0', width:'200px', height:'200px',  borderRadius:"50%",  border: "1px dashed"}}/>
           }
@@ -82,3 +83,5 @@ function UserImageEdit(props) {
 }
 
 export default UserImageEdit
+
+//{''.concat("\\uploads\\profile\\", str_new)}
