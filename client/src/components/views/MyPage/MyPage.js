@@ -18,14 +18,14 @@ function MyPage(props) {
                 <Title level={2}>마이페이지</Title>
             </div>                   
             
-            <Row gutter={[40]}>     
-                <Col lg={8} xs={24} > 
-                    <Avatar icon={<UserOutlined />} src={''.concat("\\uploads\\profile\\", str)} size={250} style={{marginLeft:'27px',backgroundColor:'#a5cbf0'}}/>
+            <Row gutter={40}>     
+                <Col lg={8} md={16} xs={24} > 
+                    <Avatar icon={<UserOutlined />} src={''.concat("\\uploads\\profile\\", str)} size={250} style={{ width:'75%', height:'85%', alignItems:'center',backgroundColor:'#a5cbf0'}}/>
                     <Button type="default" block style={{height:'40px',backgroundColor:'#8e8f92', marginTop:'20px', borderRadius:'10px', fontSize:'20px'}}>
                         <Link to="/mypage/modifyinfo/">회원정보 수정</Link>
                     </Button>
                 </Col> 
-                <Col lg={8} xs={24} >
+                <Col lg={8} md={16} xs={24} >
                     <Button type="default" block style={{height:'110px', marginTop:'20px', borderRadius:'10px' }}>
                         <Link to="/user/like" style={{fontSize:'25px'}}>찜하기 목록</Link>
                     </Button>
@@ -33,7 +33,7 @@ function MyPage(props) {
                         방문 기록
                     </Button>
                 </Col>
-                <Col lg={8} xs={24}>
+                <Col lg={8} md={16} xs={24}>
                     <Button type="default" block style={{height:'110px', marginTop:'20px',borderRadius:'10px', fontSize:'25px'}} >
                         작성한 글
                     </Button>
