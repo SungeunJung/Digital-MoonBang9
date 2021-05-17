@@ -59,8 +59,8 @@ function App() {
           <Route exact path="/template/:templateId" component={ Auth(DetailTemplatePage, null) } />
           <Route exact path="/mypage" component={ Auth(MyPage, true) } />
           <Route exact path="/mypage/modifyinfo" component={ Auth(ModifyUserInfoPage, true) } />
-          <Route exact path="/user/like" component={Auth(LikePage, true)} />
-          <Route exact path="/recommend" component={ Auth(RecommendPage, null) } />
+          <Route exact path="/user/like" component={Auth(LikePage, true)} /> 
+          <Route exact path="/recommend" component={ Auth(RecommendPage, true) } />
           <Route exact path="/notice" component={ Auth(NoticePage, null) } />
           <Route exact path="/notice/create" component={ Auth(NoticeCreatePage, true) } />{/*관리자만*/}
           <Route exact path="/board/tip" component={ Auth(TipPage, null) } />

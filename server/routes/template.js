@@ -3,6 +3,7 @@ const router = express.Router();
 const { Template } = require("../models/Template");
 const multer = require('multer');
 const { auth } = require("../middleware/auth");
+const { response } = require('express');
 
 var image_storage = multer.diskStorage({
     destination: (req, file, cb) => {
@@ -159,8 +160,18 @@ router.post("/getLikeTemplates", (req, res) => {
     let sortBy = req.body.sortBy ? req.body.sortBy : -1;
     let limit = req.body.limit ? parseInt(req.body.limit) : 20;
     let skip = parseInt(req.body.skip);
+    let recommend = req.body.recommend ? req.body.recommend : false;
 
-    Template.find({ '_id' : { $in : req.body.likes} })
+    if(recommend) {
+        Template.find({ '_id' : { $in : req.body.likes} })
+        .populate("writer")
+        .exec((err, templates) => {
+            if(err) {return res.status(400).json({ success: false, err })}
+            res.status(200).json({ success: true, templates})
+        })
+    }
+    else {
+        Template.find({ '_id' : { $in : req.body.likes} })
         .populate("writer")
         .sort([[sortBy, order]])
         .skip(skip)
@@ -169,7 +180,49 @@ router.post("/getLikeTemplates", (req, res) => {
             if(err) {return res.status(400).json({ success: false, err })}
             res.status(200).json({ success: true, templates, postSize: templates.length})
         })
+    }
     
+    
+});
+
+router.post("/getBestTemplates", (req, res) => {
+    Template.find()
+        .populate("writer")
+        .sort({ "downloads" : -1 })
+        .limit(5)
+        .exec((err, templates) => {
+            if(err) {return res.status(400).json({ success: false, err })}
+            res.status(200).json({ success: true, templates})
+        })
+    
+});
+
+router.post("/getRecommendTemplates", (req, res) => {
+    let category = {}, style={}, find = {}
+
+    //console.log(req.body.filters)
+    for(let key in req.body.filters) {
+        if(req.body.filters[key].length > 0) {
+            if(key === "category") {
+                category[key] = req.body.filters[key];
+            }
+            else {
+                style[key] = req.body.filters[key];
+            }
+        }
+    }
+    //console.log(category)
+    //console.log(style)
+    find['$or'] = [category,style] //나중에 or->and로 변경
+    //console.log(find)
+
+    Template.find(find)
+        .populate("writer")
+        .exec((err, templates) => {
+            if(err) {return res.status(400).json({ success: false, err })}
+            res.status(200).json({ success: true, templates })
+            
+        })
 });
 
 module.exports = router;

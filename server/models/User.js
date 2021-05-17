@@ -26,6 +26,10 @@ const userSchema = mongoose.Schema({
         type: Number,
         default: 0
     },
+    download: {
+        type: Array,
+        default: []
+    },
     like: {
         type: Array,
         default: []

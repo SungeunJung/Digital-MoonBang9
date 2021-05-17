@@ -101,6 +101,8 @@ function LandingPage(props) {
             searchField: SearchField
         }
 
+        console.log(filters)
+        
         getTemplates(variables)
         setSkip(0)
     }
