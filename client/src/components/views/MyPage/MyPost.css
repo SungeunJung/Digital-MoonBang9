@@ -1,0 +1,17 @@
+a.nav_link div {
+    margin: 0px 12px;
+}
+
+a.nav_link:hover div{
+    background-color: rgb(245, 251, 255);
+    color: #40a9ff;
+}
+
+a.nav_link span{
+    font-size: medium;
+}
+
+.ant-list-item-meta-title{
+    font-size: 19px;
+    /*font-weight: bold;*/
+}
