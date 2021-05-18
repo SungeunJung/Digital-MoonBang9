@@ -6,7 +6,8 @@ import { useDispatch } from 'react-redux';
 import { addToLike } from '../../../../_actions/user_action'
 import Axios from 'axios';
 import { useSelector } from "react-redux";
-import { Link } from 'react-router-dom'
+import { Link } from 'react-router-dom';
+import KakaoLinkShare from '../../../utils/KakaoLinkShare';
 
 const Styles = ["심플", "귀여운", "캐릭터", "빈티지", "레트로", "키치", "클래식", "일러스트"]
 
@@ -103,7 +104,7 @@ function TemplateInfo(props) {
                 <HeartOutlined style={{ fontSize: '32px', color: '#f00' }} onClick={onLikeHandler}/>
                 }
 	        </Tooltip>
-            
+            <KakaoLinkShare detail={Template} />
         </div>
     )
 }
