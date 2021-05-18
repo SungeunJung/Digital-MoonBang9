@@ -53,8 +53,6 @@ function App() {
           <Route exact path="/user/like" component={Auth(LikePage, true)} />
           <Route exact path="/recommend" component={ Auth(RecommendPage, null) } />
           <Route exact path="/:category" component={ Auth(LandingPage, null) } />
-          
-          
         </Switch>
         
       </div>
