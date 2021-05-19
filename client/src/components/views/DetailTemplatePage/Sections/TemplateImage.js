@@ -10,8 +10,8 @@ function TemplateImage(props) {
 
             props.detail.images && props.detail.images.map(item => {
                 images.push({
-                    original: `http://localhost:2000/${item}`,
-                    thumbnail: `http://localhost:2000/${item}`
+                    original: (process.env.REACT_APP_S3_URL) +`templateImage/${item}`,
+                    thumbnail: (process.env.REACT_APP_S3_URL) +`templateImage/${item}`
                 })
             })
             setImages(images)

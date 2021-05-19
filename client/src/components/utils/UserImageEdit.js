@@ -5,8 +5,7 @@ import { Avatar } from 'antd';
 import { UserOutlined } from '@ant-design/icons';
 
 function UserImageEdit(props) {
-  const [Image, setImage] = useState([])
-  const [ImageClient, setImageClient] = useState([])  
+  const [Image, setImage] = useState([])  
 
     const onDrop=(files) => {
         let formData = new FormData();
@@ -18,7 +17,7 @@ function UserImageEdit(props) {
         
         
         //save the Image we chose inside the node server
-        axios.post('/api/users/uploadUserImage', formData, config)
+        axios.post('/api/users/uploadUserProfile', formData, config)
         .then(response => {
             if(response.data.success) {
                 setImage([response.data.image])                
@@ -26,24 +25,11 @@ function UserImageEdit(props) {
             } else {
                 alert('Failed to save the Image in Server')
             }
-        })
-
-        axios.post('/api/users/uploadUserImageToClient', formData, config)
-        .then(response => {
-            if(response.data.success) {
-              window.localStorage.setItem('newImage', response.data.fileName);
-              setImageClient([response.data.fileName])
-              props.refreshFunctionClient([response.data.fileName])
-            } else {
-                alert('Failed to save the Image in Client')
-            }
-        })
-
+        })    
     }
 
   console.log(Image)
-  const str = localStorage.getItem("userImage") 
-  const str_new = localStorage.getItem("newImage")  
+  const str = localStorage.getItem("userImage")
 
   return (
     
@@ -69,9 +55,9 @@ function UserImageEdit(props) {
           >
             
           {Image.length > 0 ? 
-          <Avatar  src={''.concat("\\uploads\\profile\\", str_new)} style={{width:'200px', height:'200px',  borderRadius:"50%",  border: "1px dashed"}}/>
+          <Avatar src={'https://myuploads1697.s3.ap-northeast-2.amazonaws.…1621444345488_KakaoTalk_20210411_203402173_14.jpg'} style={{width:'200px', height:'200px',  borderRadius:"50%",  border: "1px dashed"}}/>
           :
-          <Avatar icon={<UserOutlined />} size={190} src={''.concat("\\uploads\\profile\\", str)} style={{backgroundColor:'#a5cbf0', width:'200px', height:'200px',  borderRadius:"50%",  border: "1px dashed"}}/>
+          <Avatar icon={<UserOutlined />} size={190} src={'https://myuploads1697.s3.ap-northeast-2.amazonaws.com/userProfile/1621443678201_KakaoTalk_20210411_203402173_08.jpg'} style={{backgroundColor:'#a5cbf0', width:'200px', height:'200px',  borderRadius:"50%",  border: "1px dashed"}}/>
           }
            
           <input {...getInputProps()} />    

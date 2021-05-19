@@ -3,44 +3,7 @@ const router = express.Router();
 const { User } = require("../models/User");
 const { sendEmail } = require('../mail');
 const { auth } = require("../middleware/auth");
-
-const multer = require('multer');
-
-var storage = multer.diskStorage({
-    destination: (req, file, cb) => {
-        cb(null, 'uploads/profile')
-    },
-    filename: (req, file, cb) => {
-        cb(null, `${Date.now()}_${file.originalname}`)
-    },
-    fileFilter: (req, file, cb) => {
-        const ext = path.extname(file.originalname)
-        if (ext !== '.jpg' || ext !== '.png') {
-            return cb(res.status(400).end('only jpg, png are allowed'), false)
-        }
-        cb(null, true)
-    }
-})
-
-var client_storage = multer.diskStorage({
-    destination: (req, file, cb) => {
-        cb(null, 'client/public/uploads/profile/')
-    },
-    filename: (req, file, cb) => {
-        cb(null, `${Date.now()}_${file.originalname}`)
-    },
-    fileFilter: (req, file, cb) => {
-        const ext = path.extname(file.originalname)
-        if (ext !== '.jpg' || ext !== '.png') {
-            return cb(res.status(400).end('only jpg, png are allowed'), false)
-        }
-        cb(null, true)
-    }
-})
-
-var upload = multer({ storage: storage }).single("file")
-var client_upload = multer({ storage: client_storage }).single("file")
-
+const { uploadUserProfile } = require("../S3upload");
 
 //=================================
 //             User
@@ -199,18 +162,12 @@ router.get("/getLikes", auth, (req, res) => {
     });
 });
 
-router.post("/uploadUserImage", auth, (req,res) => {      
-    upload(req, res, err => {
+router.post("/uploadUserProfile", auth,  (req,res) => {  
+    var uploadImage = uploadUserProfile.single("file");
+    uploadImage(req, res, err => {
         if(err) return res.json({ success: false, err })
-        return res.json({ success: true, image: res.req.file.path, fileName: res.req.file.filename })
-    })
-})
-
-router.post("/uploadUserImageToClient", auth, (req,res) => {      
-    client_upload(req, res, err => {
-        if(err) return res.json({ success: false, err })
-        return res.json({ success: true, image: res.req.file.path, fileName: res.req.file.filename })
-    })
+        return res.json({ success: true, image: res.req.file.location, fileName: res.req.file.key })   
+    }) 
 })
 
 router.post("/duplicateCheck", auth, (req, res) => {

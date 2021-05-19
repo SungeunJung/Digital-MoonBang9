@@ -4,15 +4,9 @@ const { Template } = require("../models/Template");
 const multer = require('multer');
 const { auth } = require("../middleware/auth");
 const { response } = require('express');
+const { uploadTemplateImage, uploadTemplateFile } = require("../S3upload");
 
-var image_storage = multer.diskStorage({
-    destination: (req, file, cb) => {
-        cb(null, 'uploads/')
-    },
-    filename: (req, file, cb) => {
-        cb(null, `${Date.now()}_${file.originalname}`)
-    },
-})
+
 var file_storage = multer.diskStorage({
     destination: (req, file, cb) => {
         cb(null, 'client/public/uploads/')
@@ -22,7 +16,7 @@ var file_storage = multer.diskStorage({
     },
 })
 
-var image_upload = multer({ storage: image_storage }).single("file")
+
 var file_upload = multer({ storage: file_storage }).single("file")
 
 //=================================
@@ -31,20 +25,20 @@ var file_upload = multer({ storage: file_storage }).single("file")
 
 //여기까지 미들웨어(auth)를 통과했다는 얘기는 Authentication이 True 라는 의미
 router.post("/uploadImage", auth, (req, res) => {
-    //after getting that image from client
-    //we need to save it inside Node Server
+    var image_upload = uploadTemplateImage.single("file");
     image_upload(req, res, err => {
+        console.log(req.file)
         if(err) return res.json({ success: false, err })
-        return res.json({ success: true, image: res.req.file.path})
+        return res.json({ success: true, image: res.req.file.key})
     })
 });
 
 router.post("/uploadFile", auth, (req, res) => {
-    //after getting that file from client
-    //we need to save it inside Client Public
+    var file_upload = uploadTemplateFile.single("file")
     file_upload(req, res, err => {
+        console.log(req.file)
         if(err) return res.json({ success: false, err })
-        return res.json({ success: true, fileName: res.req.file.filename })
+        return res.json({ success: true, fileName: res.req.file.key })
     })
 });
 
