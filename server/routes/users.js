@@ -72,7 +72,7 @@ router.post("/login", (req, res) => {
                     .cookie("x_auth", user.token)
                     .status(200)
                     .json({
-                        loginSuccess: true, userId: user._id, userEmail: user.email, userImage: user.imageClient
+                        loginSuccess: true, userId: user._id
                     });
             });
         });
@@ -92,7 +92,7 @@ router.get("/logout", auth, (req, res) => {
 
 router.post("/modifyinfo", auth, (req, res) => {
     User.findOneAndUpdate({ _id: req.user._id }, 
-        { nickname:req.body.nickname, password:req.body.password, image:req.body.image, imageClient:req.body.imageClient }, 
+        { nickname:req.body.nickname, password:req.body.password, image:req.body.image }, 
         (err, doc) => {
         if (err) return res.json({ success: false, err });
         return res.status(200).send({
@@ -166,7 +166,7 @@ router.post("/uploadUserProfile", auth,  (req,res) => {
     var uploadImage = uploadUserProfile.single("file");
     uploadImage(req, res, err => {
         if(err) return res.json({ success: false, err })
-        return res.json({ success: true, image: res.req.file.location, fileName: res.req.file.key })   
+        return res.json({ success: true, image: res.req.file.key })   
     }) 
 })
 

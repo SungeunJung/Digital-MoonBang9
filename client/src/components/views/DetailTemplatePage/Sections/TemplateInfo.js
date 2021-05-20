@@ -24,7 +24,8 @@ function TemplateInfo(props) {
        setTemplate(props.detail)
        var indexs = styles.findIndex(i => i._id == props.detail.styles)
        setStyle(Styles[indexs])
-       setFilePath('/uploads/'+props.detail.uploadedFile)
+       setFilePath((process.env.REACT_APP_S3_URL) +'templateFile/' + props.detail.uploadedFile)
+       console.log((process.env.REACT_APP_S3_URL) +'templateFile/' + props.detail.uploadedFile)
        if(props.detail.uploadedUrl) {
            setLinkDisableAction(false)
        } 

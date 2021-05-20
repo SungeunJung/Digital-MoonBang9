@@ -1,23 +1,10 @@
 const express = require('express');
 const router = express.Router();
 const { Template } = require("../models/Template");
-const multer = require('multer');
 const { auth } = require("../middleware/auth");
 const { response } = require('express');
 const { uploadTemplateImage, uploadTemplateFile } = require("../S3upload");
 
-
-var file_storage = multer.diskStorage({
-    destination: (req, file, cb) => {
-        cb(null, 'client/public/uploads/')
-    },
-    filename: (req, file, cb) => {
-        cb(null, `${Date.now()}_${file.originalname}`)
-    },
-})
-
-
-var file_upload = multer({ storage: file_storage }).single("file")
 
 //=================================
 //             Template

@@ -38,7 +38,7 @@ const storageTemplateFile = multerS3({
     s3: s3,
     bucket: 'myuploads1697/templateFile',
     contentType: multerS3.AUTO_CONTENT_TYPE,
-    contentDisposition:'attachment; filename=file.originalname',
+    contentDisposition : 'inline',
     acl: 'public-read',
     metadata: function (req, file, cb) {
         cb(null, { fieldName: file.fieldname }) 

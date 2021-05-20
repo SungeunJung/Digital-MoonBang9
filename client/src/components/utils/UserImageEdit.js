@@ -1,11 +1,36 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import DropZone from 'react-dropzone';
 import axios from 'axios';
 import { Avatar } from 'antd';
 import { UserOutlined } from '@ant-design/icons';
+import { useSelector } from 'react-redux';
 
 function UserImageEdit(props) {
-  const [Image, setImage] = useState([])  
+  const [Image, setImage] = useState([]) 
+  const [PreImage, setPreImage] = useState([])
+  const user = useSelector(state => state.user);
+
+  useEffect(()=> { 
+    let abortController = new AbortController()
+    const fetchData = async () => {
+      try{
+          const response = await fetch(
+            'https://jsonplaceholder.typicode.com/todos/1',
+            {
+              signal: abortController.signal,
+            },
+          )        
+          setPreImage(user.userData.image)      
+        } catch (error) {
+          if(error.name === 'AbortError') {} 
+        }
+      }
+      fetchData()
+      return () => {
+      abortController.abort()
+      }     
+    }
+  )
 
     const onDrop=(files) => {
         let formData = new FormData();
@@ -29,8 +54,7 @@ function UserImageEdit(props) {
     }
 
   console.log(Image)
-  const str = localStorage.getItem("userImage")
-
+  
   return (
     
     <div
@@ -43,21 +67,21 @@ function UserImageEdit(props) {
     >
 
       <DropZone
-        style={{ width:'200px', height:'200px',  borderRadius:"50%",  border: "1px dashed"}}
+        style={{ width:'200px', height:'200px',  borderRadius:"50%",  border: "none"}}
         onDrop={onDrop}
         multiple={false}
         maxSize={80000000}     
       >
         
          {({getRootProps, getInputProps}) => (
-          <div style={{ width:'200px', height:'200px',  borderRadius:"50%",  border: "1px dashed"} }
+          <div style={{ width:'200px', height:'200px',  borderRadius:"50%",  border: "none"} }
             {...getRootProps() }
           >
             
           {Image.length > 0 ? 
-          <Avatar src={'https://myuploads1697.s3.ap-northeast-2.amazonaws.…1621444345488_KakaoTalk_20210411_203402173_14.jpg'} style={{width:'200px', height:'200px',  borderRadius:"50%",  border: "1px dashed"}}/>
+          <Avatar src={process.env.REACT_APP_S3_URL+`userProfile/${Image}`} style={{width:'200px', height:'200px',  borderRadius:"50%",  border: "1px dashed"}}/>
           :
-          <Avatar icon={<UserOutlined />} size={190} src={'https://myuploads1697.s3.ap-northeast-2.amazonaws.com/userProfile/1621443678201_KakaoTalk_20210411_203402173_08.jpg'} style={{backgroundColor:'#a5cbf0', width:'200px', height:'200px',  borderRadius:"50%",  border: "1px dashed"}}/>
+          <Avatar icon={<UserOutlined />} size={190} src={(process.env.REACT_APP_S3_URL)+`userProfile/${PreImage}`} style={{backgroundColor:'#a5cbf0', width:'200px', height:'200px',  borderRadius:"50%",  border: "1px dashed"}}/>
           }
            
           <input {...getInputProps()} />    
