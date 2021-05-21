@@ -29,17 +29,17 @@ function TemplateInfo(props) {
            setLinkDisableAction(false)
        } 
        Axios.get('/api/users/getLikes')
-      .then(response => {
-         if (response.data.success) {
-             response.data.likes.map(like => {
-                if (like.id === props.detail._id) {
-                   setLikeAction('liked')
-                }
-             })
-         } else {
-            console.log('Failed to get likes')
-         }
-      })
+        .then(response => {
+            if (response.data.success) {
+                response.data.likes.map(like => {
+                    if (like.id === props.detail._id) {
+                    setLikeAction('liked')
+                    }
+                })
+            } else {
+                console.log('Failed to get likes')
+            }
+        })
     }, [props.detail])
 
 

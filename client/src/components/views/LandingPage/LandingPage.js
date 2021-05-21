@@ -175,7 +175,7 @@ function LandingPage(props) {
 
             <Col style={{ display:'flex', justifyContent:'flex-end', margin:'1rem 0 1rem auto' }}>
                 <SortFeature
-                    sortFunction = {showSortedResults}
+                    sortFunction = {showSortedResults} 
                 />
             </Col>
             </Row>
