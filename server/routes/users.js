@@ -73,7 +73,8 @@ router.get("/auth", auth, (req, res) => {
         name: req.user.name,
         role: req.user.role,
         image: req.user.image,
-        like: req.user.like
+        like: req.user.like,
+        download: req.user.download,
     });
 });
 
@@ -211,14 +212,14 @@ router.post("/uploadUserImage", auth, (req,res) => {
         if(err) return res.json({ success: false, err })
         return res.json({ success: true, image: res.req.file.path, fileName: res.req.file.filename })
     })
-})
+});
 
 router.post("/uploadUserImageToClient", auth, (req,res) => {      
     client_upload(req, res, err => {
         if(err) return res.json({ success: false, err })
         return res.json({ success: true, image: res.req.file.path, fileName: res.req.file.filename })
     })
-})
+});
 
 router.post("/duplicateCheck", auth, (req, res) => {
     User.findOne({ nickname : req.body.nickname }, (err, user) => {
@@ -227,6 +228,39 @@ router.post("/duplicateCheck", auth, (req, res) => {
             else res.json ({success:false})
         }
     )
-})
+});
+
+router.post("/addDownload", auth, (req, res) => {
+    User.findOne({ _id: req.user._id },
+        (err, userInfo) => {
+            let duplicate = false;
+            userInfo.download.forEach((item) => {
+                if (item.id === req.body.templateId) {
+                    duplicate = true;
+                }
+            })
+            if (duplicate) {
+                
+            }
+            else {
+                User.findOneAndUpdate(
+                    { _id: req.user._id },
+                    {
+                        $push: {
+                            download: {
+                               id: req.body.templateId,
+                               date: Date.now()
+                            }
+                        }
+                    },
+                    { new: true },
+                    (err, userInfo) => {
+                        if (err) return res.status(400).json({ success: false, err })
+                        res.status(200).send(userInfo.like)
+                    }
+                )
+            }
+        })
+});
 
 module.exports = router;

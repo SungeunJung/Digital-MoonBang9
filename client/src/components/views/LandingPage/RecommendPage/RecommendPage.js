@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Typography, Col, Card, Row } from 'antd';
-import ImageSlider from '../../utils/ImageSlider';
+import ImageSlider from '../../../utils/ImageSlider';
 import { useSelector } from 'react-redux';
 import axios from 'axios';
 import './RecommendPage.css';

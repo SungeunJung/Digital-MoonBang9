@@ -87,4 +87,14 @@ router.post("/getPost", (req, res) => {
         })
 });
 
+router.post("/getMyPost", (req, res) => {
+    Tip.find({ 'writer' : { $in : req.body.id} })
+        .sort({ "createdAt" : -1 })
+        .exec((err, tips) => {
+            if(err) {return res.status(400).json({ success: false, err })}
+            res.status(200).json({ success: true, tips})
+        })
+    
+});
+
 module.exports = router;

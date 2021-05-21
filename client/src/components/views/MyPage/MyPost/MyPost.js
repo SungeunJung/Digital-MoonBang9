@@ -25,6 +25,24 @@ function MyPost(props) {
                     if(response.data.success) {
                         console.log(response.data.templates)
                         setTemplates(response.data.templates)
+                        setTips(response.data.tips)
+                        setReviews(response.data.reviews)
+                    } else {
+                        alert('Failed to fetch template data')
+                    }
+                })
+            axios.post('/api/tip/getMyPost', variables)
+                .then(response => {
+                    if(response.data.success) {
+                        setTips(response.data.tips)
+                    } else {
+                        alert('Failed to fetch template data')
+                    }
+                })
+            axios.post('/api/review/getMyPost', variables)
+                .then(response => {
+                    if(response.data.success) {
+                        setReviews(response.data.reviews)
                     } else {
                         alert('Failed to fetch template data')
                     }
@@ -59,7 +77,8 @@ function MyPost(props) {
     return (
         <div style ={{ width: '65%', margin:'3rem auto', fontFamily: 'kyobo' }}>
             <div style ={{ textAlign: 'center' }}>
-                <Title level={2}>작성한글 목록</Title>
+                <Title level={1}>마이페이지</Title>
+                <Title level={3}>작성한글 목록</Title>
             </div>
 
             <br/>
