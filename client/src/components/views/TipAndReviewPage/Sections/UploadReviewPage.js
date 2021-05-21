@@ -1,17 +1,19 @@
 import React, { useEffect, useState } from 'react'
 import QuillEditor from '../../../editor/QuillEditor';
-import { Typography, Button, Form, message, Input } from 'antd';
+import { Typography, Button, Form, message, Input, Rate } from 'antd';
 import axios from 'axios';
 import { useSelector } from "react-redux";
 
 const { Title } = Typography;
+const desc = ['terrible', 'bad', 'normal', 'good', 'wonderful'];
 
 function UploadReviewPage(props) {
     const user = useSelector(state => state.user);
 
     const [TitleValue, setTitleValue] = useState("")
     const [TemplateValue, setTemplateValue] = useState("")
-    const [content, setContent] = useState("")
+    const [RateValue, setRateValue] = useState(3)
+    const [description, setDescription] = useState("")
     const [files, setFiles] = useState([])
 
     const onTitleChange = (event) => {
@@ -24,8 +26,13 @@ function UploadReviewPage(props) {
         console.log(TemplateValue)
     }
 
+    const onRateChange = (value) => {
+        setRateValue(value)
+        console.log(RateValue)
+      };
+
     const onEditorChange = (value) => {
-        setContent(value)
+        setDescription(value)
     }
 
     const onFilesChange = (files) => {
@@ -34,16 +41,17 @@ function UploadReviewPage(props) {
 
     const onSubmit = (event) => {
         event.preventDefault();
-        //setContent("");
+        setDescription("");
 
-        if(!TitleValue || !content ) {
+        if(!TitleValue || !description ) {
             return alert('Fill all the fields first!')
         }
 
         const variables = {
             title: TitleValue,
             template: TemplateValue,
-            content: content,
+            rate: RateValue,
+            description: description,
             writer: user.userData._id
         }
             axios.post('/api/review/createPost', variables)
@@ -75,7 +83,14 @@ function UploadReviewPage(props) {
                 value={TemplateValue}
             />
             <br/><br/>
-            <p style={{ textAlign: 'center', fontSize: '14px' }} >Content</p>
+            <div style={{ textAlign: 'center' }}>
+            <span style={{ fontSize: '14px' }} >Rate: </span>&nbsp;&nbsp;&nbsp;&nbsp;
+            <Rate tooltips={desc} onChange={onRateChange} value={RateValue} />
+            {RateValue ? <span className="ant-rate-text" style={{ color: '#DAA520' }}>
+                {desc[RateValue - 1]}</span> : ''}
+            </div>
+            <br/>
+            <p style={{ textAlign: 'center', fontSize: '14px' }} >Description</p>
             <QuillEditor
                 placeholder={"Start Posting Something"}
                 onEditorChange={onEditorChange}

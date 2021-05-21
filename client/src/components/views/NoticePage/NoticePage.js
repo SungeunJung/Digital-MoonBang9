@@ -51,7 +51,7 @@ function NoticePage(props) {
                                 <List.Item.Meta
                                     avatar={<Avatar size={40}>운영자</Avatar>} 
                                     title={item.title}
-                                    description={<span>{item.description}</span>}
+                                    description={<span>{item.summary}</span>}
                                 />
                                 <div><span>{item.createdAt.split('T')[0]}</span></div>
                             </List.Item>

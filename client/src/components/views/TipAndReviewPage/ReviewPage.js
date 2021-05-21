@@ -1,13 +1,13 @@
 import React, { useState, useEffect }  from 'react'
 import { Link } from 'react-router-dom';
-import { Col, Row, Button, Card, Avatar, Typography } from 'antd';
+import { Col, Row, Button, Card, Avatar, Typography, Rate } from 'antd';
 import axios from 'axios';
 import { SettingOutlined, EllipsisOutlined, EditOutlined, UserOutlined } from '@ant-design/icons';
 import { useSelector } from "react-redux";
 
 const { Title } = Typography
 const { Meta } = Card;
-
+const desc = ['terrible', 'bad', 'normal', 'good', 'wonderful'];
 const headerStyleOn = {
     color: "black", 
     fontSize: "28px"
@@ -53,11 +53,17 @@ function ReviewPage() {
                     />:
                     <Avatar style={{ backgroundColor: '#87d068' }} icon={<UserOutlined />} />
                     }
+                    
                     title={review.writer.name}
                     description={review.template}
                 />
+                <div >
+                    <Rate tooltips={desc} value={review.rate} style={{ width: "100%" }} />
+                    {review.rate ? <span className="ant-rate-text" style={{ color: "#DAA520" }}>
+                        {desc[review.rate - 1]}</span> : ''}
+                </div>
                 <div style={{ height: 150, overflowY: 'scroll', marginTop: 10 }}>
-                    <div dangerouslySetInnerHTML={{ __html: review.content }} />
+                    <div dangerouslySetInnerHTML={{ __html: review.description }} />
                 </div>
             </Card>
         </Col>

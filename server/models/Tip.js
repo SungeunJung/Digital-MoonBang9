@@ -5,7 +5,7 @@ const tipSchema = mongoose.Schema({
     title: {
         type:String,
     },
-    content: {
+    description: {
         type:String,
     },
     writer: {
