@@ -49,7 +49,7 @@ function LandingPage(props) {
                         setTemplates(response.data.templates)
                     }
                     console.log(response.data.templates)
-                    setPostSize(response.data.postSize)
+                    setPostSize(response.data.postSize) 
                 } else {
                     alert('Failed to fetch template data')
                 }

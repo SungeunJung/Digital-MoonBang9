@@ -18,14 +18,26 @@ router.post("/createPost", (req, res) => {
     })
 });
 
-router.get("/getReviews", (req, res) => {
+router.post("/getReviews", (req, res) => {
+    let limit = req.body.limit ? parseInt(req.body.limit) : 20;
+    let skip = parseInt(req.body.skip);
+
     Review.find()
         .populate("writer")
         .sort({createdAt: -1})
+        .skip(skip)
+        .limit(limit)
         .exec((err, reviews) => {
             if (err) return res.status(400).send(err);
             res.status(200).json({ success: true, reviews });
         });
+});
+
+router.get("/getReviewsCount", (req, res) => {
+    Review.count({}, function(err, count){
+        if (err) return res.status(400).send(err);
+        res.status(200).json({ success: true, count });
+    })
 });
 
 router.post("/getPost", (req, res) => {
