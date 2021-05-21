@@ -155,11 +155,6 @@ function LandingPage(props) {
         getTemplates(variables)
     }
 
-    const pageHeader = () => {
-
-    }
-
-
     return (
         <div style ={{ width: '75%', margin:'3rem auto' }}>
             <div style ={{ textAlign: 'center' }}>

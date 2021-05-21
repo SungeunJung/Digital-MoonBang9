@@ -18,12 +18,19 @@ router.post('/sendEmail', (req, res) => {
     })
   })
 
+router.get('/getAdmin', auth, (req, res) => {
+    return res.status(200).json({
+        success: true,
+        isAdmin: req.user.role === 0 ? false : true
+      })
+})
+
 //여기까지 미들웨어(auth)를 통과했다는 얘기는 Authentication이 True 라는 의미
 router.get("/auth", auth, (req, res) => {
     res.status(200).json({
         _id: req.user._id, //auth.js에서 user를 req.user에 넣어줘서 가능
         nickname: req.user.nickname,
-        isAdmin: req.user.role === 0 ? false : true, //role 0이면 일반유저 0이 아니면 관리자
+        isAdmin: req.user.role === 0 ? false : true, //role 0이면 일반유저 0이 아니면 관리자!
         isAuth: true,
         email: req.user.email,
         name: req.user.name,
@@ -81,7 +88,7 @@ router.post("/login", (req, res) => {
 
 router.get("/logout", auth, (req, res) => {
     User.findOneAndUpdate({ _id: req.user._id }, 
-        { token: "", tokenExp: "" },        
+        { token: "", tokenExp: "" }, 
         (err, doc) => {
         if (err) return res.json({ success: false, err });
         return res.status(200).send({

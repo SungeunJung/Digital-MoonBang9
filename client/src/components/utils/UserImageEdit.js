@@ -45,12 +45,29 @@ function UserImageEdit(props) {
         axios.post('/api/users/uploadUserProfile', formData, config)
         .then(response => {
             if(response.data.success) {
+                //window.localStorage.setItem('newImage', response.data.image);
                 setImage([response.data.image])                
                 props.refreshFunction([response.data.image])
             } else {
                 alert('Failed to save the Image in Server')
             }
+<<<<<<< HEAD
         })    
+=======
+        })
+
+        /*axios.post('/api/users/uploadUserImageToClient', formData, config)
+        .then(response => {
+            if(response.data.success) {
+              window.localStorage.setItem('newImage', response.data.fileName);
+              setImageClient([response.data.fileName])
+              props.refreshFunctionClient([response.data.fileName])
+            } else {
+                alert('Failed to save the Image in Client')
+            }
+        })*/
+
+>>>>>>> master
     }
 
   console.log(Image)
@@ -79,7 +96,11 @@ function UserImageEdit(props) {
           >
             
           {Image.length > 0 ? 
+<<<<<<< HEAD
           <Avatar src={process.env.REACT_APP_S3_URL+`userProfile/${Image}`} style={{width:'200px', height:'200px',  borderRadius:"50%",  border: "1px dashed"}}/>
+=======
+          <Avatar  src={`http://localhost:2000/${Image}`} style={{width:'200px', height:'200px',  borderRadius:"50%",  border: "1px dashed"}}/>
+>>>>>>> master
           :
           <Avatar icon={<UserOutlined />} size={190} src={(process.env.REACT_APP_S3_URL)+`userProfile/${PreImage}`} style={{backgroundColor:'#a5cbf0', width:'200px', height:'200px',  borderRadius:"50%",  border: "1px dashed"}}/>
           }
@@ -92,3 +113,5 @@ function UserImageEdit(props) {
 }
 
 export default UserImageEdit
+
+//{''.concat("\\uploads\\profile\\", str_new)}

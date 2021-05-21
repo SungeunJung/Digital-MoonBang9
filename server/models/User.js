@@ -22,7 +22,7 @@ const userSchema = mongoose.Schema({
         type: String,
         maxlength: 50
     },
-    role: { //관리자 or 일반 유저
+    role: { //관리자(1) or 일반 유저(0)
         type: Number,
         default: 0
     },
@@ -39,14 +39,14 @@ const userSchema = mongoose.Schema({
     },
     imageClient: {
         type: Array        
-    },
+    }, 
     token: {
         type: String
     },
     tokenExp: { //토큰 유효기간
         type: Number
     }
-})
+});
 
 userSchema.pre('save', function( next ){ //user 정보를 저장하기 전에 실행
     var user = this; //== userSchema
@@ -65,7 +65,8 @@ userSchema.pre('save', function( next ){ //user 정보를 저장하기 전에 �
     } else {
         next()
     }
-});
+}) 
+
 
 userSchema.methods.comparePassword = function(plainPassword, cb) {
     //plainPassword 1234567와 암호화된 비밀번호가 같은지 확인. plainPassword를 암호화하여 확인.

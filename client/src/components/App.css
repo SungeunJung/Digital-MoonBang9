@@ -15,15 +15,39 @@
 
 @font-face {
   font-family: 'cookie-bold';
-  src: url(../fonts/쿠키런\ Bold/CookieRun\ Bold.ttf)
+  src: url(../fonts/CookieRunFont_TTF/CookieRun\ Bold.ttf)
 }
 @font-face {
-  font-family: 'netmarbleB';
+  font-family: 'cookie-regular';
+  src: url(../fonts/CookieRunFont_TTF/CookieRun\ Regular.ttf)
+}
+@font-face {
+  font-family: 'netmarble-bold';
   src: url(../fonts/netmarble_font/netmarbleB.ttf)
+}
+@font-face {
+  font-family: 'Timon-bold';
+  src: url(../fonts/Timon/TmonMonsori.ttf.ttf)
+}
+@font-face {
+  font-family: 'Timon-regular';
+  src: url(../fonts/Timon/TmonTium.ttf)
+}
+@font-face {
+  font-family: 'kyobo';
+  src: url(../fonts/Kyobo/Kyobo\ Handwriting\ 2019.ttf)
 }
 @font-face {
   font-family: 'BR-bold';
   src: url(../fonts/BR_FONT/배스킨라빈스\ B.ttf)
+}
+@font-face {
+  font-family: 'UhBeeMiMi-bold';
+  src: url(../fonts/UhBeeMiMi/UhBee\ MiMi\ Bold.ttf)
+}
+@font-face {
+  font-family: 'UhBeeMiMi-regular';
+  src: url(../fonts/UhBeeMiMi/UhBee\ MiMi.ttf)
 }
 
 .logo {

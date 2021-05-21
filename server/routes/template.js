@@ -116,7 +116,7 @@ router.post("/getTemplates", (req, res) => {
 
 //?id=${templateId}&type=single
 //여러개 가져올 때는 type=array
-router.get("/templates_by_id", (req, res) => {
+router.get("/templates_by_id", (req, res) => {//
     let type = req.query.type
     let templateIds = req.query.id
 
@@ -192,10 +192,7 @@ router.post("/getRecommendTemplates", (req, res) => {
             }
         }
     }
-    //console.log(category)
-    //console.log(style)
     find['$or'] = [category,style] //나중에 or->and로 변경
-    //console.log(find)
 
     Template.find(find)
         .populate("writer")
@@ -203,6 +200,16 @@ router.post("/getRecommendTemplates", (req, res) => {
             if(err) {return res.status(400).json({ success: false, err })}
             res.status(200).json({ success: true, templates })
         })
+});
+
+router.post("/getMyPost", (req, res) => {
+    Template.find({ 'writer' : { $in : req.body.id} })
+        .sort({ "createdAt" : -1 })
+        .exec((err, templates) => {
+            if(err) {return res.status(400).json({ success: false, err })}
+            res.status(200).json({ success: true, templates})
+        })
+    
 });
 
 module.exports = router;

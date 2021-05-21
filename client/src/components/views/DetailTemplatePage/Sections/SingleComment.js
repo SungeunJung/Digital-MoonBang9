@@ -52,7 +52,7 @@ function SingleComment(props) {
                 author={props.comment.writer.nickname}
                 avatar={props.comment.writer.image?
                     <Avatar
-                        src={props.comment.writer.image}
+                        src={`http://localhost:2000/${props.comment.writer.image}`}
                         alt="image"
                     />:
                     <Avatar style={{ backgroundColor: '#87d068' }} icon={<UserOutlined />} />
@@ -63,6 +63,7 @@ function SingleComment(props) {
                     </p>
                 }
             ></Comment>
+
 
             {OpenReply &&
                 <form style={{ display: 'flex' }} onSubmit={onSubmit}>
@@ -76,8 +77,6 @@ function SingleComment(props) {
                     <Button type="primary" style={{ width: '20%', height: '52px' }} onClick={onSubmit}>Submit</Button>
                 </form>
             }
-            
-
         </div>
     )
 }

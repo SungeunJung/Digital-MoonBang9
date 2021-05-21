@@ -74,4 +74,4 @@ export function addToLike(id) {
          type: ADD_TO_LIKE,
          payload: request
      }
- }
+}

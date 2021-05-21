@@ -63,10 +63,10 @@ function LeftMenu(props) {
         </SubMenu>
       </SubMenu>
       <Menu.Item key="tipandreview">
-        Tip &amp; Review
+        <a href="/tip">Tip &amp; Review</a>
       </Menu.Item>
       <Menu.Item key="notice">
-        공지사항
+        <a href="/notice">공지사항</a>
       </Menu.Item>
     </Menu>
   )

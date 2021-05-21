@@ -23,10 +23,9 @@ function BreadCrumb(props) {
                 setDetail(splitPage[2]);
                 Pages = 2;
                 //console.log(splitPage[2])
-            }
+            }            
         }
         getNames();
-        
     }, [])
 
     const getNames = () => {

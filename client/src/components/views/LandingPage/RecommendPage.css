@@ -1,0 +1,21 @@
+.container {
+    width:95%;
+    height: 300px;
+    overflow-x: scroll;
+}
+.container::-webkit-scrollbar {
+    width: 10px;
+}
+.container::-webkit-scrollbar-thumb {
+    /*#2f3542;*/
+    background-color: #B4E5FF;
+    border-radius: 10px;
+    background-clip: padding-box;
+    border: 2px solid transparent;
+}
+.container::-webkit-scrollbar-track {
+    /*grey;*/
+    background-color: #EBFBFF;
+    border-radius: 10px;
+    box-shadow: inset 0px 0px 5px white;
+}  
