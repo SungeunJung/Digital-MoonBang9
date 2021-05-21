@@ -6,11 +6,11 @@ import { useSelector } from "react-redux";
 
 const { Title } = Typography;
 
-function UploadNoticePage(props) {
+function UploadReviewPage(props) {
     const user = useSelector(state => state.user);
 
     const [TitleValue, setTitleValue] = useState("")
-    const [DescriptionValue, setDescriptionValue] = useState("")
+    const [TemplateValue, setTemplateValue] = useState("")
     const [content, setContent] = useState("")
     const [files, setFiles] = useState([])
 
@@ -19,9 +19,9 @@ function UploadNoticePage(props) {
         console.log(TitleValue)
     }
 
-    const onDescriptionChange = (event) => {
-        setDescriptionValue(event.currentTarget.value)
-        console.log(DescriptionValue)
+    const onTemplateChange = (event) => {
+        setTemplateValue(event.currentTarget.value)
+        console.log(TemplateValue)
     }
 
     const onEditorChange = (value) => {
@@ -34,7 +34,7 @@ function UploadNoticePage(props) {
 
     const onSubmit = (event) => {
         event.preventDefault();
-        setContent("");
+        //setContent("");
 
         if(!TitleValue || !content ) {
             return alert('Fill all the fields first!')
@@ -42,26 +42,25 @@ function UploadNoticePage(props) {
 
         const variables = {
             title: TitleValue,
-            description: DescriptionValue,
+            template: TemplateValue,
             content: content,
             writer: user.userData._id
         }
-        
-        axios.post('/api/notice/createPost', variables)
-        .then(response => {
-            if (response) {
-                message.success('Post Created!');
-                setTimeout(() => {
-                    props.history.push("/notice")
-                }, 2000);
-            }
-        })
+            axios.post('/api/review/createPost', variables)
+            .then(response => {
+                if (response) {
+                    message.success('Post Created!');
+                    setTimeout(() => {
+                        props.history.push("/review")
+                    }, 2000);
+                }
+            })
     }
 
     return (
         <div style={{ maxWidth: '700px', margin: '2rem auto' }}>
             <div style={{ textAlign: 'center' }}>
-                <Title level={2} > 공지사항 작성하기</Title>
+                <Title level={2} > 리뷰 작성하기</Title>
             </div>
             <Form onSubmit={onSubmit}>
             <p style={{ textAlign: 'center', fontSize: '14px' }} >Title</p>
@@ -70,10 +69,10 @@ function UploadNoticePage(props) {
                 value={TitleValue}
             />
             <br/><br/>
-            <p style={{ textAlign: 'center', fontSize: '14px' }} >Description</p>
+            <p style={{ textAlign: 'center', fontSize: '14px' }} >Template Name</p>
             <Input
-                onChange={onDescriptionChange}
-                value={DescriptionValue}
+                onChange={onTemplateChange}
+                value={TemplateValue}
             />
             <br/><br/>
             <p style={{ textAlign: 'center', fontSize: '14px' }} >Content</p>
@@ -82,7 +81,6 @@ function UploadNoticePage(props) {
                 onEditorChange={onEditorChange}
                 onFilesChange={onFilesChange}
             />
-
                 <div style={{ textAlign: 'center', margin: '2rem', }}>
                     <Button
                         size="large"
@@ -98,4 +96,4 @@ function UploadNoticePage(props) {
     )
 }
 
-export default UploadNoticePage
+export default UploadReviewPage

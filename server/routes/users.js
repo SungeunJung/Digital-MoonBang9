@@ -55,6 +55,13 @@ router.post('/sendEmail', (req, res) => {
     })
   })
 
+router.get('/getAdmin', auth, (req, res) => {
+    return res.status(200).json({
+        success: true,
+        isAdmin: req.user.role === 0 ? false : true
+      })
+})
+
 //여기까지 미들웨어(auth)를 통과했다는 얘기는 Authentication이 True 라는 의미
 router.get("/auth", auth, (req, res) => {
     res.status(200).json({

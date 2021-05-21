@@ -1,42 +1,31 @@
 import React, { useEffect, useState } from 'react'
 import axios from 'axios';
+import { NavLink } from 'react-router-dom';
 import { Link } from 'react-router-dom';
-import { Card, Avatar, Col, Typography, Row, Button, Table } from 'antd';
-import { SettingOutlined, EllipsisOutlined, EditOutlined, UserOutlined } from '@ant-design/icons';
+import { Card, Avatar, Col, Typography, Row, Button, Table, List, Space } from 'antd';
+import { UserOutlined } from '@ant-design/icons';
 import { useSelector } from "react-redux";
 const { Title } = Typography
 const { Meta } = Card;
-const { Column } = Table;
 
-const columns = [
-    {
-        title: 'No.',
-        dataIndex: 'no', 
-    },
-    {
-        title: 'Title',
-        dataIndex: 'title',
-        render: text => <a>{}</a>,
-    },
-    {
-        title: 'Name',
-        dataIndex: 'name',
-    },
-    {
-        title: 'Date',
-        dataIndex: 'date',
-    },
-  ];
-
-
-
-function NoticePage() {
+function NoticePage(props) {
 
     const user = useSelector(state => state.user);
     const [Notices, setNotices] = useState([])
+    const [Admin, setAdmin] = useState(false)
     const data = [];
 
     useEffect(() => {
+        axios.get('/api/users/getAdmin')
+            .then(response=>{
+                if (response.data.success) {
+                    console.log(response.data.isAdmin)
+                    setAdmin(response.data.isAdmin)
+                } else {
+                   console.log('Failed to get Admin')
+                }
+             })
+
         axios.get('/api/notice/getNotices')
             .then(response => {
                 if (response.data.success) {
@@ -49,28 +38,37 @@ function NoticePage() {
 
     }, [])
 
-    
-    const renderCards = (Notices && Notices.map((notice, index) => {
-        console.log(notice._id)
-        
-        data.push({
-        key: index,
-        no: index,
-        title: `${notice.title}`,
-        name: "운영자",
-        date: `${notice.updatedAt}`,
-        id: `${notice._id}`
-        })
-    }))   
+    const PostList = (temp) => {
+        return <List
+                    style={{ maxWidth: '700px', margin: '2rem auto'}}
+                    className="demo-loadmore-list"
+                    itemLayout="horizontal"
+                    dataSource={temp}
+                    renderItem={item => (
+                        <NavLink to = {`/notice/post/${item._id}`} className='nav_link'>
+                            <div>
+                            <List.Item>
+                                <List.Item.Meta
+                                    avatar={<Avatar size={40}>운영자</Avatar>} 
+                                    title={item.title}
+                                    description={<span>{item.description}</span>}
+                                />
+                                <div><span>{item.createdAt.split('T')[0]}</span></div>
+                            </List.Item>
+                            </div>
+                        </NavLink>
+                    )}
+                />
+    }
 
     return (
         <div style={{ maxWidth: '900px', margin: '4rem auto'}}>
-            <Row>
+            <Row>{/*style={{ display:'flex', justifyContent:'flex-end', margin:'1rem auto 1rem 0' }}*/}
                 <Col style={{width : '450px'}}>
                     <strong><p style={{color : 'black', fontSize: "28px"}}> Notice </p></strong>
                 </Col>
                 <Col align="right" style={{ width : '450px' }}>
-                { (user.userData && !user.userData.isAdmin) ? //관리자면 isAdmin이 true임.
+                { (user.userData && !Admin) ?
                     <span></span> : 
                     <Link to="/notice/upload"> 
                         <Button size='large' type="primary" ghost style={{ align: 'right' }}> 공지글 쓰기 </Button>
@@ -84,13 +82,7 @@ function NoticePage() {
                 <h2>No post yet...</h2>
                 </div> :
                 <div>
-                    <Table columns={columns} dataSource={data}> 
-                        <Column title="No." dataIndex="no" key="no" />
-                        <Column title="Title" dataIndex="title" key="title" />
-                        
-                        <Column title="Name" dataIndex="name" key="name" />
-                        <Column title="Date" dataIndex="date" key="date" />
-                    </Table>
+                    {PostList(Notices)}
                 </div>
             }
         </div>

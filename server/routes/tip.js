@@ -1,7 +1,6 @@
 const express = require('express');
 const router = express.Router();
 const { Tip } = require("../models/Tip");
-const { Review } = require("../models/Review");
 
 const { auth } = require("../middleware/auth");
 const multer = require("multer");
@@ -48,47 +47,34 @@ router.post("/uploadfiles", (req, res) => {
 });
 
 router.post("/createPost", (req, res) => {
-    let type = req.query.Type
-    
-    if(type === 0) {
-        let tip = new Tip({ title: req.body.title, content: req.body.content, writer: req.body.writer });
-        
-        tip.save((err, postInfo) => {
-            if (err) return res.json({ success: false, err });
-            return res.status(200).json({ success: true, postInfo })
-        })
-    }
-    else {
-        let review = new Review({ title: req.body.title, content: req.body.content, writer: req.body.writer });
+    let tip = new Tip({ title: req.body.title, content: req.body.content, writer: req.body.writer });
 
-        review.save((err, postInfo) => {
-            if (err) return res.json({ success: false, err });
-            return res.status(200).json({ success: true, postInfo })
-        })
-    }
+    tip.save((err, postInfo) => {
+        if (err) return res.json({ success: false, err });
+        return res.status(200).json({ success: true, postInfo })
+    })
+
+    //생각 해보니  세이브 할떄 populate 할필요가 없다.   가져올떄 하면 되니깐...
+    // tip.save((err, response) => {
+    //     if (err) return res.json({ success: false, err });
+    //     Tip.find({ _id: response._id })
+    //         .populate('writer')
+    //         .exec((err, result) => {
+    //             let postInfo = result[0]
+    //             if (err) return res.json({ success: false, err });
+    //             return res.status(200).json({ success: true,  postInfo });
+    //         })
+    // });
 });
 
 
-router.get("/getTipOrReview", (req, res) => {
-    let type = req.query.Type
-
-    if(type === 0) {
-        return 0
-        /*Tip.find()
+router.get("/getTips", (req, res) => {
+    Tip.find()
         .populate("writer")
-        .exec((err, tipOrReviews) => {
+        .exec((err, tips) => {
             if (err) return res.status(400).send(err);
-            res.status(200).json({ success: true, tipOrReviews });
-        });*/
-    }
-    else {
-        Review.find()
-        .populate("writer")
-        .exec((err, tipOrReviews) => {
-            if (err) return res.status(400).send(err);
-            res.status(200).json({ success: true, tipOrReviews });
+            res.status(200).json({ success: true, tips });
         });
-    }
 });
 
 router.post("/getPost", (req, res) => {

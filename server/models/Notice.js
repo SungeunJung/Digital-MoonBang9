@@ -6,6 +6,9 @@ const noticeSchema = mongoose.Schema({
         type: String, 
         maxlength: 50
     },
+    description: {
+        type: String,
+    },
     content: {
         type:String,
     },

@@ -6,13 +6,17 @@ import { useSelector } from "react-redux";
 
 const { Title } = Typography;
 
-function UploadTipAndReviewPage(props) {
+function UploadTipPage(props) {
     const user = useSelector(state => state.user);
 
-    const [Type, setType] = useState(props.match.params.Type)
+    const [TitleValue, setTitleValue] = useState("")
     const [content, setContent] = useState("")
     const [files, setFiles] = useState([])
-    const [TitleValue, setTitleValue] = useState("")
+
+    const onTitleChange = (event) => {
+        setTitleValue(event.currentTarget.value)
+        console.log(TitleValue)
+    }
 
     const onEditorChange = (value) => {
         setContent(value)
@@ -26,43 +30,39 @@ function UploadTipAndReviewPage(props) {
         event.preventDefault();
         setContent("");
 
+        if(!TitleValue || !content ) {
+            return alert('Fill all the fields first!')
+        }
+
         const variables = {
             title: TitleValue,
             content: content,
             writer: user.userData._id
         }
-            axios.post(`/api/tipAndReview/createPost?Type=${Type}`, variables)
+            axios.post('/api/tip/createPost', variables)
             .then(response => {
                 if (response) {
                     message.success('Post Created!');
                     setTimeout(() => {
-                        props.history.push("/tipAndReview")
+                        props.history.push("/tip")
                     }, 2000);
                 }
             })
     }
 
-    const onTitleChange = (event) => {
-        setTitleValue(event.currentTarget.value)
-        console.log(TitleValue)
-    }
-
     return (
         <div style={{ maxWidth: '700px', margin: '2rem auto' }}>
             <div style={{ textAlign: 'center' }}>
-                
-                <Title level={2} >{Type === 0 ? "팁 작성하기": "리뷰 작성하기"}</Title>
-                
+                <Title level={2} > 팁 작성하기</Title>
             </div>
-
             <Form onSubmit={onSubmit}>
-
             <p style={{ textAlign: 'center', fontSize: '14px' }} >Title</p>
             <Input
                 onChange={onTitleChange}
                 value={TitleValue}
             />
-            <br/><br/><br/>
+            <br/><br/>
+            <p style={{ textAlign: 'center', fontSize: '14px' }} >Content</p>
             <QuillEditor
                 placeholder={"Start Posting Something"}
                 onEditorChange={onEditorChange}
@@ -83,4 +83,4 @@ function UploadTipAndReviewPage(props) {
     )
 }
 
-export default UploadTipAndReviewPage
+export default UploadTipPage

@@ -23,9 +23,13 @@ import NoticePage from "./views/NoticePage/NoticePage";
 import UploadNoticePage from "./views/NoticePage/Sections/UploadNoticePage";
 import DetailNoticePage from "./views/DetailPage/DetailNoticePage";
 
-import TipAndReviewPage from "./views/TipAndReviewPage/TipAndReviewPage"
-import UploadTipAndReviewPage from "./views/TipAndReviewPage/Sections/UploadTipAndReviewPage";
-import DetailTipAndReviewPage from "./views/DetailPage/DetailTipAndReviewPage";
+import TipPage from "./views/TipAndReviewPage/TipPage";
+import UploadTipPage from "./views/TipAndReviewPage/Sections/UploadTipPage";
+import DetailTipPage from "./views/DetailPage/DetailTipPage";
+
+import ReviewPage from "./views/TipAndReviewPage/ReviewPage";
+import UploadReviewPage from "./views/TipAndReviewPage/Sections/UploadReviewPage";
+import DetailReviewPage from "./views/DetailPage/DetailReviewPage";
 
 import Auth from '../hoc/auth';
 import './App.css';
@@ -66,10 +70,15 @@ function App() {
           <Route exact path="/notice/upload" component={ Auth(UploadNoticePage, true) } />{/*관리자만*/}
           <Route exact path="/notice/post/:postId" component={ Auth(DetailNoticePage, null) } />
 
-          <Route exact path="/tipAndReview" component={ Auth(TipAndReviewPage, null) } />
-          <Route exact path="/tipAndReview/upload/:type" component={ Auth(UploadTipAndReviewPage, null) } />
-          <Route exact path="/tipAndReview/post/:postId" component={ Auth(DetailTipAndReviewPage, null) } />
-          
+          <Route exact path="/tip" component={ Auth(TipPage, null) } />
+          <Route exact path="/tip/upload" component={ Auth(UploadTipPage, true) } />
+          <Route exact path="/tip/post/:postId" component={ Auth(DetailTipPage, null) } />
+
+          <Route exact path="/review" component={ Auth(ReviewPage, null) } />
+          <Route exact path="/review/upload" component={ Auth(UploadReviewPage, true) } />
+          <Route exact path="/review/post/:postId" component={ Auth(DetailReviewPage, null) } />
+
+ 
           <Route exact path="/:category" component={ Auth(LandingPage, null) } />
         </Switch>
         

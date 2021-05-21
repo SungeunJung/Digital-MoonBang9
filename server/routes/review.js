@@ -8,7 +8,8 @@ const { auth } = require("../middleware/auth");
 //=================================
 
 router.post("/createPost", (req, res) => {
-    let review = new Review({ content: req.body.content, writer: req.body.writer });
+    let review = new Review({ 
+        title: req.body.title, template: req.body.template, content: req.body.content, writer: req.body.writer });
 
     review.save((err, postInfo) => {
         if (err) return res.json({ success: false, err });

@@ -41,9 +41,7 @@ function ReviewPage() {
                 hoverable
                 style={{ width: 250, marginTop: 16 }}
                 actions={[
-                    <SettingOutlined />,
-                    <EditOutlined />,
-                    <a href={`/review/post/${review._id}`}> <EllipsisOutlined /></a>,
+                    <a href={`/review/post/${review._id}`}>자세히보기</a>,
                 ]}
             >
                 <Meta
@@ -56,7 +54,7 @@ function ReviewPage() {
                     <Avatar style={{ backgroundColor: '#87d068' }} icon={<UserOutlined />} />
                     }
                     title={review.writer.name}
-                    description="클루리스 다이어리"
+                    description={review.template}
                 />
                 <div style={{ height: 150, overflowY: 'scroll', marginTop: 10 }}>
                     <div dangerouslySetInnerHTML={{ __html: review.content }} />
@@ -77,7 +75,7 @@ function ReviewPage() {
                 <Col align="right" style={{ width : '450px' }}>
                 { (user.userData && !user.userData.isAuth) ?
                     <span></span> : 
-                    <Link to="/review/create"> 
+                    <Link to="/review/upload"> 
                         <Button size='large' type="primary" ghost style={{ align: 'right' }}> 작성하기 </Button>
                     </Link>
                 }

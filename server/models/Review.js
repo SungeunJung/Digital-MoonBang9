@@ -2,6 +2,12 @@ const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
 const reviewSchema = mongoose.Schema({
+    title: {
+        type:String,
+    },
+    template: {
+        type:String,
+    },
     content: {
         type:String,
     },

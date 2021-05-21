@@ -3,7 +3,7 @@ import axios from 'axios';
 import { Card, Icon, Avatar, Col, Typography } from 'antd';
 const { Title } = Typography
 
-function DetailNoticePage(props) {
+function DetailTipPage(props) {
 
     const [post, setPost] = useState([])
     const postId = props.match.params.postId;
@@ -12,7 +12,7 @@ function DetailNoticePage(props) {
 
         const variable = { postId: postId }
 
-        axios.post('/api/notice/getPost', variable)
+        axios.post('/api/tip/getPost', variable)
             .then(response => {
                 if (response.data.success) {
                     console.log(response.data.post)
@@ -25,12 +25,19 @@ function DetailNoticePage(props) {
 
     if (post.writer) {
         return (
-            <div className="postPage" style={{ width: '60%', margin: '7rem auto' }}>
+            <div className="postPage" style={{ width: '60%', margin: '5rem auto' }}>
                 <Title level={2}>{post.title}</Title>
+                <div style={{ display: 'flex'}}>
+                    <Avatar
+                        src={`http://localhost:2000/${post.writer.image}`}
+                        alt="image"
+                    />&nbsp;&nbsp;
+                    <Title level={5}>{post.writer.nickname}</Title>
+                </div>
                 <div style={{ display: 'flex', justifyContent: 'flex-end' }}>
                     <Title level={4}>{post.createdAt.split('T')[0]}</Title>
                 </div>
-                <br/>
+                <br />
                 <div dangerouslySetInnerHTML={{ __html: post.content }} />
 
             </div>
@@ -43,4 +50,4 @@ function DetailNoticePage(props) {
 
 }
 
-export default DetailNoticePage
+export default DetailTipPage
