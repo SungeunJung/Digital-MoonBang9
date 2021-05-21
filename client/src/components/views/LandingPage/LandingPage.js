@@ -39,7 +39,7 @@ function LandingPage(props) {
         getTemplates(variables)
     }, [])
 
-    const getTemplates = (variables) => {
+    const getTemplates = (variables) => { 
         axios.post('/api/template/getTemplates', variables)
             .then(response => {
                 if(response.data.success) {

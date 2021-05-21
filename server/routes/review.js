@@ -21,6 +21,7 @@ router.post("/createPost", (req, res) => {
 router.get("/getReviews", (req, res) => {
     Review.find()
         .populate("writer")
+        .sort({createdAt: -1})
         .exec((err, reviews) => {
             if (err) return res.status(400).send(err);
             res.status(200).json({ success: true, reviews });

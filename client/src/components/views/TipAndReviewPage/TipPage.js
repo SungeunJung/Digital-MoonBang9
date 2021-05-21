@@ -23,7 +23,7 @@ function TipPage() {
     const [Tips, setTips] = useState([])
 
     useEffect(() => {
-        axios.get('/api/tip/getTips')
+        axios.get('/api/tip/getTips') 
             .then(response => {
                 if (response.data.success) {
                     console.log(response.data.tips)

@@ -98,7 +98,7 @@ router.post("/getTemplates", (req, res) => {
             Template.find(findArgs)
             .find(field) //몽고디비 메소드 
             .populate("writer")
-            .sort(sortBy)
+            .sort(sortBy) 
             .skip(skip)
             .limit(limit)
             .exec((err, templates) => {

@@ -72,6 +72,7 @@ router.post("/createPost", (req, res) => {
 router.get("/getTips", (req, res) => {
     Tip.find()
         .populate("writer")
+        .sort({createdAt: -1})
         .exec((err, tips) => {
             if (err) return res.status(400).send(err);
             res.status(200).json({ success: true, tips });

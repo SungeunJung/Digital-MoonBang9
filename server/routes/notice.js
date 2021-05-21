@@ -21,6 +21,7 @@ router.post("/createPost", auth, (req, res) => {
 router.get("/getNotices", (req, res) => {
     Notice.find()
         .populate("writer")
+        .sort({createdAt: -1})
         .exec((err, notices) => {
             if (err) return res.status(400).send(err);
             res.status(200).json({ success: true, notices });
