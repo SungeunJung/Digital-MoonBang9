@@ -8,7 +8,7 @@ import Comments from './Sections/Comments'
 
 function DetailTemplatePage(props) {
 
-    const templateId = props.match.params.templateId
+    const templateId = props.match.params.templateId 
     const [Template, setTemplate] = useState([])
     const [CommentLists, setCommentLists] = useState([])
 

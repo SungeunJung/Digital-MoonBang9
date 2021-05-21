@@ -18,15 +18,15 @@ import DetailTemplatePage from './views/DetailTemplatePage/DetailTemplatePage'
 import MyPage from './views/MyPage/MyPage'
 import ModifyUserInfoPage from './views/MyPage/ModifyUserInfoPage'
 import LikePage from './views/LikePage/LikePage';
-import TipPostPage from "./views/PostPage/TipPostPage";
-import ReviewPostPage from "./views/PostPage/ReviewPostPage";
-import NoticePostPage from "./views/PostPage/NoticePostPage";
+
 import NoticePage from "./views/NoticePage/NoticePage";
-import NoticeCreatePage from "./views/NoticePage/Sections/NoticeCreatePage";
-import TipPage from "./views/TipAndReviewPage/TipPage"
-import ReviewPage from "./views/TipAndReviewPage/ReviewPage"
-import CreateTipPage from "./views/TipAndReviewPage/Sections/CreateTipPage";
-import CreateReviewPage from "./views/TipAndReviewPage/Sections/CreateReviewPage";
+import UploadNoticePage from "./views/NoticePage/Sections/UploadNoticePage";
+import DetailNoticePage from "./views/DetailPage/DetailNoticePage";
+
+import TipAndReviewPage from "./views/TipAndReviewPage/TipAndReviewPage"
+import UploadTipAndReviewPage from "./views/TipAndReviewPage/Sections/UploadTipAndReviewPage";
+import DetailTipAndReviewPage from "./views/DetailPage/DetailTipAndReviewPage";
+
 import Auth from '../hoc/auth';
 import './App.css';
 
@@ -59,17 +59,17 @@ function App() {
           <Route exact path="/template/:templateId" component={ Auth(DetailTemplatePage, null) } />
           <Route exact path="/mypage" component={ Auth(MyPage, true) } />
           <Route exact path="/mypage/modifyinfo" component={ Auth(ModifyUserInfoPage, true) } />
-          <Route exact path="/user/like" component={Auth(LikePage, true)} /> 
-          <Route exact path="/recommend" component={ Auth(RecommendPage, true) } />
+          <Route exact path="/user/like" component={Auth(LikePage, true)} />
+          <Route exact path="/recommend" component={ Auth(RecommendPage, null) } />
+
           <Route exact path="/notice" component={ Auth(NoticePage, null) } />
-          <Route exact path="/notice/create" component={ Auth(NoticeCreatePage, true) } />{/*관리자만*/}
-          <Route exact path="/board/tip" component={ Auth(TipPage, null) } />
-          <Route exact path="/board/review" component={ Auth(ReviewPage, null) } />
-          <Route exact path="/board/tip/create" component={ Auth(CreateTipPage, null) } />
-          <Route exact path="/board/review/create" component={ Auth(CreateReviewPage, null) } />
-          <Route exact path="/tip/post/:postId" component={ Auth(TipPostPage, null) } />
-          <Route exact path="/review/post/:postId" component={ Auth(ReviewPostPage, null) } />
-          <Route exact path="/notice/post/:postId" component={ Auth(NoticePostPage, null) } />
+          <Route exact path="/notice/upload" component={ Auth(UploadNoticePage, true) } />{/*관리자만*/}
+          <Route exact path="/notice/post/:postId" component={ Auth(DetailNoticePage, null) } />
+
+          <Route exact path="/tipAndReview" component={ Auth(TipAndReviewPage, null) } />
+          <Route exact path="/tipAndReview/upload/:type" component={ Auth(UploadTipAndReviewPage, null) } />
+          <Route exact path="/tipAndReview/post/:postId" component={ Auth(DetailTipAndReviewPage, null) } />
+          
           <Route exact path="/:category" component={ Auth(LandingPage, null) } />
         </Switch>
         

@@ -3,7 +3,7 @@ import axios from 'axios';
 import { Card, Icon, Avatar, Col, Typography } from 'antd';
 const { Title } = Typography
 
-function TipPostPage(props) {
+function DetailNoticePage(props) {
 
     const [post, setPost] = useState([])
     const postId = props.match.params.postId;
@@ -12,7 +12,7 @@ function TipPostPage(props) {
 
         const variable = { postId: postId }
 
-        axios.post('/api/tip/getPost', variable)
+        axios.post('/api/notice/getPost', variable)
             .then(response => {
                 if (response.data.success) {
                     console.log(response.data.post)
@@ -43,4 +43,4 @@ function TipPostPage(props) {
 
 }
 
-export default TipPostPage
+export default DetailNoticePage

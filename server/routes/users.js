@@ -60,7 +60,7 @@ router.get("/auth", auth, (req, res) => {
     res.status(200).json({
         _id: req.user._id, //auth.js에서 user를 req.user에 넣어줘서 가능
         nickname: req.user.nickname,
-        isAdmin: req.user.role === 0 ? false : true, //role 0이면 일반유저 0이 아니면 관리자
+        isAdmin: req.user.role === 0 ? false : true, //role 0이면 일반유저 0이 아니면 관리자!
         isAuth: true,
         email: req.user.email,
         name: req.user.name,

@@ -3,7 +3,7 @@ import axios from 'axios';
 import { Card, Icon, Avatar, Col, Typography } from 'antd';
 const { Title } = Typography
 
-function ReviewPostPage(props) {
+function DetailTipAndReviewPage(props) {
 
     const [post, setPost] = useState([])
     const postId = props.match.params.postId;
@@ -12,7 +12,7 @@ function ReviewPostPage(props) {
 
         const variable = { postId: postId }
 
-        axios.post('/api/review/getPost', variable)
+        axios.post('/api/tip/getPost', variable)
             .then(response => {
                 if (response.data.success) {
                     console.log(response.data.post)
@@ -43,4 +43,4 @@ function ReviewPostPage(props) {
 
 }
 
-export default ReviewPostPage
+export default DetailTipAndReviewPage

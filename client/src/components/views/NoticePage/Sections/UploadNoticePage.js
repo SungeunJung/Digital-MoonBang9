@@ -6,7 +6,7 @@ import { useSelector } from "react-redux";
 
 const { Title } = Typography;
 
-function NoticeCreatePage(props) {
+function UploadNoticePage(props) {
     const user = useSelector(state => state.user);
 
     const [TitleValue, setTitleValue] = useState("")
@@ -45,7 +45,7 @@ function NoticeCreatePage(props) {
             if (response) {
                 message.success('Post Created!');
                 setTimeout(() => {
-                    props.history.push("/board/notice")
+                    props.history.push("/notice")
                 }, 2000);
             }
         })
@@ -72,7 +72,6 @@ function NoticeCreatePage(props) {
                 onEditorChange={onEditorChange}
                 onFilesChange={onFilesChange}
             />
-
                 <div style={{ textAlign: 'center', margin: '2rem', }}>
                     <Button
                         size="large"
@@ -88,4 +87,4 @@ function NoticeCreatePage(props) {
     )
 }
 
-export default NoticeCreatePage
+export default UploadNoticePage

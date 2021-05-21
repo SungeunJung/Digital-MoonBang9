@@ -11,11 +11,12 @@ const { Column } = Table;
 const columns = [
     {
         title: 'No.',
-        dataIndex: 'no',
+        dataIndex: 'no', 
     },
     {
         title: 'Title',
         dataIndex: 'title',
+        render: text => <a>{}</a>,
     },
     {
         title: 'Name',
@@ -61,28 +62,17 @@ function NoticePage() {
         id: `${notice._id}`
         })
     }))   
-    
-    /*const onRow = (record, rowIndex) => {
-        return {
-          onClick: (event) => {
-              // record: row의 data
-              // rowIndex: row의 index
-              // event: event prototype
-            console.log(record, rowIndex, event);
-            <a href={`/notice/post/${record.id}`}> <EllipsisOutlined /></a>}
-          }
-      };*/
 
     return (
         <div style={{ maxWidth: '900px', margin: '4rem auto'}}>
-            <Row>{/*style={{ display:'flex', justifyContent:'flex-end', margin:'1rem auto 1rem 0' }}*/}
+            <Row>
                 <Col style={{width : '450px'}}>
                     <strong><p style={{color : 'black', fontSize: "28px"}}> Notice </p></strong>
                 </Col>
                 <Col align="right" style={{ width : '450px' }}>
-                { (user.userData && !user.userData.isAuth) ?
+                { (user.userData && !user.userData.isAdmin) ? //관리자면 isAdmin이 true임.
                     <span></span> : 
-                    <Link to="/board/notice/create"> 
+                    <Link to="/notice/upload"> 
                         <Button size='large' type="primary" ghost style={{ align: 'right' }}> 공지글 쓰기 </Button>
                     </Link>
                 }
@@ -94,9 +84,10 @@ function NoticePage() {
                 <h2>No post yet...</h2>
                 </div> :
                 <div>
-                    <Table dataSource={data}> {/*onRow={onRow}*/}
+                    <Table columns={columns} dataSource={data}> 
                         <Column title="No." dataIndex="no" key="no" />
                         <Column title="Title" dataIndex="title" key="title" />
+                        
                         <Column title="Name" dataIndex="name" key="name" />
                         <Column title="Date" dataIndex="date" key="date" />
                     </Table>

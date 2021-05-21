@@ -26,8 +26,7 @@ app.use(cookieParser());
 app.use('/api/users', require('./routes/users'));
 app.use('/api/template', require('./routes/template'));
 app.use('/api/comment', require('./routes/comment'));
-app.use('/api/tip', require('./routes/tip'));
-app.use('/api/review', require('./routes/review'));
+app.use('/api/tipAndReview', require('./routes/tipAndReview'));
 app.use('/api/notice', require('./routes/notice'));
 
 //use this to show the image you have in node js server to client (react js)

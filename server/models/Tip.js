@@ -2,6 +2,9 @@ const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
 const tipSchema = mongoose.Schema({
+    title: {
+        type:String,
+    },
     content: {
         type:String,
     },

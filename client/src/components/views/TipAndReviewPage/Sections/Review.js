@@ -17,26 +17,25 @@ const headerStyleOut = {
     fontSize: "28px"
 };
 
-function TipPage() {
+function ReviewPage() {
     const user = useSelector(state => state.user);
 
-    const [Tips, setTips] = useState([])
+    const [Reviews, setReviews] = useState([])
 
     useEffect(() => {
-        axios.get('/api/tip/getTips')
+        axios.get('/api/review/getReviews')
             .then(response => {
                 if (response.data.success) {
-                    console.log(response.data.tips)
-                    setTips(response.data.tips)
+                    console.log(response.data.reviews)
+                    setReviews(response.data.reviews)
                 } else {
-                    alert('Couldnt get tip`s lists')
+                    alert('Couldnt get review`s lists')
                 }
             })
     }, [])
 
-    const renderCards = (Tips && Tips.map((tip, index) => {
-        console.log(tip._id)
-        console.log(tip.writer.image)
+    const renderCards = (Reviews && Reviews.map((review, index) => {
+        console.log(review._id)
         return <Col key={index} lg={8} md={12} xs={24}>
             <Card
                 hoverable
@@ -44,24 +43,23 @@ function TipPage() {
                 actions={[
                     <SettingOutlined />,
                     <EditOutlined />,
-                    <a href={`/tip/post/${tip._id}`}> <EllipsisOutlined /></a>,
+                    <a href={`/review/post/${review._id}`}> <EllipsisOutlined /></a>,
                 ]}
             >
                 <Meta
                     avatar={
-                        tip.writer.image?
+                        review.writer.image?
                     <Avatar
-                        src={`http://localhost:2000/${tip.writer.image}`}
+                        src={`http://localhost:2000/${review.writer.image}`}
                         alt="image"
-                        
                     />:
                     <Avatar style={{ backgroundColor: '#87d068' }} icon={<UserOutlined />} />
                     }
-                    title={tip.writer.name}
-                    //description="This is the description"
+                    title={review.writer.name}
+                    description="클루리스 다이어리"
                 />
                 <div style={{ height: 150, overflowY: 'scroll', marginTop: 10 }}>
-                    <div dangerouslySetInnerHTML={{ __html: tip.content }} />
+                    <div dangerouslySetInnerHTML={{ __html: review.content }} />
                 </div>
             </Card>
         </Col>
@@ -71,15 +69,15 @@ function TipPage() {
         <div style={{ maxWidth: '900px', margin: '4rem auto'}}>       
             <Row>
                 <Col style={{width : '450px'}}>
-                <strong><Link to="/board/tip" style={headerStyleOn}>
+                <strong><Link to="/tip" style={headerStyleOut}>
                     Tip</Link> <span style={headerStyleOn}>  /  </span>
-                    <Link to="/board/review" style={headerStyleOut}>
+                    <Link to="/review" style={headerStyleOn}>
                     Review</Link></strong>
                 </Col>
                 <Col align="right" style={{ width : '450px' }}>
                 { (user.userData && !user.userData.isAuth) ?
                     <span></span> : 
-                    <Link to="/board/tip/create"> 
+                    <Link to="/review/create"> 
                         <Button size='large' type="primary" ghost style={{ align: 'right' }}> 작성하기 </Button>
                     </Link>
                 }
@@ -87,7 +85,7 @@ function TipPage() {
             </Row>
             <div style={{ width: '85%', margin: '0rem auto' }}>
             {/*<Title level={2}> Board(Tip) Lists </Title>*/}
-            {Tips.length === 0 ?
+            {Reviews.length === 0 ?
                 <div style ={{ display: 'flex', height:'300px', justifyContent: 'center', alignItems: 'center' }}>
                 <h2>No post yet...</h2>
                 </div> :
@@ -102,4 +100,4 @@ function TipPage() {
     )
 }
 
-export default TipPage
+export default ReviewPage

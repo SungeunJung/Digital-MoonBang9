@@ -1,16 +1,18 @@
 import React, { useEffect, useState } from 'react'
 import QuillEditor from '../../../editor/QuillEditor';
-import { Typography, Button, Form, message } from 'antd';
+import { Typography, Button, Form, message, Input } from 'antd';
 import axios from 'axios';
 import { useSelector } from "react-redux";
 
 const { Title } = Typography;
 
-function CreatePage(props) {
+function UploadTipAndReviewPage(props) {
     const user = useSelector(state => state.user);
 
+    const [Type, setType] = useState(props.match.params.Type)
     const [content, setContent] = useState("")
     const [files, setFiles] = useState([])
+    const [TitleValue, setTitleValue] = useState("")
 
     const onEditorChange = (value) => {
         setContent(value)
@@ -25,39 +27,53 @@ function CreatePage(props) {
         setContent("");
 
         const variables = {
+            title: TitleValue,
             content: content,
             writer: user.userData._id
         }
-            axios.post('/api/tip/createPost', variables)
+            axios.post(`/api/tipAndReview/createPost?Type=${Type}`, variables)
             .then(response => {
                 if (response) {
                     message.success('Post Created!');
                     setTimeout(() => {
-                        props.history.push("/board/tip")
+                        props.history.push("/tipAndReview")
                     }, 2000);
                 }
             })
     }
 
+    const onTitleChange = (event) => {
+        setTitleValue(event.currentTarget.value)
+        console.log(TitleValue)
+    }
+
     return (
         <div style={{ maxWidth: '700px', margin: '2rem auto' }}>
             <div style={{ textAlign: 'center' }}>
-                <Title level={2} > Editor</Title>
+                
+                <Title level={2} >{Type === 0 ? "팁 작성하기": "리뷰 작성하기"}</Title>
+                
             </div>
-            <br/><br/>
+
+            <Form onSubmit={onSubmit}>
+
+            <p style={{ textAlign: 'center', fontSize: '14px' }} >Title</p>
+            <Input
+                onChange={onTitleChange}
+                value={TitleValue}
+            />
+            <br/><br/><br/>
             <QuillEditor
                 placeholder={"Start Posting Something"}
                 onEditorChange={onEditorChange}
                 onFilesChange={onFilesChange}
             />
-
-            <Form onClick={onSubmit}>
                 <div style={{ textAlign: 'center', margin: '2rem', }}>
                     <Button
                         size="large"
                         htmlType="submit"
                         className=""
-                        //onClick={onSubmit}
+                        onClick={onSubmit}
                     >
                         Submit
                 </Button>
@@ -67,4 +83,4 @@ function CreatePage(props) {
     )
 }
 
-export default CreatePage
+export default UploadTipAndReviewPage
