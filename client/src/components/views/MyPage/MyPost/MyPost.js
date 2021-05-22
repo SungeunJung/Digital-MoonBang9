@@ -50,13 +50,13 @@ function MyPost(props) {
 
     }, [props.user.userData])
 
-    const PostList = (temp) => {
+    const PostList = (source, url) => {
         return <List
                     className="demo-loadmore-list"
                     itemLayout="horizontal"
-                    dataSource={temp}
+                    dataSource={source}
                     renderItem={item => (
-                        <NavLink to = {`/template/${item._id}`} className='nav_link'>
+                        <NavLink to = {url+`${item._id}`} className='nav_link'>
                             <div>
                             <List.Item>
                                 <List.Item.Meta
@@ -82,13 +82,13 @@ function MyPost(props) {
             <br/>
             <Tabs defaultActiveKey="1" type='card' size='large'>
                 <TabPane tab="속지" key="1">
-                    {PostList(Templates)}
+                    {PostList(Templates, '/template/')}
                 </TabPane>
                 <TabPane tab="팁" key="2">
-                    {PostList(Tips)}
+                    {PostList(Tips, '/tip/post/')}
                 </TabPane>
                 <TabPane tab="리뷰" key="3">
-                    {PostList(Reviews)}
+                    {PostList(Reviews, '/review/post/')}
                 </TabPane>
             </Tabs>
             

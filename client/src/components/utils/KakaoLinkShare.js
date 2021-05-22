@@ -48,7 +48,7 @@ function KakaoLinkShare(props) {
           description: '#' + pages[props.detail.category-1].category + 
                       ' #' + pages[props.detail.category-1].detail[props.detail.detail-1] + 
                       ' #' + styles[props.detail.styles-1].name ,
-          imageUrl: 'imgurl',        
+          imageUrl: (process.env.REACT_APP_S3_URL) +'templateImage/' + props.detail.images[0],
           link: {
             mobileWebUrl: window.location.href,
             webUrl: window.location.href,

@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from 'react'
 import axios from 'axios';
-import { Card, Icon, Avatar, Col, Typography } from 'antd';
+import { Card, Icon, Avatar, Col, Typography, Rate } from 'antd';
 const { Title } = Typography
-
+const desc = ['terrible', 'bad', 'normal', 'good', 'wonderful'];
 function DetailReviewPage(props) {
 
     const [post, setPost] = useState([])
@@ -29,7 +29,7 @@ function DetailReviewPage(props) {
                 <Title level={2}>{post.title}</Title>
                 <div style={{ display: 'flex'}}>
                     <Avatar
-                        src={`http://localhost:2000/${post.writer.image}`}
+                        src={process.env.REACT_APP_S3_URL+`userProfile/${post.writer.image}`}
                         alt="image"
                     />&nbsp;&nbsp;
                     <Title level={5}>{post.writer.nickname}</Title>
@@ -37,9 +37,15 @@ function DetailReviewPage(props) {
                 <div style={{ display: 'flex', justifyContent: 'flex-end' }}>
                     <Title level={4}>{post.createdAt.split('T')[0]}</Title>
                 </div>
+                <div>
+                <Rate tooltips={desc} value={post.rate} />
+                {post.rate ? <span className="ant-rate-text" style={{ color: "#DAA520" }}>
+                    {desc[post.rate - 1]}</span> : ''}
+                </div>
+                <br/>
                 <div style = {{fontSize : '15px'}}><strong>상품명 : {post.template}</strong></div>
                 <hr /><br />
-                <div dangerouslySetInnerHTML={{ __html: post.content }} />
+                <div dangerouslySetInnerHTML={{ __html: post.description }} />
 
             </div>
         )

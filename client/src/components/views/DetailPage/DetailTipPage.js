@@ -29,7 +29,7 @@ function DetailTipPage(props) {
                 <Title level={2}>{post.title}</Title>
                 <div style={{ display: 'flex'}}>
                     <Avatar
-                        src={`http://localhost:2000/${post.writer.image}`}
+                        src={process.env.REACT_APP_S3_URL+`userProfile/${post.writer.image}`}
                         alt="image"
                     />&nbsp;&nbsp;
                     <Title level={5}>{post.writer.nickname}</Title>
@@ -38,7 +38,7 @@ function DetailTipPage(props) {
                     <Title level={4}>{post.createdAt.split('T')[0]}</Title>
                 </div>
                 <br />
-                <div dangerouslySetInnerHTML={{ __html: post.content }} />
+                <div dangerouslySetInnerHTML={{ __html: post.description }} />
 
             </div>
         )

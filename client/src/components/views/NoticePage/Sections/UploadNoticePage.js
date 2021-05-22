@@ -10,8 +10,8 @@ function UploadNoticePage(props) {
     const user = useSelector(state => state.user);
 
     const [TitleValue, setTitleValue] = useState("")
-    const [DescriptionValue, setDescriptionValue] = useState("")
-    const [content, setContent] = useState("")
+    const [SummaryValue, setSummaryValue] = useState("")
+    const [description, setDescription] = useState("")
     const [files, setFiles] = useState([])
 
     const onTitleChange = (event) => {
@@ -19,13 +19,13 @@ function UploadNoticePage(props) {
         console.log(TitleValue)
     }
 
-    const onDescriptionChange = (event) => {
-        setDescriptionValue(event.currentTarget.value)
-        console.log(DescriptionValue)
+    const onSummaryChange = (event) => {
+        setSummaryValue(event.currentTarget.value)
+        console.log(SummaryValue)
     }
 
     const onEditorChange = (value) => {
-        setContent(value)
+        setDescription(value)
     }
 
     const onFilesChange = (files) => {
@@ -34,16 +34,16 @@ function UploadNoticePage(props) {
 
     const onSubmit = (event) => {
         event.preventDefault();
-        setContent("");
+        setDescription("");
 
-        if(!TitleValue || !content ) {
+        if(!TitleValue || !description || !SummaryValue ) {
             return alert('Fill all the fields first!')
         }
 
         const variables = {
             title: TitleValue,
-            description: DescriptionValue,
-            content: content,
+            summary: SummaryValue,
+            description: description,
             writer: user.userData._id
         }
         
@@ -70,13 +70,13 @@ function UploadNoticePage(props) {
                 value={TitleValue}
             />
             <br/><br/>
-            <p style={{ textAlign: 'center', fontSize: '14px' }} >Description</p>
+            <p style={{ textAlign: 'center', fontSize: '14px' }} >Summary</p>
             <Input
-                onChange={onDescriptionChange}
-                value={DescriptionValue}
+                onChange={onSummaryChange}
+                value={SummaryValue}
             />
             <br/><br/>
-            <p style={{ textAlign: 'center', fontSize: '14px' }} >Content</p>
+            <p style={{ textAlign: 'center', fontSize: '14px' }} >Description</p>
             <QuillEditor
                 placeholder={"Start Posting Something"}
                 onEditorChange={onEditorChange}

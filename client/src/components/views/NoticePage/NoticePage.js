@@ -2,41 +2,75 @@ import React, { useEffect, useState } from 'react'
 import axios from 'axios';
 import { NavLink } from 'react-router-dom';
 import { Link } from 'react-router-dom';
-import { Card, Avatar, Col, Typography, Row, Button, Table, List, Space } from 'antd';
-import { UserOutlined } from '@ant-design/icons';
+import { Card, Avatar, Col, Typography, Row, Button, List, Pagination } from 'antd';
 import { useSelector } from "react-redux";
 const { Title } = Typography
 const { Meta } = Card;
 
 function NoticePage(props) {
-
     const user = useSelector(state => state.user);
+
     const [Notices, setNotices] = useState([])
     const [Admin, setAdmin] = useState(false)
-    const data = [];
+    const [Count, setCount] = useState(0)
+    const [Current, setCurrent] = useState(1)
+    const [Limit, setLimit] = useState(3)
 
     useEffect(() => {
         axios.get('/api/users/getAdmin')
-            .then(response=>{
-                if (response.data.success) {
-                    console.log(response.data.isAdmin)
-                    setAdmin(response.data.isAdmin)
-                } else {
-                   console.log('Failed to get Admin')
-                }
-             })
+        .then(response=>{
+            if (response.data.success) {
+                console.log(response.data.isAdmin)
+                setAdmin(response.data.isAdmin)
+            } else {
+            console.log('Failed to get Admin')
+            }
+        })
 
-        axios.get('/api/notice/getNotices')
-            .then(response => {
-                if (response.data.success) {
-                    console.log(response.data.notices)
-                    setNotices(response.data.notices)
-                } else {
-                    alert('Couldnt get notice`s lists')
-                }
-            })
+        axios.get('/api/notice/getNoticesCount') 
+        .then(response => {
+            if (response.data.success) {
+                console.log("response.data.count:",response.data.count)
+                setCount(response.data.count)
+            } else {
+                alert('Couldnt get notice`s count')
+            }
+        })
+ 
+         const variables = {
+             skip: 0,
+             limit: Limit,
+         }
+ 
+         getNotices(variables)
 
     }, [])
+
+    const getNotices = (variables) => {
+        axios.post('/api/notice/getNotices', variables)
+        .then(response => {
+            if (response.data.success) {
+                console.log(response.data.notices)
+                setNotices(response.data.notices)
+            } else {
+                alert('Couldnt get notice`s lists')
+            }
+        })
+    }
+
+    const onPageChange = (page) => {
+        console.log('page:', page)
+        setCurrent(page)
+
+        let skip = Limit * (page - 1);
+
+        const variables = {
+            skip: skip,
+            limit: Limit,
+        }
+
+        getNotices(variables)
+    }
 
     const PostList = (temp) => {
         return <List
@@ -51,7 +85,7 @@ function NoticePage(props) {
                                 <List.Item.Meta
                                     avatar={<Avatar size={40}>운영자</Avatar>} 
                                     title={item.title}
-                                    description={<span>{item.description}</span>}
+                                    description={<span>{item.summary}</span>}
                                 />
                                 <div><span>{item.createdAt.split('T')[0]}</span></div>
                             </List.Item>
@@ -85,6 +119,10 @@ function NoticePage(props) {
                     {PostList(Notices)}
                 </div>
             }
+            <div style ={{ display: 'flex', justifyContent: 'center' }}>
+                <Pagination defaultCurrent={1} defaultPageSize={3} total={Count} 
+                current={Current} onChange={onPageChange} />
+            </div>
         </div>
     )
 }

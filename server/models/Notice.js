@@ -6,10 +6,10 @@ const noticeSchema = mongoose.Schema({
         type: String, 
         maxlength: 50
     },
-    description: {
+    summary: {
         type: String,
     },
-    content: {
+    description: {
         type:String,
     },
     writer: {

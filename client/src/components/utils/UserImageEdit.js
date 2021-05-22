@@ -1,12 +1,36 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import DropZone from 'react-dropzone';
 import axios from 'axios';
 import { Avatar } from 'antd';
 import { UserOutlined } from '@ant-design/icons';
+import { useSelector } from 'react-redux';
 
 function UserImageEdit(props) {
-  const [Image, setImage] = useState([])
-  const [ImageClient, setImageClient] = useState([])  
+  const [Image, setImage] = useState([]) 
+  const [PreImage, setPreImage] = useState([])
+  const user = useSelector(state => state.user);
+
+  useEffect(()=> { 
+    let abortController = new AbortController()
+    const fetchData = async () => {
+      try{
+          const response = await fetch(
+            'https://jsonplaceholder.typicode.com/todos/1',
+            {
+              signal: abortController.signal,
+            },
+          )        
+          setPreImage(user.userData.image)      
+        } catch (error) {
+          if(error.name === 'AbortError') {} 
+        }
+      }
+      fetchData()
+      return () => {
+      abortController.abort()
+      }     
+    }
+  )
 
     const onDrop=(files) => {
         let formData = new FormData();
@@ -18,7 +42,7 @@ function UserImageEdit(props) {
         
         
         //save the Image we chose inside the node server
-        axios.post('/api/users/uploadUserImage', formData, config)
+        axios.post('/api/users/uploadUserProfile', formData, config)
         .then(response => {
             if(response.data.success) {
                 //window.localStorage.setItem('newImage', response.data.image);
@@ -27,25 +51,11 @@ function UserImageEdit(props) {
             } else {
                 alert('Failed to save the Image in Server')
             }
-        })
-
-        /*axios.post('/api/users/uploadUserImageToClient', formData, config)
-        .then(response => {
-            if(response.data.success) {
-              window.localStorage.setItem('newImage', response.data.fileName);
-              setImageClient([response.data.fileName])
-              props.refreshFunctionClient([response.data.fileName])
-            } else {
-                alert('Failed to save the Image in Client')
-            }
-        })*/
-
+        })    
     }
 
   console.log(Image)
-  const str = localStorage.getItem("userImage") 
-  const str_new = localStorage.getItem("newImage")  
-
+  
   return (
     
     <div
@@ -58,21 +68,21 @@ function UserImageEdit(props) {
     >
 
       <DropZone
-        style={{ width:'200px', height:'200px',  borderRadius:"50%",  border: "1px dashed"}}
+        style={{ width:'200px', height:'200px',  borderRadius:"50%",  border: "none"}}
         onDrop={onDrop}
         multiple={false}
         maxSize={80000000}     
       >
         
          {({getRootProps, getInputProps}) => (
-          <div style={{ width:'200px', height:'200px',  borderRadius:"50%",  border: "1px dashed"} }
+          <div style={{ width:'200px', height:'200px',  borderRadius:"50%",  border: "none"} }
             {...getRootProps() }
           >
             
           {Image.length > 0 ? 
-          <Avatar  src={`http://localhost:2000/${Image}`} style={{width:'200px', height:'200px',  borderRadius:"50%",  border: "1px dashed"}}/>
+          <Avatar src={process.env.REACT_APP_S3_URL+`userProfile/${Image}`} style={{width:'200px', height:'200px',  borderRadius:"50%",  border: "1px dashed"}}/>
           :
-          <Avatar icon={<UserOutlined />} size={190} src={''.concat("\\uploads\\profile\\", str)} style={{backgroundColor:'#a5cbf0', width:'200px', height:'200px',  borderRadius:"50%",  border: "1px dashed"}}/>
+          <Avatar icon={<UserOutlined />} size={190} src={(process.env.REACT_APP_S3_URL)+`userProfile/${PreImage}`} style={{backgroundColor:'#a5cbf0', width:'200px', height:'200px',  borderRadius:"50%",  border: "1px dashed"}}/>
           }
            
           <input {...getInputProps()} />    

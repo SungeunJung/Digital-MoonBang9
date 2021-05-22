@@ -8,8 +8,11 @@ const reviewSchema = mongoose.Schema({
     template: {
         type:String,
     },
-    content: {
+    description: {
         type:String,
+    },
+    rate: {
+        type: Number,
     },
     writer: {
         type: Schema.Types.ObjectId,

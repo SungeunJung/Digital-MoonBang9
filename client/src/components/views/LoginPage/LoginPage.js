@@ -30,8 +30,6 @@ function LoginPage(props) {
             .then(response => {
                 if (response.payload.loginSuccess) {
                     window.localStorage.setItem('userId', response.payload.userId);
-                    window.localStorage.setItem('userEmail', response.payload.userEmail);
-                    window.localStorage.setItem('userImage', response.payload.userImage);
                     if (rememberMe === true) {
                     window.localStorage.setItem('rememberMe', values.email);
                     } else {

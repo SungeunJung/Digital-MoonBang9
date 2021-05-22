@@ -1,12 +1,9 @@
-import React, {useState} from 'react';
+import React, {useState,useEffect} from 'react';
 import { Typography, Col, Row, Form, Input, Button } from 'antd';
 import { useDispatch, useSelector } from 'react-redux';
 import { modifyUser } from '../../../_actions/user_action';
 import UserImageEdit from '../../utils/UserImageEdit';
 import axios from 'axios';
-
-
-
 
 const { Title } = Typography;
 
@@ -39,8 +36,30 @@ function ModifyUserInfoPage(props) {
     const dispatch = useDispatch();
     const [form] = Form.useForm();
     const [Image, setImage] = useState("");
-    const [ImageClient, setImageClient] = useState("")
     const user = useSelector((state)=> state.user); 
+    const [Email, setEmail] = useState([]);
+
+    useEffect(()=> { let abortController = new AbortController()
+        const fetchData = async () => {
+          try{
+            const response = await fetch(
+              'https://jsonplaceholder.typicode.com/todos/1',
+              {
+                signal: abortController.signal,
+              },
+            )            
+            setEmail(user.userData.email) 
+          } catch (error) {
+            if(error.name === 'AbortError') {
+            }
+          }
+        }
+        fetchData()
+        return () => {
+         abortController.abort()
+        }     
+        }
+    )
 
     const onCancel = (events) => {
         props.history.push("/mypage");
@@ -67,15 +86,12 @@ function ModifyUserInfoPage(props) {
 
     const onFinish = (values) => {
         console.log('Received values of form: ', values);
-
-        window.localStorage.setItem('userImage', ImageClient);
         
         setTimeout(() => {
             let dataToSubmit = {                
                 password: values.password,                
                 nickname: values.nickname,
-                image: Image,
-                imageClient: ImageClient                     
+                image: Image,           
             };
             //DB 저장용
             dispatch(modifyUser(dataToSubmit)).then(response => {
@@ -93,11 +109,6 @@ function ModifyUserInfoPage(props) {
         console.log(newImage)
         setImage(newImage)
     }
-
-    const updateImageClient = (newImageC) =>{
-        console.log(newImageC)
-        setImageClient(newImageC)
-    }
     
     return (
         <div className="app" style={{ width: '80%', padding: '3rem 4rem', margin:'auto' }}>
@@ -105,10 +116,10 @@ function ModifyUserInfoPage(props) {
                 <Title level={2}>회원정보 수정</Title>
             </div>
             
-            <UserImageEdit refreshFunction={updateImage} refreshFunctionClient={updateImageClient}/>                           
+            <UserImageEdit refreshFunction={updateImage}/>                           
                                
             <br />
-            <p style={{fontSize:'15pt'}}>{localStorage.getItem('userEmail')}</p>
+            <p style={{fontSize:'15pt'}}>{Email}</p>
             <br />           
             
 
@@ -119,9 +130,9 @@ function ModifyUserInfoPage(props) {
                 name="modifyinfo"
                 onFinish={onFinish}
                 initialValues={{ //여기에 원래 user데이터 넣어야할듯
-                    nickname: '',
-                    password: '',
-                    confirm: ''
+                    nickname: "",
+                    password: "",
+                    confirm: ""
                 }}
                 scrollToFirstError
             >
@@ -135,7 +146,7 @@ function ModifyUserInfoPage(props) {
                                 style = {{ minwidth : "150px" }}
                                 rules={[
                                     {
-                                        required: true,
+                                        required: false,
                                         message: 'Please input your nickname!',
                                         whitespace: true,
                                     }
@@ -158,7 +169,7 @@ function ModifyUserInfoPage(props) {
                 label="새 비밀번호"
                 rules={[
                 {
-                    required: true,
+                    required: false,
                     message: 'Please input your new password!',
                 },
                 ]}
@@ -176,7 +187,7 @@ function ModifyUserInfoPage(props) {
                 hasFeedback
                 rules={[
                 {
-                    required: true,
+                    required: false,
                     message: 'Please confirm your password!',
                 },
                 ({ getFieldValue }) => ({

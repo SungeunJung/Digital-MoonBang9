@@ -10,7 +10,7 @@ function UploadTipPage(props) {
     const user = useSelector(state => state.user);
 
     const [TitleValue, setTitleValue] = useState("")
-    const [content, setContent] = useState("")
+    const [description, setDescription] = useState("")
     const [files, setFiles] = useState([])
 
     const onTitleChange = (event) => {
@@ -19,7 +19,7 @@ function UploadTipPage(props) {
     }
 
     const onEditorChange = (value) => {
-        setContent(value)
+        setDescription(value)
     }
 
     const onFilesChange = (files) => {
@@ -28,15 +28,15 @@ function UploadTipPage(props) {
 
     const onSubmit = (event) => {
         event.preventDefault();
-        setContent("");
+        setDescription("");
 
-        if(!TitleValue || !content ) {
+        if(!TitleValue || !description ) {
             return alert('Fill all the fields first!')
         }
 
         const variables = {
             title: TitleValue,
-            content: content,
+            description: description,
             writer: user.userData._id
         }
             axios.post('/api/tip/createPost', variables)
@@ -55,19 +55,20 @@ function UploadTipPage(props) {
             <div style={{ textAlign: 'center' }}>
                 <Title level={2} > 팁 작성하기</Title>
             </div>
+            
             <Form onSubmit={onSubmit}>
-            <p style={{ textAlign: 'center', fontSize: '14px' }} >Title</p>
-            <Input
-                onChange={onTitleChange}
-                value={TitleValue}
-            />
-            <br/><br/>
-            <p style={{ textAlign: 'center', fontSize: '14px' }} >Content</p>
-            <QuillEditor
-                placeholder={"Start Posting Something"}
-                onEditorChange={onEditorChange}
-                onFilesChange={onFilesChange}
-            />
+                <p style={{ textAlign: 'center', fontSize: '14px' }} >Title</p>
+                <Input
+                    onChange={onTitleChange}
+                    value={TitleValue}
+                />
+                <br/><br/>
+                <p style={{ textAlign: 'center', fontSize: '14px' }} >Description</p>
+                <QuillEditor
+                    placeholder={"Start Posting Something"}
+                    onEditorChange={onEditorChange}
+                    onFilesChange={onFilesChange}
+                />
                 <div style={{ textAlign: 'center', margin: '2rem', }}>
                     <Button
                         size="large"
@@ -76,7 +77,7 @@ function UploadTipPage(props) {
                         onClick={onSubmit}
                     >
                         Submit
-                </Button>
+                    </Button>
                 </div>
             </Form>
         </div>
