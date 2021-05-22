@@ -88,11 +88,7 @@ function SingleComment(props) {
                     author={props.comment.writer.nickname}
                     avatar={props.comment.writer.image?
                         <Avatar
-<<<<<<< HEAD
                             src={process.env.REACT_APP_S3_URL+`userProfile/${props.comment.writer.image}`}
-=======
-                            src={`http://localhost:2000/${props.comment.writer.image}`}
->>>>>>> 9e8b1d1e70e13c78aeb69dd31bc0c6a3f6a30542
                             alt="image"
                         />:
                         <Avatar style={{ backgroundColor: '#87d068' }} icon={<UserOutlined />} />
