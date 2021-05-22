@@ -3,44 +3,7 @@ const router = express.Router();
 const { User } = require("../models/User");
 const { sendEmail } = require('../mail');
 const { auth } = require("../middleware/auth");
-
-const multer = require('multer');
-
-var storage = multer.diskStorage({
-    destination: (req, file, cb) => {
-        cb(null, 'uploads/profile')
-    },
-    filename: (req, file, cb) => {
-        cb(null, `${Date.now()}_${file.originalname}`)
-    },
-    fileFilter: (req, file, cb) => {
-        const ext = path.extname(file.originalname)
-        if (ext !== '.jpg' || ext !== '.png') {
-            return cb(res.status(400).end('only jpg, png are allowed'), false)
-        }
-        cb(null, true)
-    }
-})
-
-var client_storage = multer.diskStorage({
-    destination: (req, file, cb) => {
-        cb(null, 'client/public/uploads/profile/')
-    },
-    filename: (req, file, cb) => {
-        cb(null, `${Date.now()}_${file.originalname}`)
-    },
-    fileFilter: (req, file, cb) => {
-        const ext = path.extname(file.originalname)
-        if (ext !== '.jpg' || ext !== '.png') {
-            return cb(res.status(400).end('only jpg, png are allowed'), false)
-        }
-        cb(null, true)
-    }
-})
-
-var upload = multer({ storage: storage }).single("file")
-var client_upload = multer({ storage: client_storage }).single("file")
-
+const { uploadUserProfile } = require("../S3upload");
 
 //=================================
 //             User
@@ -73,7 +36,8 @@ router.get("/auth", auth, (req, res) => {
         name: req.user.name,
         role: req.user.role,
         image: req.user.image,
-        like: req.user.like
+        like: req.user.like,
+        download: req.user.download,
     });
 });
 
@@ -116,7 +80,7 @@ router.post("/login", (req, res) => {
                     .cookie("x_auth", user.token)
                     .status(200)
                     .json({
-                        loginSuccess: true, userId: user._id, userEmail: user.email, userImage: user.imageClient
+                        loginSuccess: true, userId: user._id
                     });
             });
         });
@@ -136,7 +100,7 @@ router.get("/logout", auth, (req, res) => {
 
 router.post("/modifyinfo", auth, (req, res) => {
     User.findOneAndUpdate({ _id: req.user._id }, 
-        { nickname:req.body.nickname, password:req.body.password, image:req.body.image, imageClient:req.body.imageClient }, 
+        { nickname:req.body.nickname, password:req.body.password, image:req.body.image }, 
         (err, doc) => {
         if (err) return res.json({ success: false, err });
         return res.status(200).send({
@@ -206,18 +170,12 @@ router.get("/getLikes", auth, (req, res) => {
     });
 });
 
-router.post("/uploadUserImage", auth, (req,res) => {      
-    upload(req, res, err => {
+router.post("/uploadUserProfile", auth,  (req,res) => {  
+    var uploadImage = uploadUserProfile.single("file");
+    uploadImage(req, res, err => {
         if(err) return res.json({ success: false, err })
-        return res.json({ success: true, image: res.req.file.path, fileName: res.req.file.filename })
-    })
-})
-
-router.post("/uploadUserImageToClient", auth, (req,res) => {      
-    client_upload(req, res, err => {
-        if(err) return res.json({ success: false, err })
-        return res.json({ success: true, image: res.req.file.path, fileName: res.req.file.filename })
-    })
+        return res.json({ success: true, image: res.req.file.key })   
+    }) 
 })
 
 router.post("/duplicateCheck", auth, (req, res) => {
@@ -227,6 +185,39 @@ router.post("/duplicateCheck", auth, (req, res) => {
             else res.json ({success:false})
         }
     )
-})
+});
+
+router.post("/addDownload", auth, (req, res) => {
+    User.findOne({ _id: req.user._id },
+        (err, userInfo) => {
+            let duplicate = false;
+            userInfo.download.forEach((item) => {
+                if (item.id === req.body.templateId) {
+                    duplicate = true;
+                }
+            })
+            if (duplicate) {
+                
+            }
+            else {
+                User.findOneAndUpdate(
+                    { _id: req.user._id },
+                    {
+                        $push: {
+                            download: {
+                               id: req.body.templateId,
+                               date: Date.now()
+                            }
+                        }
+                    },
+                    { new: true },
+                    (err, userInfo) => {
+                        if (err) return res.status(400).json({ success: false, err })
+                        res.status(200).send(userInfo.like)
+                    }
+                )
+            }
+        })
+});
 
 module.exports = router;

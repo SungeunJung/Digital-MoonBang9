@@ -10,14 +10,15 @@ import {
 import NavBar from "./views/NavBar/NavBar";
 import Footer from "./views/Footer/Footer"
 import LandingPage from './views/LandingPage/LandingPage'
-import RecommendPage from './views/LandingPage/RecommendPage'
+import RecommendPage from './views/LandingPage/RecommendPage/RecommendPage'
 import LoginPage from './views/LoginPage/LoginPage'
 import RegisterPage from './views/RegisterPage/RegisterPage'
 import UploadTemplatePage from './views/UploadTemplatePage/UploadTemplatePage'
 import DetailTemplatePage from './views/DetailTemplatePage/DetailTemplatePage'
 import MyPage from './views/MyPage/MyPage'
 import ModifyUserInfoPage from './views/MyPage/ModifyUserInfoPage'
-import MyPost from './views/MyPage/MyPost'
+import MyPost from './views/MyPage/MyPost/MyPost'
+import MyDownload from './views/MyPage/MyDownload/MyDownload'
 import LikePage from './views/LikePage/LikePage';
 
 import NoticePage from "./views/NoticePage/NoticePage";
@@ -65,6 +66,7 @@ function App() {
           <Route exact path="/mypage" component={ Auth(MyPage, true) } />
           <Route exact path="/mypage/modifyinfo" component={ Auth(ModifyUserInfoPage, true) } />
           <Route exact path="/mypage/mypost" component={ Auth(MyPost, true) } />
+          <Route exact path="/mypage/download" component={ Auth(MyDownload, true) } />
           <Route exact path="/user/like" component={Auth(LikePage, true)} />
           <Route exact path="/recommend" component={ Auth(RecommendPage, null) } />
 

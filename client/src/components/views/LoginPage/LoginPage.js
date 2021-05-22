@@ -30,8 +30,6 @@ function LoginPage(props) {
             .then(response => {
                 if (response.payload.loginSuccess) {
                     window.localStorage.setItem('userId', response.payload.userId);
-                    window.localStorage.setItem('userEmail', response.payload.userEmail);
-                    window.localStorage.setItem('userImage', response.payload.userImage);
                     if (rememberMe === true) {
                     window.localStorage.setItem('rememberMe', values.email);
                     } else {
@@ -40,10 +38,12 @@ function LoginPage(props) {
                     props.history.push("/");
                 } else {
                     setFormErrorMessage('Check out your Account or Password again')
+                    alert("아이디와 비밀번호를 다시 한 번 확인해주세요.")
                 }
             })
             .catch(err => {
                 setFormErrorMessage('Check out your Account or Password again')
+                alert("아이디와 비밀번호를 다시 한 번 확인해주세요.")
                 setTimeout(() => {
                     setFormErrorMessage("")
                 }, 3000);

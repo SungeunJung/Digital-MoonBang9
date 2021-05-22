@@ -1,10 +1,11 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
-import { Col, Card, Row } from 'antd';
-import ImageSlider from '../../utils/ImageSlider'
+import { Col, Card, Row, Typography } from 'antd';
+import ImageSlider from '../../utils/ImageSlider';
 import { get } from 'mongoose/lib/promise_provider';
 
 const { Meta } = Card;
+const { Title } = Typography;
 
 var likeItemsDuplicateForLoadMore=[]
 function LikePage(props) {
@@ -85,6 +86,7 @@ function LikePage(props) {
     return (
         <div style ={{ width: '75%', margin:'3rem auto' }}>
             <div style ={{ textAlign: 'center' }}>
+                <Title level={2}>마이페이지</Title>
                 <h2>찜하기 목록</h2>
             </div>
 
