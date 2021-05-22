@@ -83,19 +83,11 @@ function TipPage() {
                 <Meta 
                     avatar={
                         tip.writer.image?
-<<<<<<< HEAD
                     <Avatar
                         src={process.env.REACT_APP_S3_URL+`userProfile/${tip.writer.image}`}
                         alt="image"
                     />:
                     <Avatar style={{ backgroundColor: '#87d068' }} icon={<UserOutlined />} />
-=======
-                        <Avatar
-                            src={`http://localhost:2000/${tip.writer.image}`}
-                            alt="image"
-                        />:
-                        <Avatar style={{ backgroundColor: '#87d068' }} icon={<UserOutlined />} />
->>>>>>> master
                     }
                     title={tip.writer.name}
                     description={<span>&#60;{tip.title}&#62;</span>}
