@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import { Comment, Avatar, Button, Input, Col, Row, Popconfirm, message } from 'antd';
 import Axios from 'axios';
 import { useSelector } from 'react-redux';
@@ -10,8 +10,14 @@ function SingleComment(props) {
     const user = useSelector(state => state.user);
     const [CommentValue, setCommentValue] = useState("")
     const [OpenReply, setOpenReply] = useState(false)
+    //const [CommentID, setCommentID] = useState("")
+    //const [UserID, setUserID] = useState("")
     
     let location = useLocation();
+
+    /*useEffect(() => {
+        console.log(props.user)
+    }, [])*/
 
     const handleChange = (e) => {
         setCommentValue(e.currentTarget.value)
@@ -94,19 +100,26 @@ function SingleComment(props) {
                     }
                 ></Comment>
                 </Col>
-                <Col align="right"  style={{ width : "5%" }}>
-                <br/>
-                <Popconfirm
-                    title="Are you sure to delete this comment?"
-                    onConfirm={confirm}
-                    onCancel={cancel}
-                    okText="Yes"
-                    cancelText="No"
-                >
-                <a href="#">Delete</a>
-                </Popconfirm>
-                &nbsp;&nbsp;&nbsp;&nbsp;
-                </Col>
+                {(user.userData && props.comment && props.comment.writer._id == user.userData._id) ?
+                    <Col align="right"  style={{ width : "5%" }}>
+                    <br/>
+                    <Popconfirm
+                        title="Are you sure to delete this comment?"
+                        onConfirm={confirm}
+                        onCancel={cancel}
+                        okText="Yes"
+                        cancelText="No"
+                    >
+                    <a href="#">Delete</a>
+                    </Popconfirm>
+                    &nbsp;&nbsp;&nbsp;&nbsp;
+                    </Col> :
+                    <Col align="right"  style={{ width : "5%" }}>
+                    <br/>
+                    <span></span>
+                    &nbsp;&nbsp;&nbsp;&nbsp;
+                    </Col>
+                }
             </Row>
 
 
