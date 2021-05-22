@@ -48,9 +48,9 @@ const storageTemplateFile = multerS3({
     },
 });
 
-const storageTipImage = multerS3({ 
+const storageQuillEditor = multerS3({ 
     s3: s3,
-    bucket: 'myuploads1697/tipImage',
+    bucket: 'myuploads1697/quillEditor',
     contentType: multerS3.AUTO_CONTENT_TYPE,
     acl: 'public-read',
     metadata: function (req, file, cb) {
@@ -64,4 +64,4 @@ const storageTipImage = multerS3({
 exports.uploadUserProfile = multer({ storage : storageUserProfile });
 exports.uploadTemplateImage = multer({ storage : storageTemplateImage });
 exports.uploadTemplateFile = multer({ storage : storageTemplateFile });
-exports.uploadTipImage = multer({ multer : storageTipImage });
+exports. uploadQuillEditor = multer({ storage : storageQuillEditor });

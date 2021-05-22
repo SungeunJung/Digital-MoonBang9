@@ -5,7 +5,6 @@ const { auth } = require("../middleware/auth");
 const { response } = require('express');
 const { uploadTemplateImage, uploadTemplateFile } = require("../S3upload");
 
-
 //=================================
 //             Template
 //=================================

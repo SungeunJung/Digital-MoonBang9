@@ -1,7 +1,7 @@
 const express = require('express');
 const router = express.Router();
 const { Tip } = require("../models/Tip");
-const { uploadTipImage } = require("../S3upload");
+const { uploadQuillEditor } = require("../S3upload");
 
 const { auth } = require("../middleware/auth");
 const multer = require("multer");
@@ -20,13 +20,11 @@ const multer = require("multer");
 // path: 'uploads/1573656172282_React.png',
 // size: 24031 
 
-router.post("/uploadfiles", (req, res) => {
-    console.log(req.file)
-    const uploadImage = uploadTipImage.single("file");
-    uploadImage(req, res, err => {
-        if (err) {
-            return res.json({ success: false, err });
-        }
+router.post("/uploadfiles", auth, (req, res) => {    
+    const upload_ = uploadQuillEditor.single("file");
+    upload_(req, res, err => {
+        console.log(req.file)
+        if(err) return res.json({ success: false, err })        
         return res.json({ success: true, url: res.req.file.location, fileNmae: res.req.file.key });
     });
 });
