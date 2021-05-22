@@ -48,7 +48,7 @@ function ReviewPage() {
                     avatar={
                         review.writer.image?
                     <Avatar
-                        src={`http://localhost:2000/${review.writer.image}`}
+                        src={process.env.REACT_APP_S3_URL+`userProfile/${review.writer.image}`}
                         alt="image"
                     />:
                     <Avatar style={{ backgroundColor: '#87d068' }} icon={<UserOutlined />} />

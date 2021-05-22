@@ -38,7 +38,20 @@ const storageTemplateFile = multerS3({
     s3: s3,
     bucket: 'myuploads1697/templateFile',
     contentType: multerS3.AUTO_CONTENT_TYPE,
-    contentDisposition : 'inline',
+    contentDisposition : 'attachment',
+    acl: 'public-read',
+    metadata: function (req, file, cb) {
+        cb(null, { fieldName: file.fieldname }) 
+    },
+    key: function (req, file, cb) { 
+        cb(null, `${Date.now()}_${file.originalname}`)
+    },
+});
+
+const storageTipImage = multerS3({ 
+    s3: s3,
+    bucket: 'myuploads1697/tipImage',
+    contentType: multerS3.AUTO_CONTENT_TYPE,
     acl: 'public-read',
     metadata: function (req, file, cb) {
         cb(null, { fieldName: file.fieldname }) 
@@ -51,3 +64,4 @@ const storageTemplateFile = multerS3({
 exports.uploadUserProfile = multer({ storage : storageUserProfile });
 exports.uploadTemplateImage = multer({ storage : storageTemplateImage });
 exports.uploadTemplateFile = multer({ storage : storageTemplateFile });
+exports.uploadTipImage = multer({ multer : storageTipImage });

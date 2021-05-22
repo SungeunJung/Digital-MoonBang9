@@ -52,7 +52,7 @@ function SingleComment(props) {
                 author={props.comment.writer.nickname}
                 avatar={props.comment.writer.image?
                     <Avatar
-                        src={`http://localhost:2000/${props.comment.writer.image}`}
+                        src={process.env.REACT_APP_S3_URL+`userProfile/${props.comment.writer.image}`}
                         alt="image"
                     />:
                     <Avatar style={{ backgroundColor: '#87d068' }} icon={<UserOutlined />} />
