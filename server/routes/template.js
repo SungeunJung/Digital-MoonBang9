@@ -78,7 +78,7 @@ router.post("/getTemplates", (req, res) => {
             Template.find(findArgs)
             .find(field) //몽고디비 메소드 
             .populate("writer")
-            .sort(sortBy)
+            .sort(sortBy) 
             .skip(skip)
             .limit(limit)
             .exec((err, templates) => {
@@ -177,7 +177,7 @@ router.post("/getBestTemplates", (req, res) => {
     
 });
 
-router.post("/getRecommendTemplates", (req, res) => {
+router.post("/getRecommendTemplates", auth, (req, res) => {
     let category = {}, style={}, find = {}
 
     //console.log(req.body.filters)
@@ -201,7 +201,7 @@ router.post("/getRecommendTemplates", (req, res) => {
         })
 });
 
-router.post("/getMyPost", (req, res) => {
+router.post("/getMyPost", auth, (req, res) => {
     Template.find({ 'writer' : { $in : req.body.id} })
         .sort({ "createdAt" : -1 })
         .exec((err, templates) => {
@@ -209,6 +209,36 @@ router.post("/getMyPost", (req, res) => {
             res.status(200).json({ success: true, templates})
         })
     
+});
+
+router.post("/getMyDownload", auth, (req, res) => {
+    let order = req.body.order ? req.body.order : "desc";
+    let sortBy = req.body.sortBy ? req.body.sortBy : -1;
+    let limit = req.body.limit ? parseInt(req.body.limit) : 20;
+    let skip = parseInt(req.body.skip);
+
+    Template.find({ '_id' : { $in : req.body.download} })
+        .populate("writer")
+        .sort([[sortBy, order]])
+        .skip(skip)
+        .limit(limit)
+        .exec((err, templates) => {
+            if(err) {return res.status(400).json({ success: false, err })}
+            res.status(200).json({ success: true, templates, postSize: templates.length})
+        })
+    
+});
+
+router.post("/increaseDownload", auth, (req, res) => {
+    Template.findOneAndUpdate({ _id: req.body.templateId }, 
+        { downloads:(req.body.download+1)}, 
+        (err, doc) => {
+        if (err) return res.json({ success: false, err });
+        return res.status(200).send({
+            success: true
+        });    
+    }) .setOptions({ runValidators: true })
+    .exec();   
 });
 
 module.exports = router;

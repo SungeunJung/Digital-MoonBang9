@@ -55,19 +55,20 @@ function UploadTipPage(props) {
             <div style={{ textAlign: 'center' }}>
                 <Title level={2} > 팁 작성하기</Title>
             </div>
+            
             <Form onSubmit={onSubmit}>
-            <p style={{ textAlign: 'center', fontSize: '14px' }} >Title</p>
-            <Input
-                onChange={onTitleChange}
-                value={TitleValue}
-            />
-            <br/><br/>
-            <p style={{ textAlign: 'center', fontSize: '14px' }} >Description</p>
-            <QuillEditor
-                placeholder={"Start Posting Something"}
-                onEditorChange={onEditorChange}
-                onFilesChange={onFilesChange}
-            />
+                <p style={{ textAlign: 'center', fontSize: '14px' }} >Title</p>
+                <Input
+                    onChange={onTitleChange}
+                    value={TitleValue}
+                />
+                <br/><br/>
+                <p style={{ textAlign: 'center', fontSize: '14px' }} >Description</p>
+                <QuillEditor
+                    placeholder={"Start Posting Something"}
+                    onEditorChange={onEditorChange}
+                    onFilesChange={onFilesChange}
+                />
                 <div style={{ textAlign: 'center', margin: '2rem', }}>
                     <Button
                         size="large"
@@ -76,7 +77,7 @@ function UploadTipPage(props) {
                         onClick={onSubmit}
                     >
                         Submit
-                </Button>
+                    </Button>
                 </div>
             </Form>
         </div>

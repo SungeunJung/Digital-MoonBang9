@@ -30,17 +30,17 @@ function TemplateInfo(props) {
            setLinkDisableAction(false)
        } 
        Axios.get('/api/users/getLikes')
-      .then(response => {
-         if (response.data.success) {
-             response.data.likes.map(like => {
-                if (like.id === props.detail._id) {
-                   setLikeAction('liked')
-                }
-             })
-         } else {
-            console.log('Failed to get likes')
-         }
-      })
+        .then(response => {
+            if (response.data.success) {
+                response.data.likes.map(like => {
+                    if (like.id === props.detail._id) {
+                    setLikeAction('liked')
+                    }
+                })
+            } else {
+                console.log('Failed to get likes')
+            }
+        })
     }, [props.detail])
 
 
@@ -61,16 +61,26 @@ function TemplateInfo(props) {
         }
     }
 
+    const onFileDownloadAlertHandler = () => {
+        alert('로그인이 필요합니다.')
+    }
+
     const onFileDownloadHandler = () => {
-            alert('로그인이 필요합니다.')
+        let body = {
+            templateId: props.detail._id,
+            download: props.detail.downloads
+        } 
+        Axios.post('/api/users/addDownload', body)
+        Axios.post('/api/template/increaseDownload', body)
     }
 
     const onLinkHandler = () => {
         if(user.userData && !user.userData.isAuth) {
             return alert('로그인이 필요합니다.');
         }
-        else {     
+        else {    
             window.open(props.detail.uploadedUrl, "_blank")
+            onFileDownloadHandler();
         }
     }
 
@@ -85,12 +95,12 @@ function TemplateInfo(props) {
             <br />
             {(user.userData && !user.userData.isAuth) ?
                 <Button type="primary" shape="round" icon={<DownloadOutlined />} size={'large'} 
-                        disabled={!LinkDisableAction} onClick={onFileDownloadHandler}>
+                        disabled={!LinkDisableAction} onClick={onFileDownloadAlertHandler}>
                     File Download
                 </Button> :
                 <Link to={FilePath} target="_blank" download>
                     <Button type="primary" shape="round" icon={<DownloadOutlined />} size={'large'} 
-                            disabled={!LinkDisableAction}>
+                            disabled={!LinkDisableAction} onClick={onFileDownloadHandler}>
                         File Download
                     </Button>
                 </Link>
@@ -101,7 +111,8 @@ function TemplateInfo(props) {
             </Button>&nbsp;&nbsp;
             <Tooltip title="찜하기">
                 {LikeAction === 'liked' ? 
-                <HeartFilled style={{ fontSize: '32px', color: '#f00' }} onClick={onLikeHandler}/> : 
+                <HeartFilled style={{ fontSize: '32px', color: '#f00' }} onClick={onLikeHandler}/> 
+                : 
                 <HeartOutlined style={{ fontSize: '32px', color: '#f00' }} onClick={onLikeHandler}/>
                 }
 	        </Tooltip>

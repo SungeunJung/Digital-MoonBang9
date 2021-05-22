@@ -52,14 +52,28 @@ router.post("/createPost", (req, res) => {
 });
 
 
-router.get("/getTips", (req, res) => {
+router.post("/getTips", (req, res) => {
+    let limit = req.body.limit ? parseInt(req.body.limit) : 20;
+    let skip = parseInt(req.body.skip);
+
     Tip.find()
         .populate("writer")
+        .sort({createdAt: -1})
+        .skip(skip)
+        .limit(limit)
         .exec((err, tips) => {
             if (err) return res.status(400).send(err);
             res.status(200).json({ success: true, tips });
         });
 });
+
+router.get("/getTipsCount", (req, res) => {
+    Tip.count({}, function(err, count){
+        if (err) return res.status(400).send(err);
+        res.status(200).json({ success: true, count });
+    })
+});
+
 
 router.post("/getPost", (req, res) => {
     console.log(req.body)
@@ -69,6 +83,16 @@ router.post("/getPost", (req, res) => {
             if (err) return res.status(400).send(err);
             res.status(200).json({ success: true, post })
         })
+});
+
+router.post("/getMyPost", (req, res) => {
+    Tip.find({ 'writer' : { $in : req.body.id} })
+        .sort({ "createdAt" : -1 })
+        .exec((err, tips) => {
+            if(err) {return res.status(400).json({ success: false, err })}
+            res.status(200).json({ success: true, tips})
+        })
+    
 });
 
 module.exports = router;

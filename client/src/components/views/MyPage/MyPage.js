@@ -4,7 +4,7 @@ import { Typography, Button, Row, Col, Avatar} from 'antd';
 import { UserOutlined } from '@ant-design/icons';
 import { useSelector } from 'react-redux';
 
-const { Title } = Typography
+const { Title } = Typography;
 
 function MyPage(props) { 
     const [Image, setImage] = useState([]);
@@ -58,7 +58,7 @@ function MyPage(props) {
                         <Link to="/mypage/mypost">작성한 글</Link>
                     </Button>
                     <Button type="default" block style={{height:'110px', marginTop:'20px',borderRadius:'10px', fontSize:'25px'}}>
-                        <Link to="/">다운로드 기록</Link>
+                        <Link to="/mypage/download">다운로드 기록</Link>
                     </Button>
                     <Button type="default" block style={{float: 'right', color: 'white', width:'230px',height:'50px',backgroundColor:'#8e8f92', marginTop:'40px',borderRadius:'10px', fontSize:'20px'}}>
                         1:1 문의하기

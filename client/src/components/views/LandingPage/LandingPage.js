@@ -39,7 +39,7 @@ function LandingPage(props) {
         getTemplates(variables)
     }, [])
 
-    const getTemplates = (variables) => {
+    const getTemplates = (variables) => { 
         axios.post('/api/template/getTemplates', variables)
             .then(response => {
                 if(response.data.success) {
@@ -49,7 +49,7 @@ function LandingPage(props) {
                         setTemplates(response.data.templates)
                     }
                     console.log(response.data.templates)
-                    setPostSize(response.data.postSize)
+                    setPostSize(response.data.postSize) 
                 } else {
                     alert('Failed to fetch template data')
                 }
@@ -175,7 +175,7 @@ function LandingPage(props) {
 
             <Col style={{ display:'flex', justifyContent:'flex-end', margin:'1rem 0 1rem auto' }}>
                 <SortFeature
-                    sortFunction = {showSortedResults}
+                    sortFunction = {showSortedResults} 
                 />
             </Col>
             </Row>

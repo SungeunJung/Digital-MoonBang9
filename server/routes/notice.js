@@ -18,13 +18,26 @@ router.post("/createPost", auth, (req, res) => {
     })
 });
 
-router.get("/getNotices", (req, res) => {
+router.post("/getNotices", (req, res) => {
+    let limit = req.body.limit ? parseInt(req.body.limit) : 20;
+    let skip = parseInt(req.body.skip);
+
     Notice.find()
         .populate("writer")
+        .sort({createdAt: -1})
+        .skip(skip)
+        .limit(limit)
         .exec((err, notices) => {
             if (err) return res.status(400).send(err);
             res.status(200).json({ success: true, notices });
         });
+});
+
+router.get("/getNoticesCount", (req, res) => {
+    Notice.count({}, function(err, count){
+        if (err) return res.status(400).send(err);
+        res.status(200).json({ success: true, count });
+    })
 });
 
 router.post("/getPost", (req, res) => {
