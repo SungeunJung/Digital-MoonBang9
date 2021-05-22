@@ -60,4 +60,14 @@ router.post("/getMyPost", (req, res) => {
     
 });
 
+router.post("/deleteReview", (req, res) => {
+    Review.deleteOne({ "_id": req.body.reviewID })
+        .then(function(){
+            return res.status(200).json({ success: true }) 
+            })
+        .catch(function(err){
+            return res.json({ success: false, err }); 
+        })
+})
+
 module.exports = router;

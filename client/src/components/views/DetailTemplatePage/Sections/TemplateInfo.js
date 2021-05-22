@@ -1,7 +1,7 @@
 import React, { useState,useEffect } from 'react'
-import { Tooltip, Descriptions, Button } from 'antd';
+import { Tooltip, Descriptions, Button, Row, Col, Popconfirm, message } from 'antd';
 import { styles } from '../../LandingPage/Sections/Datas';
-import { HeartOutlined, HeartFilled, DownloadOutlined } from '@ant-design/icons';
+import { HeartOutlined, HeartFilled, DownloadOutlined, EditOutlined, DeleteOutlined } from '@ant-design/icons';
 import { useDispatch } from 'react-redux';
 import { addToLike } from '../../../../_actions/user_action'
 import Axios from 'axios';
@@ -84,14 +84,61 @@ function TemplateInfo(props) {
         }
     }
 
+    const confirm = (e) => {
+        console.log(e);
+        
+        const body = {
+            templateID: Template._id
+        }
+
+        Axios.post('/api/template/deleteTemplate', body)
+            .then(response => {
+                if (response.data.success) {
+                    message.success('템플릿이 삭제되었습니다.');
+                    setTimeout(() => {
+                        window.location.href="/"
+                    }, 150);
+                } else {
+                    alert('Failed to delete Template')
+                }
+            })
+      }
+
+    const cancel = (e) => {
+        console.log(e);
+        message.error('취소되었습니다');
+    }
+
     return (
         <div>
-            <Descriptions title="Template Info">
-                <Descriptions.Item label="Designer">{Template.designer}</Descriptions.Item>
-                <Descriptions.Item label="Style">{Style}</Descriptions.Item>
-                <Descriptions.Item label="nickname">{Template.nickname}</Descriptions.Item>
-                <Descriptions.Item label="Description">{Template.description}</Descriptions.Item>    
-            </Descriptions>
+            <Row>
+                <Col style={{width: '90%'}}>
+                    <Descriptions title="Template Info"></Descriptions>
+                </Col>
+                {(user.userData && Template.writer && Template.writer._id == user.userData._id) ?
+                <Col style={{width: '5%'}}>
+                    <Tooltip title="edit"><div><EditOutlined /> </div></Tooltip>
+                </Col> : <Col></Col>}
+                {(user.userData && Template.writer && Template.writer._id == user.userData._id) ?
+                 <Col style={{width: '5%'}}>
+                    <Popconfirm
+                        title="Are you sure to delete this template?"
+                        onConfirm={confirm}
+                        onCancel={cancel}
+                        okText="Yes"
+                        cancelText="No"
+                    ><a href="#"><DeleteOutlined /></a>
+                    </Popconfirm>
+                </Col> : <Col></Col>}
+            </Row>
+            <Row>
+                <Descriptions>
+                    <Descriptions.Item label="Designer">{Template.designer}</Descriptions.Item>
+                    <Descriptions.Item label="Style">{Style}</Descriptions.Item>
+                    <Descriptions.Item label="nickname">{Template.nickname}</Descriptions.Item>
+                    <Descriptions.Item label="Description">{Template.description}</Descriptions.Item>    
+                </Descriptions>
+            </Row>
             <br />
             {(user.userData && !user.userData.isAuth) ?
                 <Button type="primary" shape="round" icon={<DownloadOutlined />} size={'large'} 

@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import { Comment, Avatar, Button, Input, Col, Row, Popconfirm, message } from 'antd';
+import { CloseOutlined } from '@ant-design/icons';
 import Axios from 'axios';
 import { useSelector } from 'react-redux';
 import { useLocation } from 'react-router-dom';
@@ -67,7 +68,7 @@ function SingleComment(props) {
                     message.success('댓글이 삭제되었습니다.');
                     setTimeout(() => {
                         window.location.reload();
-                    }, 2000);
+                    }, 150);
                 } else {
                     alert('Failed to delete Comment')
                 }
@@ -80,9 +81,9 @@ function SingleComment(props) {
     }
 
     return (
-        <div>
+        <div style={{width : "60%", display: "flex" }}>
             <Row>
-                <Col style={{width : "95%"}}>
+                <Col style={{width : "85%"}}>
                 <Comment
                     actions={actions}
                     author={props.comment.writer.nickname}
@@ -101,7 +102,7 @@ function SingleComment(props) {
                 ></Comment>
                 </Col>
                 {(user.userData && props.comment && props.comment.writer._id == user.userData._id) ?
-                    <Col align="right"  style={{ width : "5%" }}>
+                    <Col align="right"  style={{ width : "10%" }}>
                     <br/>
                     <Popconfirm
                         title="Are you sure to delete this comment?"

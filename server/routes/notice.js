@@ -50,4 +50,14 @@ router.post("/getPost", (req, res) => {
         })
 });
 
+router.post("/deleteNotice", (req, res) => {
+    Notice.deleteOne({ "_id": req.body.noticeID })
+        .then(function(){
+            return res.status(200).json({ success: true }) 
+            })
+        .catch(function(err){
+            return res.json({ success: false, err }); 
+        })
+})
+
 module.exports = router;

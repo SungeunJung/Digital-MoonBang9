@@ -91,8 +91,18 @@ router.post("/getMyPost", (req, res) => {
         .exec((err, tips) => {
             if(err) {return res.status(400).json({ success: false, err })}
             res.status(200).json({ success: true, tips})
-        })
+        }) 
     
 });
+
+router.post("/deleteTip", (req, res) => {
+    Tip.deleteOne({ "_id": req.body.tipID })
+        .then(function(){
+            return res.status(200).json({ success: true }) 
+            })
+        .catch(function(err){
+            return res.json({ success: false, err }); 
+        })
+})
 
 module.exports = router;

@@ -241,4 +241,14 @@ router.post("/increaseDownload", auth, (req, res) => {
     .exec();   
 });
 
+router.post("/deleteTemplate", (req, res) => {
+    Template.deleteOne({ "_id": req.body.templateID })
+        .then(function(){
+            return res.status(200).json({ success: true }) 
+            })
+        .catch(function(err){
+            return res.json({ success: false, err }); 
+        })   
+})
+
 module.exports = router;
