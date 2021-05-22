@@ -93,5 +93,3 @@ function UserImageEdit(props) {
 }
 
 export default UserImageEdit
-
-//{''.concat("\\uploads\\profile\\", str_new)}
