@@ -17,46 +17,69 @@ function TemplateInfo(props) {
     const [Style, setStyle] = useState("")
     const [LinkDisableAction, setLinkDisableAction] = useState(true)
     const [LikeAction, setLikeAction] = useState(null)
+    const [LikeCounts, setLikeCounts] = useState(0)
     const [FilePath, setFilePath] = useState("")
+    
     const user = useSelector(state => state.user)
+
+    let likeCounts = 0;
 
     useEffect(() => {
        setTemplate(props.detail)
        var indexs = styles.findIndex(i => i._id == props.detail.styles)
        setStyle(Styles[indexs])
        setFilePath((process.env.REACT_APP_S3_URL) +'templateFile/' + props.detail.uploadedFile)
-       console.log((process.env.REACT_APP_S3_URL) +'templateFile/' + props.detail.uploadedFile)
        if(props.detail.uploadedUrl) {
            setLinkDisableAction(false)
        } 
        Axios.get('/api/users/getLikes')
-        .then(response => {
-            if (response.data.success) {
-                response.data.likes.map(like => {
-                    if (like.id === props.detail._id) {
-                    setLikeAction('liked')
-                    }
-                })
-            } else {
-                console.log('Failed to get likes')
-            }
-        })
+      .then(response => {
+         if (response.data.success) {
+             response.data.likes.map(like => {
+                if (like.id === props.detail._id) {
+                   setLikeAction('liked')
+                }
+             })
+         } else {
+            console.log('Failed to get likes')
+         }
+      })
+
+      Axios.get(`/api/template/templates_by_id?id=${props.id}&type=single`)
+            .then(response => {
+                console.log(response.data[0].likes)
+                setLikeCounts(response.data[0].likes)
+            })
+
     }, [props.detail])
 
-
+    
     const onLikeHandler = () => {
         if(user.userData && !user.userData.isAuth) {//로그인을 안했으면 로그인을 해달라는 메세지 뜨기
             return alert('로그인이 필요합니다.');
         }
         else {
             dispatch(addToLike(props.detail._id))
+
             if (LikeAction === 'liked') {
                 setLikeAction(null)
                 alert('찜하기를 취소했습니다.')
+                let body = {
+                    templateId: props.detail._id,
+                    like : LikeCounts-1
+                }
+                setLikeCounts(LikeCounts-1)
+                Axios.post('/api/template/modifyLikes', body)
             }
             else {
                 setLikeAction('liked')
                 alert('이 탬플릿을 찜했습니다.')
+                let body = {
+                    templateId: props.detail._id,
+                    like : LikeCounts+1
+                }
+                setLikeCounts(LikeCounts+1)
+                Axios.post('/api/template/modifyLikes', body)
             }
         }
     }
@@ -98,12 +121,12 @@ function TemplateInfo(props) {
                         disabled={!LinkDisableAction} onClick={onFileDownloadAlertHandler}>
                     File Download
                 </Button> :
-                <Link to={FilePath} target="_blank" download>
+                <a href={FilePath} download>
                     <Button type="primary" shape="round" icon={<DownloadOutlined />} size={'large'} 
                             disabled={!LinkDisableAction} onClick={onFileDownloadHandler}>
                         File Download
                     </Button>
-                </Link>
+                </a>
             }&nbsp;&nbsp;
             <Button type="primary" shape="round" icon={<DownloadOutlined />} size={'large'} 
                     disabled={LinkDisableAction} onClick={onLinkHandler}>
