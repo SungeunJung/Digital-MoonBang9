@@ -18,6 +18,7 @@ function TemplateInfo(props) {
     const [LinkDisableAction, setLinkDisableAction] = useState(true)
     const [LikeAction, setLikeAction] = useState(null)
     const [FilePath, setFilePath] = useState("")
+    
     const user = useSelector(state => state.user)
 
     useEffect(() => {
@@ -25,7 +26,6 @@ function TemplateInfo(props) {
        var indexs = styles.findIndex(i => i._id == props.detail.styles)
        setStyle(Styles[indexs])
        setFilePath((process.env.REACT_APP_S3_URL) +'templateFile/' + props.detail.uploadedFile)
-       console.log((process.env.REACT_APP_S3_URL) +'templateFile/' + props.detail.uploadedFile)
        if(props.detail.uploadedUrl) {
            setLinkDisableAction(false)
        } 
@@ -43,7 +43,7 @@ function TemplateInfo(props) {
         })
     }, [props.detail])
 
-
+    
     const onLikeHandler = () => {
         if(user.userData && !user.userData.isAuth) {//로그인을 안했으면 로그인을 해달라는 메세지 뜨기
             return alert('로그인이 필요합니다.');
@@ -98,12 +98,12 @@ function TemplateInfo(props) {
                         disabled={!LinkDisableAction} onClick={onFileDownloadAlertHandler}>
                     File Download
                 </Button> :
-                <Link to={FilePath} target="_blank" download>
+                <a href={FilePath} download>
                     <Button type="primary" shape="round" icon={<DownloadOutlined />} size={'large'} 
                             disabled={!LinkDisableAction} onClick={onFileDownloadHandler}>
                         File Download
                     </Button>
-                </Link>
+                </a>
             }&nbsp;&nbsp;
             <Button type="primary" shape="round" icon={<DownloadOutlined />} size={'large'} 
                     disabled={LinkDisableAction} onClick={onLinkHandler}>
