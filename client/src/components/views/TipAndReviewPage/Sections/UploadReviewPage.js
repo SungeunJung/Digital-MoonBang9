@@ -12,6 +12,8 @@ const desc = ['terrible', 'bad', 'normal', 'good', 'wonderful'];
 function UploadReviewPage(props) {
     const user = useSelector(state => state.user);
 
+    const [Reviews, setReviews] = useState([])
+    const [ReviewNames, setReviewNames] = useState([])
     const [TitleValue, setTitleValue] = useState("")
     const [TemplateValue, setTemplateValue] = useState("")
     const [Templates, setTemplates] = useState([])
@@ -21,20 +23,40 @@ function UploadReviewPage(props) {
     const [files, setFiles] = useState([])
 
     useEffect(() => {
-        if (user.userData) {
-            let variables = {
-                id: user.userData._id
-            }
-            axios.post('/api/template/getMyPost', variables)
-                .then(response => {
-                    if(response.data.success) {
-                        console.log(response.data.templates)
-                        setTemplates(response.data.templates)
-                    } else {
-                        alert('Failed to fetch template data')
-                    }
+        
+        let downloadArr = []
+        if (user.userData && user.userData.download) {
+            if (user.userData.download.length > 0) {
+                user.userData.download.forEach(item => {
+                    downloadArr.push(item.id)
                 })
+            }
         }
+        let variables = {
+            skip: 0,
+            limit: user.userData.download.length,
+            download: downloadArr
+        }
+        axios.post('/api/template/getMyDownload', variables)
+            .then(response => {
+                if(response.data.success) {
+                    console.log(response.data.templates)
+                    setTemplates(response.data.templates)
+                } else {
+                    alert('Failed to fetch template data')
+                }
+            })
+        
+        axios.post('/api/review/getReviews', variables)
+        .then(response => {
+            if (response.data.success) {
+                console.log(response.data.reviews)
+                setReviews(response.data.reviews)
+            } else {
+                alert('Couldnt get review`s lists')
+            }
+        })
+
     }, [])
 
     const onTitleChange = (event) => {
@@ -85,11 +107,15 @@ function UploadReviewPage(props) {
                 }
             })
     }
+    const makeReviewList = (Reviews && Reviews.map((review, index) => {//리뷰에 있는 템플릿이면 push안해줌
+        ReviewNames.push(review.template)
+    }))
 
-    const renderOptions = (Templates && Templates.map((template, index) => {
-        console.log(template._id)
-        TemplateNames.push(template.title)
-        return <Option value={index}>{template.title}</Option>
+    const renderOptions = (Templates && Templates.map((template, index) => {//리뷰에 있는 템플릿이면 push안해줌   
+        if(!ReviewNames.includes(template.title)){
+            TemplateNames.push(template.title)
+            return <Option value={index}>{template.title}</Option>
+        }
     }))
 
     const onChange = (value) => {
@@ -112,6 +138,7 @@ function UploadReviewPage(props) {
                 <br/>
                 <br/>
                 <p style={{ textAlign: 'center', fontSize: '14px' }} >Template Name</p>
+                {makeReviewList}
                 <Select
                     style={{ width: 700 }}
                     placeholder="Select a template"
