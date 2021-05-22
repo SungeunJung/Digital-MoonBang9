@@ -44,6 +44,11 @@ const templateSchema = mongoose.Schema({
         maxlength: 1000,
         default: 0
     },
+    likes: {
+        type: Number,
+        maxlength: 1000,
+        default: 0
+    },
     views: {
         type: Number,
         default: 0
