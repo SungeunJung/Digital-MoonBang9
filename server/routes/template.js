@@ -261,4 +261,18 @@ router.post("/increaseDownload", auth, (req, res) => {
     .exec();   
 });
 
+router.post("/modifyLikes", auth, (req, res) => {
+    //console.log(req.body.templateId)
+    //console.log(req.body.like)
+    Template.findOneAndUpdate({ _id: req.body.templateId }, 
+        { likes:req.body.like }, 
+        (err, doc) => {
+        if (err) return res.json({ success: false, err });
+        return res.status(200).send({
+            success: true
+        });    
+    })
+    .exec();   
+});
+
 module.exports = router;

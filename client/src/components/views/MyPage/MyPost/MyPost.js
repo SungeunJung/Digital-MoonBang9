@@ -25,8 +25,6 @@ function MyPost(props) {
                     if(response.data.success) {
                         console.log(response.data.templates)
                         setTemplates(response.data.templates)
-                        setTips(response.data.tips)
-                        setReviews(response.data.reviews)
                     } else {
                         alert('Failed to fetch template data')
                     }

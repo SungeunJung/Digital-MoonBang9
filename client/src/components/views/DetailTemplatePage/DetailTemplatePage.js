@@ -49,7 +49,7 @@ function DetailTemplatePage(props) {
                     <TemplateImage detail={Template}/>
                 </Col>
                 <Col lg={12} xs={24}>
-                    <TemplateInfo detail={Template}/>
+                    <TemplateInfo detail={Template} id={templateId}/>
                     <br />
                     <br />
                     
