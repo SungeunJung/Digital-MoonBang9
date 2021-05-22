@@ -1,7 +1,8 @@
 import React, { useState } from 'react'
-import { Comment, Avatar, Button, Input } from 'antd';
+import { Comment, Avatar, Button, Input, Col, Row, Popconfirm, message } from 'antd';
 import Axios from 'axios';
 import { useSelector } from 'react-redux';
+import { useLocation } from 'react-router-dom';
 import { UserOutlined } from '@ant-design/icons';
 //import LikeDislikes from './LikeDislikes';
 const { TextArea } = Input;
@@ -9,6 +10,8 @@ function SingleComment(props) {
     const user = useSelector(state => state.user);
     const [CommentValue, setCommentValue] = useState("")
     const [OpenReply, setOpenReply] = useState(false)
+    
+    let location = useLocation();
 
     const handleChange = (e) => {
         setCommentValue(e.currentTarget.value)
@@ -44,6 +47,31 @@ function SingleComment(props) {
         //<LikeDislikes comment commentId={props.comment._id} userId={localStorage.getItem('userId')} />,
         <span onClick={openReply}  key="comment-basic-reply-to">Reply to </span>
     ]
+
+    const confirm = (e) => {
+        console.log(e);
+        
+        const body = {
+            commentID: props.comment._id
+        }
+
+        Axios.post('/api/comment/deleteComment', body)
+            .then(response => {
+                if (response.data.success) {
+                    message.success('댓글이 삭제되었습니다.');
+                    setTimeout(() => {
+                        window.location.reload();
+                    }, 2000);
+                } else {
+                    alert('Failed to delete Comment')
+                }
+            })
+      }
+
+    const cancel = (e) => {
+        console.log(e);
+        message.error('취소되었습니다');
+    }
 
     return (
         <div>

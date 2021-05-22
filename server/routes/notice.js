@@ -9,7 +9,8 @@ const { auth } = require("../middleware/auth");
 
 router.post("/createPost", auth, (req, res) => {
     let notice = new Notice({ 
-        title: req.body.title, description: req.body.description, content: req.body.content, writer: req.body.writer });
+        title: req.body.title, summary: req.body.summary, 
+        description: req.body.description, writer: req.body.writer });
 
     notice.save((err, postInfo) => {
         if (err) return res.json({ success: false, err });

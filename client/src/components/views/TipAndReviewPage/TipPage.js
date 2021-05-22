@@ -56,7 +56,7 @@ function TipPage() {
                     description={<span>&#60;{tip.title}&#62;</span>}
                 />
                 <div style={{ height: 150, overflowY: 'scroll', marginTop: 10 }}>
-                    <div dangerouslySetInnerHTML={{ __html: tip.content }} /></div>
+                    <div dangerouslySetInnerHTML={{ __html: tip.description }} /></div>
             </Card>
         </Col>
     }))

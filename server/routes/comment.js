@@ -37,7 +37,20 @@ router.post("/getComments", (req, res) => {
 
 });
 
+router.post("/deleteComment", (req, res) => {
 
+    Comment.deleteOne({ "_id": req.body.commentID })
+        .then(function(){
+            return res.status(200).json({ success: true }) // Success
+            })
+        .catch(function(err){
+            return res.json({ success: false, err }); // Failure
+        })
+            //.exec ((err, doc) => {
+            //if (err) return res.json({ success: false, err })
+            //return res.status(200).json({ success: true })
+        
+})
 
 
 module.exports = router;

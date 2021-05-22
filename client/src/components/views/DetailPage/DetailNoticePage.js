@@ -31,7 +31,7 @@ function DetailNoticePage(props) {
                     <Title level={4}>{post.createdAt.split('T')[0]}</Title>
                 </div>
                 <br/>
-                <div dangerouslySetInnerHTML={{ __html: post.content }} />
+                <div dangerouslySetInnerHTML={{ __html: post.description }} />
 
             </div>
         )

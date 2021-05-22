@@ -32,7 +32,8 @@ router.post("/uploadfiles", (req, res) => {
 });
 
 router.post("/createPost", (req, res) => {
-    let tip = new Tip({ title: req.body.title, content: req.body.content, writer: req.body.writer });
+    let tip = new Tip({ title: req.body.title, description: req.body.description, 
+        writer: req.body.writer });
 
     tip.save((err, postInfo) => {
         if (err) return res.json({ success: false, err });
