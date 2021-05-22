@@ -23,7 +23,7 @@ function TipPage() {
     const [Tips, setTips] = useState([])
     const [Count, setCount] = useState(0)
     const [Current, setCurrent] = useState(1)
-    const [Limit, setLimit] = useState(6)
+    const [Limit, setLimit] = useState(9)
 
     useEffect(() => {
         axios.get('/api/tip/getTipsCount') 
@@ -131,7 +131,7 @@ function TipPage() {
                 }
             </div>
             <div style ={{ display: 'flex', justifyContent: 'center' }}>
-                <Pagination defaultCurrent={1} defaultPageSize={6} total={Count} 
+                <Pagination defaultCurrent={1} defaultPageSize={9} total={Count} 
                 current={Current} onChange={onPageChange} />
             </div>
         </div>
