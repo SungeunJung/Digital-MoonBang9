@@ -14,7 +14,7 @@ function NoticePage(props) {
     const [Admin, setAdmin] = useState(false)
     const [Count, setCount] = useState(0)
     const [Current, setCurrent] = useState(1)
-    const [Limit, setLimit] = useState(3)
+    const [Limit, setLimit] = useState(10)
 
     useEffect(() => {
         axios.get('/api/users/getAdmin')
@@ -74,7 +74,7 @@ function NoticePage(props) {
 
     const PostList = (temp) => {
         return <List
-                    style={{ maxWidth: '700px', margin: '2rem auto'}}
+                    style={{ width: '97%', margin: '2rem auto'}}
                     className="demo-loadmore-list"
                     itemLayout="horizontal"
                     dataSource={temp}
@@ -96,7 +96,7 @@ function NoticePage(props) {
     }
 
     return (
-        <div style={{ maxWidth: '900px', margin: '4rem auto'}}>
+        <div style ={{ width: '75%', margin:'3rem auto' }}>
             <Row>{/*style={{ display:'flex', justifyContent:'flex-end', margin:'1rem auto 1rem 0' }}*/}
                 <Col style={{width : '450px'}}>
                     <strong><p style={{color : 'black', fontSize: "28px"}}> Notice </p></strong>
@@ -120,7 +120,7 @@ function NoticePage(props) {
                 </div>
             }
             <div style ={{ display: 'flex', justifyContent: 'center' }}>
-                <Pagination defaultCurrent={1} defaultPageSize={3} total={Count} 
+                <Pagination defaultCurrent={1} defaultPageSize={10} total={Count} 
                 current={Current} onChange={onPageChange} />
             </div>
         </div>

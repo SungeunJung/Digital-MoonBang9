@@ -31,6 +31,12 @@ function DetailTemplatePage(props) {
                     alert('Failed to get video Info')
                 }
             })
+            axios.post('/api/users/addHistory', templateVariable)
+            .then(response => {
+                if (response.data.success) {
+                } else {
+                }
+            })
     }, [])
 
     const updateComment = (newComment) => {
