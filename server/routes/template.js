@@ -223,15 +223,13 @@ router.post("/getMyPostCount", auth, (req, res) => {
     })
 });
 
-router.post("/getMyDownload", auth, (req, res) => {
-    let order = req.body.order ? req.body.order : "desc";
-    let sortBy = req.body.sortBy ? req.body.sortBy : -1;
+router.post("/getMyPageTemplates", auth, (req, res) => {
     let limit = req.body.limit ? parseInt(req.body.limit) : 20;
     let skip = parseInt(req.body.skip);
 
-    Template.find({ '_id' : { $in : req.body.download} })
+    Template.find({ '_id' : { $in : req.body.template} })
         .populate("writer")
-        .sort([[sortBy, order]])
+        .sort({ "date" : -1 })
         .skip(skip)
         .limit(limit)
         .exec((err, templates) => {

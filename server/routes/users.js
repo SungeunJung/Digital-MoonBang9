@@ -240,21 +240,36 @@ router.post("/addHistory", auth, (req, res) => {
                          $push: {
                              history: {
                                 id: req.body.templateId,
-                                quantity: 1,
                                 date: Date.now(),
-                                $slice: 3
                              }
                          }
-
                      },
                      { new: true },
                      (err, userInfo) => {
+                         //console.log(userInfo.history)
                          if (err) return res.status(400).json({ success: false, err })
-                         res.status(200).json({ success: true })
+                         res.status(200).send({ success: true, count:userInfo.history.length })
                      }
                  )
              }
          })
  });
+
+ router.post("/deleteHistory", auth, (req, res) => {
+    User.findOneAndUpdate(
+        { _id: req.user._id },
+        {
+            $pop: {
+                history:-1,
+            }
+        },
+        (err, userInfo) => {
+            if (err) return res.status(400).json({ success: false, err })
+            res.status(200).send({ success: true, count:userInfo.history.length })
+        }
+    )    
+ });
+
+ 
 
 module.exports = router;

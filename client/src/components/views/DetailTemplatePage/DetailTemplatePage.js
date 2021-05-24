@@ -11,12 +11,12 @@ function DetailTemplatePage(props) {
     const templateId = props.match.params.templateId 
     const [Template, setTemplate] = useState([])
     const [CommentLists, setCommentLists] = useState([])
-
+    const [HistoryCount, setHistoryCount] = useState(0)
     const templateVariable = {
         templateId: templateId
     }
-
     useEffect(() => {
+        
         axios.get(`/api/template/templates_by_id?id=${templateId}&type=single`)
             .then(response => {
                 setTemplate(response.data[0])
@@ -31,12 +31,26 @@ function DetailTemplatePage(props) {
                     alert('Failed to get video Info')
                 }
             })
-            axios.post('/api/users/addHistory', templateVariable)
+        axios.post('/api/users/addHistory', templateVariable)
             .then(response => {
                 if (response.data.success) {
+                    console.log(response.data.count)
+                    if(response.data.count>20) {
+                        console.log('here')
+                        axios.post('/api/users/deleteHistory')
+                        .then(response => {
+                            if (response.data.success) {
+                                console.log('success')
+                            } else {
+                                console.log("Failed to delete history");
+                            }
+                        })
+                    }
                 } else {
+                    console.log("Failed to add history");
                 }
             })
+        
     }, [])
 
     const updateComment = (newComment) => {
