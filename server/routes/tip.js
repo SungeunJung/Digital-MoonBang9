@@ -103,14 +103,8 @@ router.post("/getMyPostCount", auth, (req, res) => {
     Tip.find({ 'writer' : { $in : req.body.id} })
         .exec((err, tips) => {
             if(err) {return res.status(400).json({ success: false, err })}
-<<<<<<< HEAD
-            res.status(200).json({ success: true, tips})
-        }) 
-    
-=======
             res.status(200).json({ success: true, count:tips.length })
         })
->>>>>>> Jung
 });
 
 router.post("/deleteTip", (req, res) => {
