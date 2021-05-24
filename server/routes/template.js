@@ -202,13 +202,25 @@ router.post("/getRecommendTemplates", auth, (req, res) => {
 });
 
 router.post("/getMyPost", auth, (req, res) => {
+    let limit = req.body.limit ? parseInt(req.body.limit) : 20;
+    let skip = parseInt(req.body.skip);
+
     Template.find({ 'writer' : { $in : req.body.id} })
         .sort({ "createdAt" : -1 })
+        .skip(skip)
+        .limit(limit)
         .exec((err, templates) => {
             if(err) {return res.status(400).json({ success: false, err })}
             res.status(200).json({ success: true, templates})
         })
-    
+});
+
+router.post("/getMyPostCount", auth, (req, res) => {
+    Template.find({ 'writer' : { $in : req.body.id} })
+    .exec((err, templates) => {
+        if(err) {return res.status(400).json({ success: false, err })}
+        res.status(200).json({ success: true, count:templates.length })
+    })
 });
 
 router.post("/getMyDownload", auth, (req, res) => {

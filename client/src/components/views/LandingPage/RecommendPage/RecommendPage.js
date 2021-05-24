@@ -150,7 +150,7 @@ function RecommendPage(props) {
                         <h2>No post yet...</h2>
                     </div> 
                     :
-                    <div className='container'>
+                    <div className='container-scroll'>
                         <div>
                             <table frame='void'>
                                 <tr style ={{ fontFamily: 'kyobo'}}>
