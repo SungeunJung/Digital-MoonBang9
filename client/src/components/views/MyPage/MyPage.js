@@ -3,6 +3,7 @@ import { withRouter, Link } from 'react-router-dom';
 import { Typography, Button, Row, Col, Avatar} from 'antd';
 import { UserOutlined } from '@ant-design/icons';
 import { useSelector } from 'react-redux';
+import './MyPage.css';
 
 const { Title } = Typography;
 
@@ -33,7 +34,7 @@ function MyPage(props) {
       )
    
     return (
-        <div style={{ width: '80%', padding: '3rem 4rem', margin:'auto' }}>
+        <div style ={{ width: '65%', margin:'3rem auto', fontFamily: 'kyobo' }}>
             <div style={{ textAlign:'center', marginBottom:'4rem' }}>
                 <Title level={2}>마이페이지</Title>
             </div>                   

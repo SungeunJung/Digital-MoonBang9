@@ -15,7 +15,7 @@ const { Meta } = Card;
 function LandingPage(props) {
     const [Templates, setTemplates] = useState([])
     const [Skip, setSkip] = useState(0)
-    const [Limit, setLimit] = useState(8)
+    const [Limit, setLimit] = useState(12)
     const [PostSize, setPostSize] = useState(0)
     const [SearchTerm, setSearchTerm] = useState("")
     const [SearchField, setSearchField] = useState("")
