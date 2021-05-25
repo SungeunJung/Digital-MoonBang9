@@ -1,14 +1,9 @@
 import React, { useState } from 'react';
-import { Menu, Row, Col } from 'antd';
-import renderEmpty from 'antd/lib/config-provider/renderEmpty';
+import { Menu } from 'antd';
 import './LeftMenu.css';
 const SubMenu = Menu.SubMenu;
-const MenuItemGroup = Menu.ItemGroup;
-
 
 function LeftMenu(props) {
-  const [mouseOver, setmouseOver] = useState(false)
-
   const menuHandler = (value) => {
     if(value.key == 'all') window.location.href='/';
     else window.location.href=`/:${value.key}`;

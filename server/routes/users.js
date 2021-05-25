@@ -38,6 +38,7 @@ router.get("/auth", auth, (req, res) => {
         image: req.user.image,
         like: req.user.like,
         download: req.user.download,
+        history: req.user.history,
     });
 });
 
@@ -204,7 +205,7 @@ router.post("/addDownload", auth, (req, res) => {
                     { _id: req.user._id },
                     {
                         $push: {
-                            download: {
+                            history: {
                                id: req.body.templateId,
                                date: Date.now()
                             }
@@ -219,5 +220,56 @@ router.post("/addDownload", auth, (req, res) => {
             }
         })
 });
+
+router.post("/addHistory", auth, (req, res) => {
+    User.findOne({ _id: req.user._id },
+         (err, userInfo) => {
+             let duplicate = false;
+             userInfo.history.forEach((item) => {
+                 if (item.id === req.body.templateId) {
+                     duplicate = true;
+                 }
+             })
+             if (duplicate) {
+                 
+             }
+             else {
+                 User.findOneAndUpdate(
+                     { _id: req.user._id },
+                     {
+                         $push: {
+                             history: {
+                                id: req.body.templateId,
+                                date: Date.now(),
+                             }
+                         }
+                     },
+                     { new: true },
+                     (err, userInfo) => {
+                         //console.log(userInfo.history)
+                         if (err) return res.status(400).json({ success: false, err })
+                         res.status(200).send({ success: true, count:userInfo.history.length })
+                     }
+                 )
+             }
+         })
+ });
+
+ router.post("/deleteHistory", auth, (req, res) => {
+    User.findOneAndUpdate(
+        { _id: req.user._id },
+        {
+            $pop: {
+                history:-1,
+            }
+        },
+        (err, userInfo) => {
+            if (err) return res.status(400).json({ success: false, err })
+            res.status(200).send({ success: true, count:userInfo.history.length })
+        }
+    )    
+ });
+
+ 
 
 module.exports = router;

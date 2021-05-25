@@ -22,6 +22,7 @@ import MyPage from './views/MyPage/MyPage'
 import ModifyUserInfoPage from './views/MyPage/ModifyUserInfoPage'
 import MyPost from './views/MyPage/MyPost/MyPost'
 import MyDownload from './views/MyPage/MyDownload/MyDownload'
+import MyHistory from './views/MyPage/MyHistory/MyHistory'
 import LikePage from './views/LikePage/LikePage';
 
 import NoticePage from "./views/NoticePage/NoticePage";
@@ -76,6 +77,7 @@ function App() {
           <Route exact path="/mypage/modifyinfo" component={ Auth(ModifyUserInfoPage, true) } />
           <Route exact path="/mypage/mypost" component={ Auth(MyPost, true) } />
           <Route exact path="/mypage/download" component={ Auth(MyDownload, true) } />
+          <Route exact path="/mypage/history" component={ Auth(MyHistory, true) } />
           <Route exact path="/user/like" component={Auth(LikePage, true)} />
           <Route exact path="/recommend" component={ Auth(RecommendPage, null) } />
 

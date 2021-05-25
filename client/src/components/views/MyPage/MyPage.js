@@ -50,7 +50,7 @@ function MyPage(props) {
                         <Link to="/user/like" style={{fontSize:'25px'}}>찜하기 목록</Link>
                     </Button>
                     <Button type="default" block style={{height:'110px', marginTop:'20px',borderRadius:'10px', fontSize:'25px' }}>
-                        <Link to="/">방문 기록</Link>
+                        <Link to="/mypage/history">방문 기록</Link>
                     </Button>
                 </Col>
                 <Col lg={8} md={16} xs={24}>

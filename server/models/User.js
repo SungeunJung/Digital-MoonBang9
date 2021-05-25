@@ -37,6 +37,13 @@ const userSchema = mongoose.Schema({
     image: {
         type: Array        
     },
+    imageClient: {
+        type: Array        
+    }, 
+    history: {
+        type: Array,
+        default: []
+    },
     token: {
         type: String
     },
