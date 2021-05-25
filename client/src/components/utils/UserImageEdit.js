@@ -38,7 +38,6 @@ function UserImageEdit(props) {
             header: {'content-type': 'multipart/form-data'}
         }
         formData.append("file", files[0])
-        console.log(files[0]);
         
         
         //save the Image we chose inside the node server
@@ -54,7 +53,6 @@ function UserImageEdit(props) {
         })    
     }
 
-  console.log(Image)
   
   return (
     
