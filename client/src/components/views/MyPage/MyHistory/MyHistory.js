@@ -6,30 +6,30 @@ import axios from 'axios';
 const { Meta } = Card;
 const { Title } = Typography;
 
-var downloadDuplicateForLoadMore=[]
+var historyDuplicateForLoadMore=[]
 
-function MyDownload(props) {
+function MyHistory(props) {
     const [Templates, setTemplates] = useState([])
     const [Skip, setSkip] = useState(0)
     const [Limit, setLimit] = useState(8)
     const [PostSize, setPostSize] = useState(0)
 
     useEffect(() => {
-        let downloadArr = []
-        if (props.user.userData && props.user.userData.download) {
-            if (props.user.userData.download.length > 0) {
-                props.user.userData.download.forEach(item => {
-                    downloadArr.push(item.id)
+        let historyArr = []
+        if (props.user.userData && props.user.userData.history) {
+            if (props.user.userData.history.length > 0) {
+                props.user.userData.history.forEach(item => {
+                    historyArr.push(item.id)
                 })
             }
         }
 
-        downloadDuplicateForLoadMore = downloadArr.slice();
+        historyDuplicateForLoadMore = historyArr.slice();
 
         let variables = {
             skip: Skip,
             limit: Limit,
-            template: downloadArr
+            template: historyArr
         }
 
         getTemplates(variables)
@@ -59,7 +59,7 @@ function MyDownload(props) {
             skip: skip,
             limit: Limit,
             loadMore: true,
-            template: downloadDuplicateForLoadMore
+            template: historyDuplicateForLoadMore
         }
         
         getTemplates(variables)
@@ -67,9 +67,9 @@ function MyDownload(props) {
 
     const renderCards = Templates.map((template, index) => {
         var temp = ""
-        props.user.userData.download.map((download, index) => {
-            if(download.id == template._id) 
-                temp = new Date(download.date);
+        props.user.userData.history.map((history, index) => {
+            if(history.id == template._id) 
+                temp = new Date(history.date);
         })
         var date = temp.toISOString().split('T')[0]
         return <Col lg={6} md={8} xs={24} key={index}>
@@ -90,13 +90,13 @@ function MyDownload(props) {
         <div style ={{ width: '75%', margin:'3rem auto', fontFamily: 'kyobo' }}>
             <div style ={{ textAlign: 'center' }}>
                 <Title level={1}>마이페이지</Title>
-                <Title level={3}>다운로드 기록</Title>
+                <Title level={3}>방문 기록</Title>
             </div>
 
             <br/>
             {Templates.length === 0 ?
                 <div style ={{ display: 'flex', height:'300px', justifyContent: 'center', alignItems: 'center' }}>
-                    <h2>다운로드 받은 속지가 없습니다.</h2>
+                    <h2>방문 기록이 없습니다.</h2>
                 </div> :
                 <div>
                     <Row gutter={[16, 16]}>
@@ -115,4 +115,4 @@ function MyDownload(props) {
     )
 }
 
-export default MyDownload
+export default MyHistory

@@ -40,6 +40,10 @@ const userSchema = mongoose.Schema({
     imageClient: {
         type: Array        
     }, 
+    history: {
+        type: Array,
+        default: []
+    },
     token: {
         type: String
     },

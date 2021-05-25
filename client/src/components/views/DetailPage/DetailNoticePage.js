@@ -1,8 +1,9 @@
 import React, { useEffect, useState } from 'react'
 import axios from 'axios';
-import { Card, Icon, Avatar, Col, Typography, Row, Tooltip, message, Popconfirm } from 'antd';
+import { Col, Typography, Row, Tooltip, message, Popconfirm } from 'antd';
 import { EditOutlined, DeleteOutlined } from '@ant-design/icons';
 import { useSelector } from "react-redux";
+import { Link } from 'react-router-dom';
 const { Title } = Typography
 
 function DetailNoticePage(props) {
@@ -16,7 +17,6 @@ function DetailNoticePage(props) {
         axios.get('/api/users/getAdmin')
         .then(response=>{
             if (response.data.success) {
-                console.log(response.data.isAdmin)
                 setAdmin(response.data.isAdmin)
             } else {
             console.log('Failed to get Admin')
@@ -28,8 +28,11 @@ function DetailNoticePage(props) {
         axios.post('/api/notice/getPost', variable)
             .then(response => {
                 if (response.data.success) {
-                    console.log(response.data.post)
+                    console.log('<notice 정보>',response.data.post)
                     setPost(response.data.post)
+                    window.localStorage.setItem("title_notice", response.data.post.title)
+                    window.localStorage.setItem("description_notice", response.data.post.description)
+                    window.localStorage.setItem("summary_notice", response.data.post.summary)
                 } else {
                     alert('Couldnt get post')
                 }
@@ -37,12 +40,9 @@ function DetailNoticePage(props) {
     }, [])
 
     const confirm = (e) => {
-        console.log(e);
-        
         const body = {
             noticeID: postId
         }
-
         axios.post('/api/notice/deleteNotice', body)
             .then(response => {
                 if (response.data.success) {
@@ -57,7 +57,6 @@ function DetailNoticePage(props) {
       }
 
     const cancel = (e) => {
-        console.log(e);
         message.error('취소되었습니다');
     }
 
@@ -71,7 +70,9 @@ function DetailNoticePage(props) {
                     { (user.userData && !Admin) ?
                     <Col></Col> :
                     <Col style={{width: '5%'}}>
-                        <Tooltip title="edit"><div><EditOutlined /> </div></Tooltip>
+                        <Link to={`/notice/upload/modify/${postId}`}>
+                            <Tooltip title="edit"><div><EditOutlined /> </div></Tooltip>
+                        </Link>
                     </Col>}
                     { (user.userData && !Admin) ?
                     <Col></Col> :
@@ -82,7 +83,7 @@ function DetailNoticePage(props) {
                             onCancel={cancel}
                             okText="Yes"
                             cancelText="No"
-                        ><a href="#"><DeleteOutlined /></a>
+                        ><a href="#"><Tooltip placement="bottom" title="delete"><DeleteOutlined /></Tooltip></a>
                         </Popconfirm>
                     </Col>}
                 </Row>

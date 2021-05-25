@@ -1,4 +1,5 @@
 import React, { useState, useEffect }  from 'react'
+import { NavLink } from 'react-router-dom';
 import { Link } from 'react-router-dom';
 import { Col, Row, Button, Card, Avatar, Typography, Rate, Pagination } from 'antd';
 import axios from 'axios';
@@ -79,12 +80,10 @@ function ReviewPage() {
     const renderCards = (Reviews && Reviews.map((review, index) => {
         console.log(review._id)
         return <Col key={index} lg={8} md={12} xs={24}>
+            <NavLink to = {`/review/post/${review._id}`}>
             <Card
                 hoverable
                 style={{ width: 250, marginTop: 16 }}
-                actions={[
-                    <a href={`/review/post/${review._id}`}>자세히보기</a>,
-                ]}
             >
                 <Meta
                     avatar={
@@ -100,7 +99,7 @@ function ReviewPage() {
                     description={review.template}
                 />
                 <div >
-                    <Rate tooltips={desc} value={review.rate} style={{ width: "100%" }} />
+                    <Rate value={review.rate} style={{ width: "100%" }} disabled />
                     {review.rate ? <span className="ant-rate-text" style={{ color: "#DAA520" }}>
                         {desc[review.rate - 1]}</span> : ''}
                 </div>
@@ -108,6 +107,7 @@ function ReviewPage() {
                     <div dangerouslySetInnerHTML={{ __html: review.description }} />
                 </div>
             </Card>
+            </NavLink>
         </Col>
     }))
 

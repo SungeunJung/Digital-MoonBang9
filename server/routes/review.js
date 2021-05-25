@@ -51,13 +51,25 @@ router.post("/getPost", (req, res) => {
 });
 
 router.post("/getMyPost", (req, res) => {
+    let limit = req.body.limit ? parseInt(req.body.limit) : 20;
+    let skip = parseInt(req.body.skip);
+
     Review.find({ 'writer' : { $in : req.body.id} })
         .sort({ "createdAt" : -1 })
+        .skip(skip)
+        .limit(limit)
         .exec((err, reviews) => {
             if(err) {return res.status(400).json({ success: false, err })}
-            res.status(200).json({ success: true, reviews})
+            res.status(200).json({ success: true, reviews })
         })
-    
+});
+
+router.post("/getMyPostCount", auth, (req, res) => {
+    Review.find({ 'writer' : { $in : req.body.id} })
+    .exec((err, reviews) => {
+        if(err) {return res.status(400).json({ success: false, err })}
+        res.status(200).json({ success: true, count:reviews.length })
+    })
 });
 
 router.post("/deleteReview", (req, res) => {
@@ -69,5 +81,20 @@ router.post("/deleteReview", (req, res) => {
             return res.json({ success: false, err }); 
         })
 })
+
+router.post("/editPost", auth, (req, res) => {
+    Review.findOneAndUpdate({ _id: req.body.postID }, 
+        {
+            title:req.body.title,
+            rate:req.body.rate,
+            description:req.body.description
+        }, (err, doc) => {
+        if (err) return res.json({ success: false, err });
+        return res.status(200).send({
+            success: true
+        });    
+    })
+    .exec();   
+});
 
 module.exports = router;

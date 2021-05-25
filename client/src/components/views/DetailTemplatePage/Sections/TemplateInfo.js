@@ -47,7 +47,6 @@ function TemplateInfo(props) {
 
       Axios.get(`/api/template/templates_by_id?id=${props.id}&type=single`)
             .then(response => {
-                console.log(response.data[0].likes)
                 setLikeCounts(response.data[0].likes)
             })
 
@@ -108,8 +107,6 @@ function TemplateInfo(props) {
     }
 
     const confirm = (e) => {
-        console.log(e);
-        
         const body = {
             templateID: Template._id
         }
@@ -128,7 +125,6 @@ function TemplateInfo(props) {
       }
 
     const cancel = (e) => {
-        console.log(e);
         message.error('취소되었습니다');
     }
 
@@ -139,8 +135,10 @@ function TemplateInfo(props) {
                     <Descriptions title="Template Info"></Descriptions>
                 </Col>
                 {(user.userData && Template.writer && Template.writer._id == user.userData._id) ?
-                <Col style={{width: '5%'}}>
-                    <Tooltip title="edit"><div><EditOutlined /> </div></Tooltip>
+                <Col style={{width: '5%'}}> 
+                    <Link to={`/template/upload/modify/${Template._id}`}>
+                        <Tooltip title="edit"><div><EditOutlined /> </div></Tooltip>
+                    </Link>
                 </Col> : <Col></Col>}
                 {(user.userData && Template.writer && Template.writer._id == user.userData._id) ?
                  <Col style={{width: '5%'}}>
@@ -150,7 +148,7 @@ function TemplateInfo(props) {
                         onCancel={cancel}
                         okText="Yes"
                         cancelText="No"
-                    ><a href="#"><DeleteOutlined /></a>
+                    ><a href="#"><Tooltip placement="bottom" title="delete"><DeleteOutlined /></Tooltip></a>
                     </Popconfirm>
                 </Col> : <Col></Col>}
             </Row>

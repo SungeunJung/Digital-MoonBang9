@@ -202,24 +202,34 @@ router.post("/getRecommendTemplates", auth, (req, res) => {
 });
 
 router.post("/getMyPost", auth, (req, res) => {
+    let limit = req.body.limit ? parseInt(req.body.limit) : 20;
+    let skip = parseInt(req.body.skip);
+
     Template.find({ 'writer' : { $in : req.body.id} })
         .sort({ "createdAt" : -1 })
+        .skip(skip)
+        .limit(limit)
         .exec((err, templates) => {
             if(err) {return res.status(400).json({ success: false, err })}
             res.status(200).json({ success: true, templates})
         })
-    
 });
 
-router.post("/getMyDownload", auth, (req, res) => {
-    let order = req.body.order ? req.body.order : "desc";
-    let sortBy = req.body.sortBy ? req.body.sortBy : -1;
+router.post("/getMyPostCount", auth, (req, res) => {
+    Template.find({ 'writer' : { $in : req.body.id} })
+    .exec((err, templates) => {
+        if(err) {return res.status(400).json({ success: false, err })}
+        res.status(200).json({ success: true, count:templates.length })
+    })
+});
+
+router.post("/getMyPageTemplates", auth, (req, res) => {
     let limit = req.body.limit ? parseInt(req.body.limit) : 20;
     let skip = parseInt(req.body.skip);
 
-    Template.find({ '_id' : { $in : req.body.download} })
+    Template.find({ '_id' : { $in : req.body.template} })
         .populate("writer")
-        .sort([[sortBy, order]])
+        .sort({ "date" : -1 })
         .skip(skip)
         .limit(limit)
         .exec((err, templates) => {
@@ -257,6 +267,27 @@ router.post("/modifyLikes", auth, (req, res) => {
     Template.findOneAndUpdate({ _id: req.body.templateId }, 
         { likes:req.body.like }, 
         (err, doc) => {
+        if (err) return res.json({ success: false, err });
+        return res.status(200).send({
+            success: true
+        });    
+    })
+    .exec();   
+});
+
+router.post("/editTemplate", auth, (req, res) => {
+    Template.findOneAndUpdate({ _id: req.body.templateId }, 
+        {
+            title:req.body.title,
+            designer:req.body.designer,
+            description:req.body.description,
+            images:req.body.images,
+            uploadedFile:req.body.uploadedFile,
+            uploadedUrl:req.body.uploadedUrl,
+            category:req.body.category,
+            detail:req.body.detail,
+            styles:req.body.styles
+        }, (err, doc) => {
         if (err) return res.json({ success: false, err });
         return res.status(200).send({
             success: true

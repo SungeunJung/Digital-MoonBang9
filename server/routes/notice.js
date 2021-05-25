@@ -60,4 +60,19 @@ router.post("/deleteNotice", (req, res) => {
         })
 })
 
+router.post("/editPost", auth, (req, res) => {
+    Notice.findOneAndUpdate({ _id: req.body.postID }, 
+        {
+            title:req.body.title,
+            summary:req.body.summary,
+            description:req.body.description
+        }, (err, doc) => {
+        if (err) return res.json({ success: false, err });
+        return res.status(200).send({
+            success: true
+        });    
+    })
+    .exec();   
+});
+
 module.exports = router;

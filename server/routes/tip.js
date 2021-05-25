@@ -86,13 +86,25 @@ router.post("/getPost", (req, res) => {
 });
 
 router.post("/getMyPost", (req, res) => {
+    let limit = req.body.limit ? parseInt(req.body.limit) : 20;
+    let skip = parseInt(req.body.skip);
+
     Tip.find({ 'writer' : { $in : req.body.id} })
         .sort({ "createdAt" : -1 })
+        .skip(skip)
+        .limit(limit)
         .exec((err, tips) => {
             if(err) {return res.status(400).json({ success: false, err })}
-            res.status(200).json({ success: true, tips})
-        }) 
-    
+            res.status(200).json({ success: true, tips })
+        })
+});
+
+router.post("/getMyPostCount", auth, (req, res) => {
+    Tip.find({ 'writer' : { $in : req.body.id} })
+        .exec((err, tips) => {
+            if(err) {return res.status(400).json({ success: false, err })}
+            res.status(200).json({ success: true, count:tips.length })
+        })
 });
 
 router.post("/deleteTip", (req, res) => {
@@ -104,5 +116,19 @@ router.post("/deleteTip", (req, res) => {
             return res.json({ success: false, err }); 
         })
 })
+
+router.post("/editPost", auth, (req, res) => {
+    Tip.findOneAndUpdate({ _id: req.body.postID }, 
+        {
+            title:req.body.title,
+            description:req.body.description
+        }, (err, doc) => {
+        if (err) return res.json({ success: false, err });
+        return res.status(200).send({
+            success: true
+        });    
+    })
+    .exec();   
+});
 
 module.exports = router;
