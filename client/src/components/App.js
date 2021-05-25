@@ -13,8 +13,11 @@ import LandingPage from './views/LandingPage/LandingPage'
 import RecommendPage from './views/LandingPage/RecommendPage/RecommendPage'
 import LoginPage from './views/LoginPage/LoginPage'
 import RegisterPage from './views/RegisterPage/RegisterPage'
+
 import UploadTemplatePage from './views/UploadTemplatePage/UploadTemplatePage'
+import ModifyTemplatPage from './views/UploadTemplatePage/ModifyTemplatePage'
 import DetailTemplatePage from './views/DetailTemplatePage/DetailTemplatePage'
+
 import MyPage from './views/MyPage/MyPage'
 import ModifyUserInfoPage from './views/MyPage/ModifyUserInfoPage'
 import MyPost from './views/MyPage/MyPost/MyPost'
@@ -23,14 +26,17 @@ import LikePage from './views/LikePage/LikePage';
 
 import NoticePage from "./views/NoticePage/NoticePage";
 import UploadNoticePage from "./views/NoticePage/Sections/UploadNoticePage";
+import ModifyNoticePage from "./views/NoticePage/Sections/ModifyNoticePage"
 import DetailNoticePage from "./views/DetailPage/DetailNoticePage";
 
 import TipPage from "./views/TipAndReviewPage/TipPage";
 import UploadTipPage from "./views/TipAndReviewPage/Sections/UploadTipPage";
+import ModifyTipPage from "./views/TipAndReviewPage/Sections/ModifyTipPage"
 import DetailTipPage from "./views/DetailPage/DetailTipPage";
 
 import ReviewPage from "./views/TipAndReviewPage/ReviewPage";
 import UploadReviewPage from "./views/TipAndReviewPage/Sections/UploadReviewPage";
+import ModifyReviewPage from "./views/TipAndReviewPage/Sections/ModifyReviewPage"
 import DetailReviewPage from "./views/DetailPage/DetailReviewPage";
 
 import Auth from '../hoc/auth';
@@ -61,8 +67,11 @@ function App() {
           <Route exact path="/" component={ Auth(LandingPage, null) } />
           <Route exact path="/login" component={ Auth(LoginPage, false) } />
           <Route exact path="/register" component={ Auth(RegisterPage, false) } />
+
           <Route exact path="/template/upload" component={ Auth(UploadTemplatePage, true) } />
+          <Route exact path="/template/upload/modify/:templateId" component={ Auth(ModifyTemplatPage, true) } />
           <Route exact path="/template/:templateId" component={ Auth(DetailTemplatePage, null) } />
+
           <Route exact path="/mypage" component={ Auth(MyPage, true) } />
           <Route exact path="/mypage/modifyinfo" component={ Auth(ModifyUserInfoPage, true) } />
           <Route exact path="/mypage/mypost" component={ Auth(MyPost, true) } />
@@ -72,14 +81,17 @@ function App() {
 
           <Route exact path="/notice" component={ Auth(NoticePage, null) } />
           <Route exact path="/notice/upload" component={ Auth(UploadNoticePage, true) } />{/*관리자만*/}
+          <Route exact path="/notice/upload/modify/:postId" component={ Auth(ModifyNoticePage, true) } />{/*관리자만*/}
           <Route exact path="/notice/post/:postId" component={ Auth(DetailNoticePage, null) } />
 
           <Route exact path="/tip" component={ Auth(TipPage, null) } />
           <Route exact path="/tip/upload" component={ Auth(UploadTipPage, true) } />
+          <Route exact path="/tip/upload/modify/:postId" component={ Auth(ModifyTipPage, true) } />
           <Route exact path="/tip/post/:postId" component={ Auth(DetailTipPage, null) } />
 
           <Route exact path="/review" component={ Auth(ReviewPage, null) } />
           <Route exact path="/review/upload" component={ Auth(UploadReviewPage, true) } />
+          <Route exact path="/review/upload/modify/:postId" component={ Auth(ModifyReviewPage, true) } />
           <Route exact path="/review/post/:postId" component={ Auth(DetailReviewPage, null) } />
 
  

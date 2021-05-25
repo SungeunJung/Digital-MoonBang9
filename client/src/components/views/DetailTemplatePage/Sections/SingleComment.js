@@ -1,24 +1,18 @@
 import React, { useState, useEffect } from 'react'
 import { Comment, Avatar, Button, Input, Col, Row, Popconfirm, message } from 'antd';
-import { CloseOutlined } from '@ant-design/icons';
 import Axios from 'axios';
 import { useSelector } from 'react-redux';
 import { useLocation } from 'react-router-dom';
 import { UserOutlined } from '@ant-design/icons';
-//import LikeDislikes from './LikeDislikes';
+
 const { TextArea } = Input;
+
 function SingleComment(props) {
     const user = useSelector(state => state.user);
     const [CommentValue, setCommentValue] = useState("")
     const [OpenReply, setOpenReply] = useState(false)
-    //const [CommentID, setCommentID] = useState("")
-    //const [UserID, setUserID] = useState("")
     
     let location = useLocation();
-
-    /*useEffect(() => {
-        console.log(props.user)
-    }, [])*/
 
     const handleChange = (e) => {
         setCommentValue(e.currentTarget.value)
@@ -51,12 +45,10 @@ function SingleComment(props) {
     }
 
     const actions = [
-        //<LikeDislikes comment commentId={props.comment._id} userId={localStorage.getItem('userId')} />,
         <span onClick={openReply}  key="comment-basic-reply-to">Reply to </span>
     ]
 
     const confirm = (e) => {
-        console.log(e);
         
         const body = {
             commentID: props.comment._id
@@ -76,7 +68,6 @@ function SingleComment(props) {
       }
 
     const cancel = (e) => {
-        console.log(e);
         message.error('취소되었습니다');
     }
 

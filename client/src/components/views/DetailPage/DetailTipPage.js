@@ -3,6 +3,7 @@ import axios from 'axios';
 import { Avatar, Col, Typography, Row, Tooltip, message, Popconfirm } from 'antd';
 import { EditOutlined, DeleteOutlined } from '@ant-design/icons';
 import { useSelector } from "react-redux";
+import { Link } from 'react-router-dom';
 const { Title } = Typography
 
 function DetailTipPage(props) {
@@ -18,8 +19,10 @@ function DetailTipPage(props) {
         axios.post('/api/tip/getPost', variable)
             .then(response => {
                 if (response.data.success) {
-                    console.log(response.data.post)
+                    console.log('<tip 정보>', response.data.post)
                     setPost(response.data.post)
+                    window.localStorage.setItem("title_tip", response.data.post.title)
+                    window.localStorage.setItem("description_tip", response.data.post.description)
                 } else {
                     alert('Couldnt get post')
                 }
@@ -27,8 +30,6 @@ function DetailTipPage(props) {
     }, [])
 
     const confirm = (e) => {
-        console.log(e);
-        
         const body = {
             tipID: postId
         }
@@ -47,7 +48,6 @@ function DetailTipPage(props) {
       }
 
     const cancel = (e) => {
-        console.log(e);
         message.error('취소되었습니다');
     }
 
@@ -67,7 +67,9 @@ function DetailTipPage(props) {
                     </Col>
                     {(user.userData && post.writer && post.writer._id == user.userData._id) ?
                     <Col style={{width: '5%'}}>
-                        <Tooltip title="edit"><div><EditOutlined /> </div></Tooltip>
+                        <Link to={`/tip/upload/modify/${postId}`}>
+                            <Tooltip title="edit"><div><EditOutlined /> </div></Tooltip>
+                        </Link>
                     </Col> : <Col></Col>}
                     {(user.userData && post.writer && post.writer._id == user.userData._id) ?
                     <Col style={{width: '5%'}}>
@@ -77,7 +79,7 @@ function DetailTipPage(props) {
                             onCancel={cancel}
                             okText="Yes"
                             cancelText="No"
-                        ><a href="#"><DeleteOutlined /></a>
+                        ><a href="#"><Tooltip placement="bottom" title="delete"><DeleteOutlined /></Tooltip></a>
                         </Popconfirm>
                     </Col> : <Col></Col>}
                 </Row>

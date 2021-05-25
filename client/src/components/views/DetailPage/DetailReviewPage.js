@@ -3,6 +3,7 @@ import axios from 'axios';
 import { Card, Icon, Avatar, Col, Typography, Rate, Row, Tooltip, message, Popconfirm } from 'antd';
 import { EditOutlined, DeleteOutlined } from '@ant-design/icons';
 import { useSelector } from "react-redux";
+import { Link } from 'react-router-dom';
 const { Title } = Typography
 
 const desc = ['terrible', 'bad', 'normal', 'good', 'wonderful'];
@@ -20,8 +21,12 @@ function DetailReviewPage(props) {
         axios.post('/api/review/getPost', variable)
             .then(response => {
                 if (response.data.success) {
-                    console.log(response.data.post)
+                    console.log('<review 정보>', response.data.post)
                     setPost(response.data.post)
+                    window.localStorage.setItem("title_review", response.data.post.title)
+                    window.localStorage.setItem("template_review", response.data.post.template)
+                    window.localStorage.setItem("description_review", response.data.post.description)
+                    window.localStorage.setItem("rate_review", response.data.post.rate)
                 } else {
                     alert('Couldnt get post')
                 }
@@ -69,7 +74,9 @@ function DetailReviewPage(props) {
                     </Col>
                     {(user.userData && post.writer && post.writer._id == user.userData._id) ?
                     <Col style={{width: '5%'}}>
-                        <Tooltip title="edit"><div><EditOutlined /> </div></Tooltip>
+                        <Link to={`/review/upload/modify/${postId}`}>
+                            <Tooltip title="edit"><div><EditOutlined /> </div></Tooltip>
+                        </Link>
                     </Col> : <Col></Col>}
                     {(user.userData && post.writer && post.writer._id == user.userData._id) ?
                     <Col style={{width: '5%'}}>
@@ -79,7 +86,7 @@ function DetailReviewPage(props) {
                             onCancel={cancel}
                             okText="Yes"
                             cancelText="No"
-                        ><a href="#"><DeleteOutlined /></a>
+                        ><a href="#"><Tooltip placement="bottom" title="delete"><DeleteOutlined /></Tooltip></a>
                         </Popconfirm>
                     </Col> : <Col></Col>}
                 </Row>

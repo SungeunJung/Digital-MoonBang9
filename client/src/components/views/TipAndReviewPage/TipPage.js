@@ -1,4 +1,5 @@
 import React, { useState, useEffect }  from 'react'
+import { NavLink } from 'react-router-dom';
 import { Link } from 'react-router-dom';
 import { Col, Row, Button, Card, Avatar, Typography, Pagination } from 'antd';
 import axios from 'axios';
@@ -74,13 +75,13 @@ function TipPage() {
     const renderCards = (Tips && Tips.map((tip, index) => {
         console.log(tip._id)
         return <Col key={index} lg={8} md={12} xs={24}>
+            <NavLink to = {`/tip/post/${tip._id}`}>
             <Card
+                type="inner"
+                
                 hoverable={true}
                 style={{ width: 250, marginTop: 16 }}
-                actions={
-                    [<a href={`/tip/post/${tip._id}`}> 자세히 보기 </a>]}
-            >
-                <Meta 
+            ><Meta 
                     avatar={
                         tip.writer.image?
                     <Avatar
@@ -89,13 +90,17 @@ function TipPage() {
                     />:
                     <Avatar style={{ backgroundColor: '#87d068' }} icon={<UserOutlined />} />
                     }
-                    title={tip.writer.name}
-                    description={<span>&#60;{tip.title}&#62;</span>}
+                    title={tip.writer.nickname}
+                    //description={tip.writer.nickname}
                 />
                 <div style={{ height: 150, overflowY: 'scroll', marginTop: 10 }}>
                     <div dangerouslySetInnerHTML={{ __html: tip.description }} />
                 </div>
+                <br/>
+                <b>{tip.title}</b>
+                
             </Card>
+            </NavLink>
         </Col>
     }))
 

@@ -37,9 +37,6 @@ const userSchema = mongoose.Schema({
     image: {
         type: Array        
     },
-    imageClient: {
-        type: Array        
-    }, 
     token: {
         type: String
     },

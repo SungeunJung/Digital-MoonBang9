@@ -52,8 +52,6 @@ function Comments(props) {
             </form>
             <hr />
             {/* Comment Lists  */}
-            {console.log(props.CommentLists)}
-
             {props.CommentLists && props.CommentLists.map((comment, index) => (
                 (!comment.responseTo &&
                     <React.Fragment>
