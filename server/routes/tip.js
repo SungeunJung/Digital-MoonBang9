@@ -117,4 +117,18 @@ router.post("/deleteTip", (req, res) => {
         })
 })
 
+router.post("/editPost", auth, (req, res) => {
+    Tip.findOneAndUpdate({ _id: req.body.postID }, 
+        {
+            title:req.body.title,
+            description:req.body.description
+        }, (err, doc) => {
+        if (err) return res.json({ success: false, err });
+        return res.status(200).send({
+            success: true
+        });    
+    })
+    .exec();   
+});
+
 module.exports = router;

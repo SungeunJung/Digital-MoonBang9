@@ -275,4 +275,25 @@ router.post("/modifyLikes", auth, (req, res) => {
     .exec();   
 });
 
+router.post("/editTemplate", auth, (req, res) => {
+    Template.findOneAndUpdate({ _id: req.body.templateId }, 
+        {
+            title:req.body.title,
+            designer:req.body.designer,
+            description:req.body.description,
+            images:req.body.images,
+            uploadedFile:req.body.uploadedFile,
+            uploadedUrl:req.body.uploadedUrl,
+            category:req.body.category,
+            detail:req.body.detail,
+            styles:req.body.styles
+        }, (err, doc) => {
+        if (err) return res.json({ success: false, err });
+        return res.status(200).send({
+            success: true
+        });    
+    })
+    .exec();   
+});
+
 module.exports = router;

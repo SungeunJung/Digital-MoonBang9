@@ -188,9 +188,10 @@ PollBlot.tagName = 'p';
 PollBlot.className = 'poll-inner-post';
 Quill.register(PollBlot);
 
-class QuillEditor extends React.Component {
+class EditQuillEditor extends React.Component {
 
     bandId;
+    default;
     placeholder;
     onEditorChange;
     onFilesChange;
@@ -398,8 +399,9 @@ class QuillEditor extends React.Component {
                     onChange={this.handleChange}
                     modules={this.modules}
                     formats={this.formats}
-                    value={this.state.editorHtml}
-                    placeholder={this.props.placeholder}
+                    //value={this.state.editorHtml}
+                    defaultValue={this.props.defaultValue}
+                    placeholder={this.props.defaultValue}
                 />
                 <input type="file" accept="image/*" ref={this.inputOpenImageRef} style={{ display: "none" }} onChange={this.insertImage} />
                 <input type="file" accept="video/*" ref={this.inputOpenVideoRef} style={{ display: "none" }} onChange={this.insertVideo} />
@@ -430,4 +432,4 @@ class QuillEditor extends React.Component {
     ];
 }
 
-export default QuillEditor;
+export default EditQuillEditor;

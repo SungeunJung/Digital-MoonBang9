@@ -3,7 +3,6 @@ import QuillEditor from '../../../editor/QuillEditor';
 import { Typography, Button, Form, message, Input, Rate, Select } from 'antd';
 import axios from 'axios';
 import { useSelector } from "react-redux";
-//import SortFeature from './Sections/SortFeature'
 
 const { Option } = Select;
 const { Title } = Typography;
@@ -86,9 +85,9 @@ function UploadReviewPage(props) {
         event.preventDefault();
         setDescription("");
 
-        if(!TitleValue || !description || !TemplateValue ) {
-            return alert('Fill all the fields first!')
-        }
+        //if(!TitleValue || !description || !TemplateValue ) {
+        //    return alert('Fill all the fields first!')
+        //}
 
         const variables = {
             title: TitleValue,
@@ -120,7 +119,7 @@ function UploadReviewPage(props) {
 
     const onChange = (value) => {
         setTemplateValue(TemplateNames[value])
-        console.log(`selected ${value}`);
+        console.log(`selected ${value}`,TemplateNames[value]);
     }
 
     return (
