@@ -1,15 +1,18 @@
-import React, { useState,useEffect } from 'react'
-import { Tooltip, Descriptions, Button, Row, Col, Popconfirm, message } from 'antd';
+import React, { useState,useEffect } from 'react';
+import { Typography, Tooltip, Descriptions, Button, Row, Col, Popconfirm, message, Tag, Statistic, Divider } from 'antd';
 import { styles } from '../../LandingPage/Sections/Datas';
-import { HeartOutlined, HeartFilled, DownloadOutlined, EditOutlined, DeleteOutlined } from '@ant-design/icons';
+import { HeartOutlined, HeartFilled, HeartTwoTone, ExportOutlined, DownloadOutlined, EditOutlined, DeleteOutlined } from '@ant-design/icons';
 import { useDispatch } from 'react-redux';
-import { addToLike } from '../../../../_actions/user_action'
+import { addToLike } from '../../../../_actions/user_action';
 import Axios from 'axios';
 import { useSelector } from "react-redux";
 import { Link } from 'react-router-dom';
 import KakaoLinkShare from '../../../utils/KakaoLinkShare';
+import { pages } from '../../LandingPage/Sections/Datas';
+import '../DetailTemplatePage.css';
 
 const Styles = ["심플", "귀여운", "캐릭터", "빈티지", "레트로", "키치", "클래식", "일러스트"]
+const { Title } = Typography;
 
 function TemplateInfo(props) {
     const dispatch = useDispatch();
@@ -19,11 +22,10 @@ function TemplateInfo(props) {
     const [LikeAction, setLikeAction] = useState(null)
     const [LikeCounts, setLikeCounts] = useState(0)
     const [FilePath, setFilePath] = useState("")
+    const [Category, setCategory] = useState("")
+    const [Detail, setDetail] = useState("")
     
     const user = useSelector(state => state.user)
-
-    let likeCounts = 0;
-
     useEffect(() => {
        setTemplate(props.detail)
        var indexs = styles.findIndex(i => i._id == props.detail.styles)
@@ -48,6 +50,8 @@ function TemplateInfo(props) {
       Axios.get(`/api/template/templates_by_id?id=${props.id}&type=single`)
             .then(response => {
                 setLikeCounts(response.data[0].likes)
+                setCategory(pages[response.data[0].category-1].category)
+                setDetail(pages[response.data[0].category-1].detail[response.data[0].detail-1])
             })
 
     }, [props.detail])
@@ -131,60 +135,86 @@ function TemplateInfo(props) {
     return (
         <div>
             <Row>
-                <Col style={{width: '90%'}}>
-                    <Descriptions title="Template Info"></Descriptions>
+                <Col style={{width: '84%'}}>
+                    <Title level={1} style={{marginBottom:'12px'}}>{Template.title}</Title>
+                    <Title level={4} style={{marginTop:'0px', marginBottom:'15px'}}>{Template.designer}</Title>
                 </Col>
                 {(user.userData && Template.writer && Template.writer._id == user.userData._id) ?
-                <Col style={{width: '5%'}}> 
+                <Col style={{width: '8%'}}> 
                     <Link to={`/template/upload/modify/${Template._id}`}>
-                        <Tooltip title="edit"><div><EditOutlined /> </div></Tooltip>
+                        <Tooltip title="edit"><div><EditOutlined className='icon-edit'/> </div></Tooltip>
                     </Link>
                 </Col> : <Col></Col>}
                 {(user.userData && Template.writer && Template.writer._id == user.userData._id) ?
-                 <Col style={{width: '5%'}}>
+                 <Col style={{width: '8%'}}>
                     <Popconfirm
                         title="Are you sure to delete this template?"
                         onConfirm={confirm}
                         onCancel={cancel}
                         okText="Yes"
                         cancelText="No"
-                    ><a href="#"><Tooltip placement="bottom" title="delete"><DeleteOutlined /></Tooltip></a>
+                        placement="bottomRight"
+                    ><a href="#"><Tooltip title="delete"><DeleteOutlined className='icon-delete'/></Tooltip></a>
                     </Popconfirm>
                 </Col> : <Col></Col>}
             </Row>
             <Row>
-                <Descriptions>
-                    <Descriptions.Item label="Designer">{Template.designer}</Descriptions.Item>
-                    <Descriptions.Item label="Style">{Style}</Descriptions.Item>
-                    <Descriptions.Item label="nickname">{Template.nickname}</Descriptions.Item>
-                    <Descriptions.Item label="Description">{Template.description}</Descriptions.Item>    
-                </Descriptions>
+                {/*<Tag color="cyan">cyan</Tag>*/}
+                <Tag color="blue" className='tag-style'>{Category}</Tag>
+                <Tag color="geekblue" className='tag-style'>{Detail}</Tag>
+                <Tag color="purple" className='tag-style'>{Styles[Template.styles-1]}</Tag>
             </Row>
+            <br/>
+                {/*<Row gutter={[20, 20]}>
+                    <Col>작성자</Col>
+                    <Col>{Template.nickname}</Col>
+                </Row>*/}
+                <div className="template-desc">
+                    <Divider orientation="left"><b>속지 설명</b></Divider>
+                    <div style={{padding:'0 10px'}}>{Template.description}</div>
+                </div>
             <br />
+            <br />
+            <Row>
             {(user.userData && !user.userData.isAuth) ?
-                <Button type="primary" shape="round" icon={<DownloadOutlined />} size={'large'} 
-                        disabled={!LinkDisableAction} onClick={onFileDownloadAlertHandler}>
-                    File Download
-                </Button> :
+                <Col className='download'>
+                    <Button type="primary" shape="round" icon={<DownloadOutlined />} size={'large'} 
+                            disabled={!LinkDisableAction} onClick={onFileDownloadAlertHandler}>
+                        다운로드
+                    </Button>
+                </Col> 
+                :
+                <Col className='download'>
                 <a href={FilePath} download>
                     <Button type="primary" shape="round" icon={<DownloadOutlined />} size={'large'} 
                             disabled={!LinkDisableAction} onClick={onFileDownloadHandler}>
-                        File Download
+                        <span>다운로드</span>
                     </Button>
                 </a>
+                </Col>
             }&nbsp;&nbsp;
-            <Button type="primary" shape="round" icon={<DownloadOutlined />} size={'large'} 
-                    disabled={LinkDisableAction} onClick={onLinkHandler}>
-                Go to Link
-            </Button>&nbsp;&nbsp;
-            <Tooltip title="찜하기">
-                {LikeAction === 'liked' ? 
-                <HeartFilled style={{ fontSize: '32px', color: '#f00' }} onClick={onLikeHandler}/> 
-                : 
-                <HeartOutlined style={{ fontSize: '32px', color: '#f00' }} onClick={onLikeHandler}/>
-                }
-	        </Tooltip>
-            <KakaoLinkShare detail={Template} />
+            <Col className='link'>
+                <Button type="primary" shape="round" icon={<ExportOutlined />} size={'large'} 
+                        disabled={LinkDisableAction} onClick={onLinkHandler}>
+                        <span>링크 이동</span>
+                </Button>&nbsp;&nbsp;
+            </Col>
+            <Col className='like'>
+                <Tooltip title="찜하기">
+                    {LikeAction === 'liked' ? 
+                    //HeartFilled
+                    <Button><Statistic valueStyle={{fontSize:'18px'}} value={LikeCounts} prefix={<HeartTwoTone twoToneColor="#eb2f96" style={{ fontSize: '24px', color: '#f00' }} onClick={onLikeHandler}/>}/></Button>
+                    : 
+                    //HeartOutlined
+                    <Button><Statistic valueStyle={{fontSize:'18px'}} value={LikeCounts} prefix = {<HeartTwoTone style={{ fontSize: '24px', color: '#f00' }} onClick={onLikeHandler}/>}/></Button>
+                    }
+                </Tooltip>
+            </Col>
+            &nbsp;
+            <Col className='share'>
+                <KakaoLinkShare detail={Template} />
+            </Col>
+            </Row>
         </div>
     )
 }

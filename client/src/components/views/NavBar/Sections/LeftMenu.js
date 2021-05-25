@@ -23,8 +23,8 @@ function LeftMenu(props) {
         </SubMenu>
         <SubMenu key="2" title={<a href='/:2' className="SubMenu">플래너</a>}>
           <Menu.Item key="21">먼슬리</Menu.Item>
-          <Menu.Item key="22">데일리</Menu.Item>
-          <Menu.Item key="23">위클리</Menu.Item>
+          <Menu.Item key="22">위클리</Menu.Item>
+          <Menu.Item key="23">데일리</Menu.Item>
           <Menu.Item key="24">업무</Menu.Item>
         </SubMenu>
         <SubMenu key="3" title={<a href='/:3' className="SubMenu">노트</a>}>

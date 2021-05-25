@@ -68,13 +68,8 @@ function DetailTemplatePage(props) {
     }
 
     return (
-        <div className="postPage" style={{ width: '100%', padding: '3rem 4rem' }}>
-            <div style={{ display: 'flex', justifyContent: 'center' }}>
-                <h1>{Template.title}</h1>
-            </div>
-            <br />
-
-            <Row gutter={[16, 16]}>
+        <div className="detailPage">
+            <Row gutter={[40, 40]}>
                 <Col lg={12} xs={24}>
                     <TemplateImage detail={Template}/>
                 </Col>
@@ -85,8 +80,9 @@ function DetailTemplatePage(props) {
                     
                 </Col>
             </Row>
-
+            <div className='comment'>
             <Comments CommentLists={CommentLists} postId={Template._id} refreshFunction={updateComment}/>
+            </div>
         </div>
     )
 }

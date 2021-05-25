@@ -4,6 +4,8 @@ import axios from 'axios';
 import { useSelector } from 'react-redux';
 import SingleComment from './SingleComment';
 import ReplyComment from './ReplyComment';
+import '../DetailTemplatePage.css';
+
 const { TextArea } = Input;
 
 function Comments(props) {
@@ -36,19 +38,18 @@ function Comments(props) {
 
     return (
         <div>
-            <br />
-            <p><strong> replies</strong></p>
+            <p><strong> 댓글</strong></p>
             
             {/* Root Comment Form */}
             <form style={{ display: 'flex' }} onSubmit={onSubmit}>
                 <TextArea
-                    style={{ width: '100%', borderRadius: '5px' }}
+                    style={{ width: '100%', minHeight:'80px', borderRadius: '5px' }}
                     onChange={handleChange}
                     value={Comment}
-                    placeholder="write some comments"
+                    placeholder="내용을 입력해주세요"
                 />
                 <br />
-                <Button type="primary" style={{ width: '20%', height: '52px' }} onClick={onSubmit}>Submit</Button>
+                <Button type="primary" className='comment-button' onClick={onSubmit}>작성</Button>
             </form>
             <hr />
             {/* Comment Lists  */}

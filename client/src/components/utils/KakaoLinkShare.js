@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { styles, pages } from '../views/LandingPage/Sections/Datas';
-
+import { Popover, Button } from 'antd';
+import { ShareAltOutlined } from '@ant-design/icons';
 function KakaoLinkShare(props) {
   const [Template, setTemplate] = useState([])
 
@@ -66,13 +67,22 @@ function KakaoLinkShare(props) {
       })
     }
   }
+
+  const content = (
+    <button id="kakao-link-btn" style={{border:'none', backgroundColor:'transparent'}}>
+                <img src="/kakaolink_btn.png" alt="kakao-share-icon" style={{height:'40px', width:'40px', cursor:'pointer'}}/>
+            </button>
+  );
     
     return (
-        <div className="kakao-share-button" style={{ float:'right', fontSize:'1rem',}}>
-            카카오로 공유하기  
-             <button id="kakao-link-btn" style={{border:'none'}}> 
+        <div className="kakao-share-button" style={{ float:'right', fontSize:'1rem',}}> 
+             <Popover content={content} >
+               <Button><ShareAltOutlined/></Button>
+             </Popover>
+             
+             {/*<button id="kakao-link-btn" style={{border:'none'}}>
                 <img src="/kakaolink_btn.png" alt="kakao-share-icon" style={{height:'40px', width:'40px'}}/>
-            </button>
+            </button>*/}
         </div>
     )
 }
