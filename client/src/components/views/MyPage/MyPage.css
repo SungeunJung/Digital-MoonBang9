@@ -3,13 +3,18 @@
 }
 */
 .MyPage {
-    width: '65%';
-    margin:'3rem auto';
+    width: 65%;
+    margin:3rem auto;
     font-family: 'kyobo';
 }
 
 @media (max-width: 1199px) {
     /*테블릿 가로*/
+    .MyPage {
+        width: 85%;
+        margin:3rem auto;
+        font-family: 'kyobo';
+    }
 }
 
 @media (max-width: 991px) {
@@ -18,6 +23,11 @@
 
 @media (max-width: 767px) {
     /*모바일*/
+    .MyPage {
+        width: 35%;
+        margin:3rem auto;
+        font-family: 'kyobo';
+    }
 }
 
 

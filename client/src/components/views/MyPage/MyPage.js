@@ -34,7 +34,7 @@ function MyPage(props) {
       )
    
     return (
-        <div style ={{ width: '65%', margin:'3rem auto', fontFamily: 'kyobo' }}>
+        <div className='MyPage'>
             <div style={{ textAlign:'center', marginBottom:'4rem' }}>
                 <Title level={2}>마이페이지</Title>
             </div>                   
