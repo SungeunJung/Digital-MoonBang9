@@ -3,9 +3,35 @@
     padding: 3rem 4rem;
     font-family: 'cookie-regular';
 }
-
-.tag-style {
-    width: 60px;
+.tag-style-2{
+    width: 50px;
+    height: 30px;
+    font-size: 14px;
+    text-align: center;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.tag-style-3{
+    width: 65px;
+    height: 30px;
+    font-size: 14px;
+    text-align: center;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.tag-style-4 {
+    width: 80px;
+    height: 30px;
+    font-size: 14px;
+    text-align: center;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.tag-style-5 {
+    width: 95px;
     height: 30px;
     font-size: 14px;
     text-align: center;

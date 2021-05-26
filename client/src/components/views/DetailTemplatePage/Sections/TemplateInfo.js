@@ -1,7 +1,7 @@
 import React, { useState,useEffect } from 'react';
 import { Typography, Tooltip, Descriptions, Button, Row, Col, Popconfirm, message, Tag, Statistic, Divider } from 'antd';
 import { styles } from '../../LandingPage/Sections/Datas';
-import { HeartOutlined, HeartFilled, HeartTwoTone, ExportOutlined, DownloadOutlined, EditOutlined, DeleteOutlined } from '@ant-design/icons';
+import { HeartTwoTone, ExportOutlined, DownloadOutlined, EditOutlined, DeleteOutlined } from '@ant-design/icons';
 import { useDispatch } from 'react-redux';
 import { addToLike } from '../../../../_actions/user_action';
 import Axios from 'axios';
@@ -10,6 +10,7 @@ import { Link } from 'react-router-dom';
 import KakaoLinkShare from '../../../utils/KakaoLinkShare';
 import { pages } from '../../LandingPage/Sections/Datas';
 import '../DetailTemplatePage.css';
+import { color } from '../../../utils/colors'
 
 const Styles = ["심플", "귀여운", "캐릭터", "빈티지", "레트로", "키치", "클래식", "일러스트"]
 const { Title } = Typography;
@@ -28,8 +29,8 @@ function TemplateInfo(props) {
     const user = useSelector(state => state.user)
     useEffect(() => {
        setTemplate(props.detail)
-       var indexs = styles.findIndex(i => i._id == props.detail.styles)
-       setStyle(Styles[indexs])
+       //var indexs = styles.findIndex(i => i._id == props.detail.styles)
+       //setStyle(Styles[indexs])
        setFilePath((process.env.REACT_APP_S3_URL) +'templateFile/' + props.detail.uploadedFile)
        if(props.detail.uploadedUrl) {
            setLinkDisableAction(false)
@@ -52,6 +53,7 @@ function TemplateInfo(props) {
                 setLikeCounts(response.data[0].likes)
                 setCategory(pages[response.data[0].category-1].category)
                 setDetail(pages[response.data[0].category-1].detail[response.data[0].detail-1])
+                setStyle(Styles[response.data[0].styles-1])
             })
 
     }, [props.detail])
@@ -160,9 +162,10 @@ function TemplateInfo(props) {
             </Row>
             <Row>
                 {/*<Tag color="cyan">cyan</Tag>*/}
-                <Tag color="blue" className='tag-style'>{Category}</Tag>
-                <Tag color="geekblue" className='tag-style'>{Detail}</Tag>
-                <Tag color="purple" className='tag-style'>{Styles[Template.styles-1]}</Tag>
+                <Tag color="blue" className={'tag-style-'+Category.length}>#{Category}</Tag>
+                
+                <Tag color="geekblue" className={'tag-style-'+Detail.length}>#{Detail}</Tag>
+                <Tag color="purple" className={'tag-style-'+Style.length}>#{Style}</Tag>
             </Row>
             <br/>
                 {/*<Row gutter={[20, 20]}>
@@ -203,10 +206,10 @@ function TemplateInfo(props) {
                 <Tooltip title="찜하기">
                     {LikeAction === 'liked' ? 
                     //HeartFilled
-                    <Button><Statistic valueStyle={{fontSize:'18px'}} value={LikeCounts} prefix={<HeartTwoTone twoToneColor="#eb2f96" style={{ fontSize: '24px', color: '#f00' }} onClick={onLikeHandler}/>}/></Button>
+                    <Button style={{borderColor:"#ff85c0", backgroundColor:'#fffbfb'}} onClick={onLikeHandler}><Statistic valueStyle={{fontSize:'18px'}} value={LikeCounts} prefix={<HeartTwoTone twoToneColor="#eb2f96" style={{ fontSize: '24px', color: '#f00' }} />}/></Button>
                     : 
                     //HeartOutlined
-                    <Button><Statistic valueStyle={{fontSize:'18px'}} value={LikeCounts} prefix = {<HeartTwoTone style={{ fontSize: '24px', color: '#f00' }} onClick={onLikeHandler}/>}/></Button>
+                    <Button onClick={onLikeHandler}><Statistic valueStyle={{fontSize:'18px'}} value={LikeCounts} prefix = {<HeartTwoTone style={{ fontSize: '24px', color: '#f00' }} />}/></Button>
                     }
                 </Tooltip>
             </Col>

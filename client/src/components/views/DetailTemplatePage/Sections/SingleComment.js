@@ -45,7 +45,7 @@ function SingleComment(props) {
     }
 
     const actions = [
-        <span onClick={openReply}  key="comment-basic-reply-to">Reply to </span>
+        <span onClick={openReply}  key="comment-basic-reply-to" style={{fontFamily:"cookie-regular"}}>대댓글 달기 </span>
     ]
 
     const confirm = (e) => {
@@ -72,12 +72,14 @@ function SingleComment(props) {
     }
 
     return (
-        <div style={{width : "60%", display: "flex" }}>
-            <Row>
-                <Col style={{width : "85%"}}>
+        <div style={{width : "90%", display: "block", fontFamily:"cookie-regular"}}>
+            <table style={{display: "flex", tableLayout:'auto'}}>
+                <tbody>
+                <tr>
+                <td style={{ border:'none'}}>
                 <Comment
                     actions={actions}
-                    author={props.comment.writer.nickname}
+                    author={<div style={{fontFamily:"cookie-regular"}}>{props.comment.writer.nickname}</div>}
                     avatar={props.comment.writer.image?
                         <Avatar
                             src={process.env.REACT_APP_S3_URL+`userProfile/${props.comment.writer.image}`}
@@ -86,14 +88,14 @@ function SingleComment(props) {
                         <Avatar style={{ backgroundColor: '#87d068' }} icon={<UserOutlined />} />
                     }
                     content={
-                        <p>
+                        <p style={{fontFamily:"cookie-regular"}}>
                             {props.comment.content}
                         </p>
                     }
                 ></Comment>
-                </Col>
+                </td>
                 {(user.userData && props.comment && props.comment.writer._id == user.userData._id) ?
-                    <Col align="right"  style={{ width : "10%" }}>
+                    <td style={{ border:'none'}}>
                     <br/>
                     <Popconfirm
                         title="Are you sure to delete this comment?"
@@ -102,30 +104,34 @@ function SingleComment(props) {
                         okText="Yes"
                         cancelText="No"
                     >
-                    <a href="#">Delete</a>
+                    <a href="#" style={{fontFamily:"cookie-regular"}}>삭제<br/><br/><br/></a>
                     </Popconfirm>
                     &nbsp;&nbsp;&nbsp;&nbsp;
-                    </Col> :
-                    <Col align="right"  style={{ width : "5%" }}>
+                    </td> :
+                    <td>
                     <br/>
                     <span></span>
                     &nbsp;&nbsp;&nbsp;&nbsp;
-                    </Col>
+                    </td>
                 }
-            </Row>
+                </tr>
+                </tbody>
+            </table>
 
 
             {OpenReply &&
-                <form style={{ display: 'flex' }} onSubmit={onSubmit}>
+            <div>
+                <form style={{ display: 'flex', marginLeft:'40px', marginBottom:'5%' }} onSubmit={onSubmit}>
                     <TextArea
-                        style={{ width: '100%', borderRadius: '5px' }}
+                        style={{ width: '100%', minHeight:'80px', borderRadius: '5px' }}
                         onChange={handleChange}
                         value={CommentValue}
-                        placeholder="write some comments"
+                        placeholder="내용을 입력해주세요"
                     />
                     <br />
-                    <Button type="primary" style={{ width: '20%', height: '52px' }} onClick={onSubmit}>Submit</Button>
+                    <Button type="primary" className='comment-button' onClick={onSubmit}>작성</Button>
                 </form>
+            </div>
             }
         </div>
     )

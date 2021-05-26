@@ -10,3 +10,7 @@ const color = {
     color_9: '#003a8c',
     color_10: '#002766',
 }
+
+export {
+    color,
+}
