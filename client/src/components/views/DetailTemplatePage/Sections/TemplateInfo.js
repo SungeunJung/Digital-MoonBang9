@@ -174,7 +174,7 @@ function TemplateInfo(props) {
                 </Row>*/}
                 <div className="template-desc">
                     <Divider orientation="left"><span style={{fontSize:'20px'}}>속지 설명</span></Divider>
-                    <div style={{padding:'0 10px'}}>{Template.description}</div>
+                    <div style={{padding:'0 10px', wordBreak:'keep-all', wordWrap:'break-word'}}>{Template.description}</div>
                 </div>
             <br />
             <br />
