@@ -173,7 +173,7 @@ function TemplateInfo(props) {
                     <Col>{Template.nickname}</Col>
                 </Row>*/}
                 <div className="template-desc">
-                    <Divider orientation="left"><b>속지 설명</b></Divider>
+                    <Divider orientation="left"><span style={{fontSize:'20px'}}>속지 설명</span></Divider>
                     <div style={{padding:'0 10px'}}>{Template.description}</div>
                 </div>
             <br />

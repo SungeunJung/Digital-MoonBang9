@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import DropZone from 'react-dropzone';
 import { PlusOutlined } from '@ant-design/icons';
 import axios from 'axios';
+import './FileUpload.css';
 //import { response } from 'express';
 
 function FileUpload(props) {
@@ -38,7 +39,7 @@ function FileUpload(props) {
     }
 
     return (
-        <div style={{ display:'flex', justifyContent:'space-between' }}>
+        <div className="fileUpload">
             <DropZone
                 onDrop={onDrop}
                 multiple={false}
@@ -46,8 +47,7 @@ function FileUpload(props) {
                 accept={'image/*'}
             >
                 {({getRootProps, getInputProps}) => (
-                    <div style={{ width:'300px', height:'240px', border:'1px solid lightgray', 
-                    display:'flex', alignItems:'center', justifyContent:'center' }}
+                    <div className="drop-zone"
                         {...getRootProps()}
                     >
                         <input {...getInputProps()}/>
@@ -55,10 +55,10 @@ function FileUpload(props) {
                     </div>
                 )}
             </DropZone>
-            <div style={{ display:'flex', width:'350px', height:'240px', overflowX:'scroll' }}>
+            <div className="display-zone">
                     {Images.map((image, index) => (
                         <div onClick={()=>onDelete(image)} key={index}>
-                            <img style={{ minWidth:'300px', width:'300px', height:'240px' }} 
+                            <img className="image-style"
                             src={(process.env.REACT_APP_S3_URL) +`templateImage/${image}`} alt={`templateImg-${index}`} />
                         </div>
                     ))}

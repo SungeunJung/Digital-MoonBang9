@@ -1,10 +1,13 @@
 import React, { useState } from 'react';
-import { Typography, Button, Form, Radio, Space, Input } from 'antd';
+import { Typography, Button, Form, Radio, Space, Input, Row, Col } from 'antd';
 import FileUpload from '../../utils/FileUpload';
 import TemplateUpload from'../../utils/TemplateUpload';
 import axios from 'axios';
-import { Categories, Detail_1, Detail_2, Detail_3, Detail_4, Detail_5, Detail_6, 
-    Styles } from './Sections/Datas';
+import { 
+    Categories, Detail_1, Detail_2, Detail_3, Detail_4, Detail_5, Detail_6, Styles 
+} from './Sections/Datas';
+import './UploadTemplatePage.css';
+//import { color } from '../../../utils/colors'
 
 const { Title } = Typography;
 const { TextArea } = Input;
@@ -118,9 +121,9 @@ function UploadTemplatePage(props) {
     }
 
     return (
-        <div style={{ maxWidth:'700px', margin:'2rem auto' }}>
-            <div style={{ textAlign:'center', marginBottom:'2rem' }}>
-                <Title level={2}>Upload Template</Title>
+        <div className="uploadPage">
+            <div style={{ textAlign:'center', marginBottom:'3rem' }}>
+                <Title level={2}>속지 등록하기</Title>
             </div>
 
             <Form onSubmit={onSubmit} >
@@ -128,35 +131,40 @@ function UploadTemplatePage(props) {
                 <FileUpload refreshFunction={updateImages}/>
                 <br/>
                 <br/>
-                <label>Title</label>
+                <label><span>제목</span></label>
                 <Input
                     onChange={onTitleChange}
                     value={TitleValue}
+                    style={{marginTop:'8px'}}
                 />
                 <br/>
                 <br/>
-                <label>Designer</label>
+                <label><span>디자이너</span></label>
                 <Input
                     onChange={onDesignerChange}
                     value={DesignerValue}
+                    style={{marginTop:'8px'}}
                 />
                 <div>
                 <br/>
-                <label>Description</label>
+                <label><span>설명</span></label>
                 <TextArea
                     onChange={onDescriptionChange}
                     value={DescriptionValue}
+                    style={{marginTop:'8px'}}
                 />
                 </div>
                 <br/>
                 <br/>
                 <Radio.Group onChange={onUploadRadioChange} value={RadioValue}>
                     <Space direction="vertical">
-                        <Radio value={1}>File</Radio>
-                        <Radio value={2}>Link</Radio>
+                        <Radio value={1}>파일</Radio>
+                        <Radio value={2}>링크</Radio>
                     </Space>
                 </Radio.Group>
 
+                <br/>
+                <br/>
                 {RadioValue === 1 ? 
                     <TemplateUpload refreshFunction={updateFiles}/> : 
                     <div>
@@ -167,37 +175,46 @@ function UploadTemplatePage(props) {
                 }
                 <br/>
                 <br/>
-                <span style={{ marginRight: '15px' }}>
-                <label>Category </label>
-                <select onChange={onCategorySelectChange}>
-                    {Categories.map(item => (
-                        <option key={item.key} value={item.key}>{item.value}</option>
-                    ))}
-                </select>
-                </span>
-                <span style={{ marginRight: '15px' }}>
-                <label> Detail </label>
-                <select onChange={onDetailSelectChange}>
-                    {Detail.map(item => (
-                        <option key={item.key} value={item.key}>{item.value}</option>
-                    ))}
-                </select>
-                </span>
-                <br />
-                <br />
-                <label>Style </label>
-                <select onChange={onStyleSelectChange}>
-                    {Styles.map(item => (
-                        <option key={item.key} value={item.key}>{item.value}</option>
-                    ))}
-                </select>
+                <br/>
+                <Row gutter={[20, 20]}>
+                    <Col span={3} lg={8} xs={24}>
+                        <span style={{ marginRight: '15px' }}>                  
+                        <label><span>카테고리</span></label> &nbsp;
+                        <select onChange={onCategorySelectChange}>
+                            {Categories.map(item => (
+                                <option key={item.key} value={item.key}>{item.value}</option>
+                            ))}
+                        </select>
+                        </span>
+                    </Col>
+                    <Col span={3} lg={8} xs={24}>
+                        <span style={{ marginRight: '15px' }}>
+                        <label><span>세부 카테고리</span></label> &nbsp;
+                        <select onChange={onDetailSelectChange}>
+                            {Detail.map(item => (
+                                <option key={item.key} value={item.key}>{item.value}</option>
+                            ))}
+                        </select>
+                        </span>
+                    </Col>
+                    <Col span={3} lg={8} xs={24}>
+                        <label><span>스타일</span></label> &nbsp;
+                        <select onChange={onStyleSelectChange}>
+                            {Styles.map(item => (
+                                <option key={item.key} value={item.key}>{item.value}</option>
+                            ))}
+                        </select>
+                    </Col>
+                </Row>
                 <br/>
                 <br/>
+                <div style={{textAlign:'center', marginTop:'5%'}}>
                 <Button
                     onClick={onSubmit}
                 >
-                    Submit
+                    작성
                 </Button>
+                </div>
             </Form>
         </div>
     )

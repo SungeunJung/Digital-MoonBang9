@@ -7,6 +7,7 @@ const baseStyle = {
     display: 'flex',
     flexDirection: 'column',
     alignItems: 'center',
+    textAlign: 'center',
     padding: '20px',
     borderWidth: 2,
     borderRadius: 2,
@@ -82,7 +83,7 @@ function TemplateUpload(props) {
         <section className="container">
             <div {...getRootProps({style})}>
                 <input {...getInputProps()} />
-                <p>Drag 'n' drop some files here, or click to select files</p>
+                <p style={{ wordBreak: 'keep-all' }}>파일을 드래그&amp;드롭 또는 클릭하여 선택해주세요</p>
                 <ul style={{color: "black"}}>{files}</ul>
             </div>
         </section>
