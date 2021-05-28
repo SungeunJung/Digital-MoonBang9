@@ -1,9 +1,10 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useState } from 'react' 
 import axios from 'axios';
 import { NavLink } from 'react-router-dom';
 import { Link } from 'react-router-dom';
 import { Card, Avatar, Col, Typography, Row, Button, List, Pagination } from 'antd';
 import { useSelector } from "react-redux";
+import './NoticePage.css';
 const { Title } = Typography
 const { Meta } = Card;
 
@@ -74,8 +75,7 @@ function NoticePage(props) {
 
     const PostList = (temp) => {
         return <List
-                    style={{ width: '97%', margin: '2rem auto'}}
-                    className="demo-loadmore-list"
+                    className="Notice-list"
                     itemLayout="horizontal"
                     dataSource={temp}
                     renderItem={item => (
@@ -96,30 +96,32 @@ function NoticePage(props) {
     }
 
     return (
-        <div style ={{ width: '75%', margin:'3rem auto' }}>
-            <Row>{/*style={{ display:'flex', justifyContent:'flex-end', margin:'1rem auto 1rem 0' }}*/}
-                <Col style={{width : '450px'}}>
-                    <strong><p style={{color : 'black', fontSize: "28px"}}> Notice </p></strong>
+        <div className="noticePage">
+            <Row>
+                <Col className="Notice-halfCol">
+                    <strong><p className="Notice-size"> Notice </p></strong>
                 </Col>
-                <Col align="right" style={{ width : '450px' }}>
+                <Col align="right" className="Notice-halfCol">
                 { (user.userData && !Admin) ?
                     <span></span> : 
                     <Link to="/notice/upload"> 
-                        <Button size='large' type="primary" ghost style={{ align: 'right' }}> 공지글 쓰기 </Button>
+                        <Button size='large' type="primary" ghost className="Notice-rightAlign"> 
+                            공지글 쓰기 
+                        </Button>
                     </Link>
                 }
                 </Col>
             </Row>
-            <hr />
+            <hr className="Notice-hr" />
             {Notices.length === 0 ?
-                <div style ={{ display: 'flex', height:'300px', justifyContent: 'center', alignItems: 'center' }}>
-                <h2>No post yet...</h2>
+                <div className="Notice-noCards">
+                <h2>공지글이 없습니다.</h2>
                 </div> :
                 <div>
                     {PostList(Notices)}
                 </div>
             }
-            <div style ={{ display: 'flex', justifyContent: 'center' }}>
+            <div className="Notice-pagination">
                 <Pagination defaultCurrent={1} defaultPageSize={10} total={Count} 
                 current={Current} onChange={onPageChange} />
             </div>

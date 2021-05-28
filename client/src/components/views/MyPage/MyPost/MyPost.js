@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect } from 'react'; 
 import { Typography, List, Avatar, Tabs, Pagination } from 'antd';
 import { UserOutlined } from '@ant-design/icons';
 import { NavLink } from 'react-router-dom';
@@ -196,13 +196,12 @@ function MyPost(props) {
     }
 
     return (
-        <div style ={{ width: '65%', margin:'3rem auto', fontFamily: 'kyobo' }}>
-            <div style ={{ textAlign: 'center' }}>
-                <Title level={1}>마이페이지</Title>
-                <Title level={3}>작성한글 목록</Title>
-            </div>
+        <div className="mypost">
+            <Title>
+                <div className="Mypost-pageheader-1">마이페이지</div>
+                <div className="Mypost-pageheader-2">작성한 글 목록</div>
+            </Title>
 
-            <br/>
             <Tabs defaultActiveKey="1" type='card' size='large' onChange={tabChange}>
                 <TabPane tab="속지" key="1">
                     {PostList(Templates, '/template/')}
@@ -214,8 +213,7 @@ function MyPost(props) {
                     {PostList(Reviews, '/review/post/')}
                 </TabPane>
             </Tabs>
-            <div style ={{ display: 'flex', justifyContent: 'center' }}>
-                {console.log(Count)}
+            <div className="Mypost-pagination">
                 <Pagination defaultCurrent={1} defaultPageSize={3} total={Count} 
                 current={Current} onChange={onPageChange} />
             </div>

@@ -224,7 +224,7 @@ router.post("/getMyPostCount", auth, (req, res) => {
 });
 
 router.post("/getMyPageTemplates", auth, (req, res) => {
-    let limit = req.body.limit ? parseInt(req.body.limit) : 20;
+    let limit = req.body.limit ? parseInt(req.body.limit) : 20; 
     let skip = parseInt(req.body.skip);
 
     Template.find({ '_id' : { $in : req.body.template} })

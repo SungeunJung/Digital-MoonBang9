@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react'; 
 import axios from 'axios';
 //import { response } from 'express';
 import { Col, Card, Row } from 'antd';
@@ -9,6 +9,7 @@ import SortFeature from './Sections/SortFeature'
 import CheckBox from './Sections/CheckBox'
 import BreadCrumb from './Sections/BreadCrumb'
 import { styles } from './Sections/Datas';
+import './LandingPage.css'
 
 const { Meta } = Card;
 
@@ -24,8 +25,6 @@ function LandingPage(props) {
         styles: [],
     })
     const [Category, setCategory] = useState(props.match.params.category);
-    
-    //console.log(Category)
 
     useEffect(() => {
 
@@ -48,7 +47,6 @@ function LandingPage(props) {
                     } else {
                         setTemplates(response.data.templates)
                     }
-                    console.log(response.data.templates)
                     setPostSize(response.data.postSize) 
                 } else {
                     alert('Failed to fetch template data')
@@ -100,8 +98,6 @@ function LandingPage(props) {
             searchTerm: SearchTerm,
             searchField: SearchField
         }
-
-        console.log(filters)
         
         getTemplates(variables)
         setSkip(0)
@@ -156,8 +152,8 @@ function LandingPage(props) {
     }
 
     return (
-        <div style ={{ width: '75%', margin:'3rem auto' }}>
-            <div style ={{ textAlign: 'center' }}>
+        <div className="landingPage">
+            <div className="Landing-pageheader">
                 <BreadCrumb page = {Category}/>
             </div>
 
@@ -167,21 +163,22 @@ function LandingPage(props) {
             />  
             {/* Search */}
             <Row>
-            <Col style={{ display:'flex', justifyContent:'flex-end', margin:'1rem auto 1rem 0' }}>
+            <Col className="Landing-search">
                 <SearchFeature
                     refreshFunction={updateSearchTerm} //검색어 입력시 자동으로 결과 페이지 보여줌
                 />
             </Col>
-
-            <Col style={{ display:'flex', justifyContent:'flex-end', margin:'1rem 0 1rem auto' }}>
+            {/* Sort */}
+            <Col className="Landing-sort">
                 <SortFeature
                     sortFunction = {showSortedResults} 
                 />
             </Col>
             </Row>
             <br/>
+            {/* Cards */}
             {Templates.length === 0 ?
-                <div style ={{ display: 'flex', height:'300px', justifyContent: 'center', alignItems: 'center' }}>
+                <div className="Landing-noCards">
                     <h2>No post yet...</h2>
                 </div> :
                 <div>
@@ -192,7 +189,7 @@ function LandingPage(props) {
             }
             <br /><br />
             {PostSize >= Limit &&
-                <div style ={{ display: 'flex', justifyContent: 'center' }}>
+                <div className="Landing-loadMore">
                     <button onClick={onLoadMore}>Load More</button>
                 </div>
             }

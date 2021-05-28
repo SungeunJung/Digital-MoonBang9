@@ -1,41 +1,33 @@
-.mypost {
+.myhistory {
     width: 95%;
     padding: 3rem 4rem; 
     margin: 2.5rem auto;
     font-family: 'cookie-regular';
 }
-.Mypost-pageheader-1 {
+.Myhistory-pageheader-1 {
     text-align: center;
     font-size: 27px;
     margin-bottom: 10px;
 }
-.Mypost-pageheader-2 {
+.Myhistory-pageheader-2 {
     text-align: center;
     font-size: 20px;
-    margin-bottom: 0px;
+    margin-bottom: 40px;
 }
-.Mypost-pagination {
+.Myhistory-noCards {
+    display: flex; 
+    height: 300px; 
+    justify-content: center;
+    align-items: center;
+}
+.Myhistory-loardMore {
     display: flex; 
     justify-content: center;
-}
-a.nav_link div{ 
-    margin: 0px 12px;
-}
-a.nav_link:hover div{
-    background-color: rgb(245, 251, 255);
-    color: #40a9ff;
-}
-a.nav_link span{
-    font-size: medium;
-}
-.ant-list-item-meta-title{
-    font-size: 19px;
-    /*font-weight: bold;*/
 }
 
 @media (max-width: 1199px) {
     /*테블릿 가로*/
-    .mypost {
+    .myhistory {
         padding: 2rem 4rem;
     }
 }
@@ -46,14 +38,11 @@ a.nav_link span{
 
 @media (max-width: 767px) {
     /*모바일 가로*/
-    .mypost {
-        padding: 1rem 0rem;
+    .myhistory {
+        padding: 1rem 4rem;
     }
 }
 
 @media (max-width: 415px) {
     /*모바일 세로*/
-    .ant-tabs-nav-wrap::after {
-        width: 0px;
-    }
 }

@@ -1,8 +1,9 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react'; 
 import axios from 'axios';
 import { Col, Card, Row, Typography } from 'antd';
 import ImageSlider from '../../utils/ImageSlider';
 import { get } from 'mongoose/lib/promise_provider';
+import './LikePage.css'
 
 const { Meta } = Card;
 const { Title } = Typography;
@@ -84,16 +85,15 @@ function LikePage(props) {
     })
 
     return (
-        <div style ={{ width: '75%', margin:'3rem auto' }}>
-            <div style ={{ textAlign: 'center' }}>
-                <Title level={2}>마이페이지</Title>
-                <h2>찜하기 목록</h2>
-            </div>
+        <div className="likePage">
+            <Title>
+                <div className="Like-pageheader-1">마이페이지</div>
+                <div className="Like-pageheader-2">찜하기 목록</div>
+            </Title>
 
-            <br/>
             {Templates.length === 0 ?
-                <div style ={{ display: 'flex', height:'300px', justifyContent: 'center', alignItems: 'center' }}>
-                    <h2>No post yet...</h2>
+                <div className="Like-noCards">
+                    <h2>찜한 속지가 없습니다.</h2>
                 </div> :
                 <div>
                     <Row gutter={[16, 16]}>
@@ -103,7 +103,7 @@ function LikePage(props) {
             }
             <br /><br />
             {PostSize >= Limit &&
-                <div style ={{ display: 'flex', justifyContent: 'center' }}>
+                <div className="Like-loardMore">
                     <button onClick={onLoadMore}>Load More</button>
                 </div>
             }

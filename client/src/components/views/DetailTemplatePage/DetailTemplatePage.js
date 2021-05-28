@@ -1,10 +1,11 @@
-import axios from 'axios'
+import axios from 'axios' 
 //import { response } from 'express'
 import React, { useEffect, useState } from 'react'
 import { Row, Col } from 'antd'
 import TemplateImage from './Sections/TemplateImage'
 import TemplateInfo from './Sections/TemplateInfo'
 import Comments from './Sections/Comments'
+//import './DetailTeplatePage.css'
 
 function DetailTemplatePage(props) {
 
