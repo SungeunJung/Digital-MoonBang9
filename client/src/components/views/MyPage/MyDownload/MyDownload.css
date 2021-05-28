@@ -1,0 +1,48 @@
+.mydownload {
+    width: 95%;
+    padding: 3rem 4rem; 
+    margin: 2.5rem auto;
+    font-family: 'cookie-regular';
+}
+.Mydownload-pageheader-1 {
+    text-align: center;
+    font-size: 27px;
+    margin-bottom: 10px;
+}
+.Mydownload-pageheader-2 {
+    text-align: center;
+    font-size: 20px;
+    margin-bottom: 40px;
+}
+.Mydownload-noCards {
+    display: flex; 
+    height: 300px; 
+    justify-content: center;
+    align-items: center;
+}
+.Mydownload-loardMore {
+    display: flex; 
+    justify-content: center;
+}
+
+@media (max-width: 1199px) {
+    /*테블릿 가로*/
+    .mydownload {
+        padding: 2rem 4rem;
+    }
+}
+
+@media (max-width: 991px) {
+    /*테블릿 세로*/
+}
+
+@media (max-width: 767px) {
+    /*모바일 가로*/
+    .mydownload {
+        padding: 1rem 4rem;
+    }
+}
+
+@media (max-width: 415px) {
+    /*모바일 세로*/
+}

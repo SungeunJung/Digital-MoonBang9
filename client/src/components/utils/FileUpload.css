@@ -1,0 +1,59 @@
+.fileUpload {
+    display: flex; 
+    justify-content: space-between;
+}
+
+.drop-zone {
+    width: 300px; 
+    height: 240px; 
+    border: 1px solid lightgray; 
+    display: flex; 
+    align-items: center; 
+    justify-content:center;
+}
+
+.display-zone {
+    width: 350px; 
+    height: 240px; 
+    overflow-x: scroll;
+}
+
+.image-style {
+    min-width: 300px; 
+    width: 300px; 
+    height: 240px;
+}
+
+
+@media (max-width: 991px) {
+    /*테블릿 세로*/
+}
+
+@media (max-width: 767px) {
+    /*모바일 가로*/
+
+}
+
+@media (max-width: 415px) {
+    /*모바일 세로*/
+    .drop-zone {
+        width: 140px; 
+        height: 140px; 
+        border: 1px solid lightgray; 
+        display: flex; 
+        align-items: center; 
+        justify-content:center;
+    }
+    
+    .display-zone {
+        width: 145px; 
+        height: 140px; 
+        overflow-x: scroll;
+    }
+    
+    .image-style {
+        min-width: 140px;
+        width: 140px; 
+        height: 140px;
+    }
+}

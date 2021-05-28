@@ -1,0 +1,77 @@
+.landingPage {
+    width: 95%; 
+    padding: 3rem 4rem;
+    margin: 2.5rem auto;
+    font-family: 'cookie-regular';
+}
+.Landing-pageheader { text-align: center; }
+.Landing-breadcrump-1 { font-size: 27px; }
+.Landing-breadcrump-2 { font-size: 22px; }
+.Landing-search {
+    display: flex; 
+    justify-content:flex-end; 
+    margin: 1.4rem auto 1rem 0;
+}
+.Landing-searchFeature-1 { width: 88px; }
+.Landing-searchFeature-2 { width: 300px; }
+.Landing-font { font-family: 'cookie-regular'; }
+.Landing-sort {
+    display: flex; 
+    justify-content: flex-end; 
+    margin: 1.4rem 0 1rem auto;
+}
+.Landing-sortFeature { width: 100px; }
+.Landing-noCards {
+    display: flex; 
+    height: 300px;
+    justify-content: center; 
+    align-items: center;
+}
+.Landing-loadMore {
+    display: flex;
+    justify-content: center;
+}
+
+@media (max-width: 1199px) {
+    /*테블릿 가로*/
+    .landingPage {
+        padding: 2rem 4rem;
+    }
+}    
+
+@media (max-width: 991px) {
+    /*테블릿 세로*/
+    .ant-btn.ant-btn-primary.ant-input-search-button {
+        font-size: small;
+    }
+}   
+
+@media (max-width: 767px) {
+    /*모바일 가로*/
+    .landingPage {
+        padding: 1rem 4rem;
+    }
+    .ant-btn.ant-btn-primary.ant-input-search-button {
+        width: auto;
+        height: 32px;
+    }
+}
+
+@media (max-width: 415px) {
+    /*모바일 세로*/
+    .ant-input-group-wrapper {
+        display: inline;
+    }
+    .ant-btn.ant-btn-primary.ant-input-search-button {
+        width: auto;
+        height: 32px;
+    }
+    .ant-col.Landing-sort {
+        height: 30px;
+        margin: 0.5rem 0 0.5rem auto;
+    }
+    .ant-col Landing-search {
+        margin: 1.4rem auto 0.9rem 0;
+    }
+}
+

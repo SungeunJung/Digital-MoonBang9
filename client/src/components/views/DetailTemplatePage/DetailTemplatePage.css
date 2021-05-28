@@ -1,0 +1,144 @@
+.detailPage {
+    width: 100%;
+    padding: 3rem 4rem;
+    font-family: 'cookie-regular';
+}
+.tag-style-2{
+    width: 50px;
+    height: 30px;
+    font-size: 14px;
+    text-align: center;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.tag-style-3{
+    width: 65px;
+    height: 30px;
+    font-size: 14px;
+    text-align: center;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.tag-style-4 {
+    width: 80px;
+    height: 30px;
+    font-size: 14px;
+    text-align: center;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.tag-style-5 {
+    width: 95px;
+    height: 30px;
+    font-size: 14px;
+    text-align: center;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.template-desc {
+    margin-top:15px;
+    margin-bottom: 25px;
+}
+
+.comment { margin-top: 80px; }
+
+.comment-button {
+    margin-top:35px;
+    margin-left:-78px; 
+    width: 60px;
+    height: 35px;
+    border-radius: 5px;
+}
+
+.icon-edit { font-size: 25px; }
+.icon-delete { font-size: 24px; }
+.download { margin-left: 25%; width: 20%; }
+.link { width: 32%; }
+.like { width: 10%; }
+.share { width: 10%; }
+
+@media (max-width: 1199px) {
+    /*테블릿 가로*/
+    .download {  margin-left: 0; width: 30%; }
+    .link { width: 38%; }
+    .like { width: 14%; }
+    .share { width: 13%; }
+}
+
+@media (max-width: 991px) {
+    /*테블릿 세로*/
+    .comment { margin-top: 0; }
+    .download {
+        margin-left: 25%;
+        width: 20%;
+    }
+    .link { width: 30%; }
+    .like { width: 9%; }
+    .share { width: 9%; }
+}
+
+@media (max-width: 767px) {
+    /*모바일 가로*/
+    .detailPage {
+        width: 100%;
+        padding: 3rem 2rem; 
+    }
+
+    .icon-edit { font-size: 18px; }
+    .icon-delete { font-size: 17px; }
+    .ant-btn-primary {
+        width: 115px;
+        height: 18px;
+    }
+    .ant-btn-primary span {
+        font-size: small;
+    }
+    .comment-button {
+        margin-top:42px;
+        margin-left:-64px; 
+        width: 55px;
+        height: 32px;
+        border-radius: 5px;
+    }
+    .comment { margin-top: 0; }
+    .download { margin-left: 0%; width: 20%; }
+    .link { width: 54%; }
+    .like { width: 10%; }
+    .share { width: 10%; }
+}
+
+@media (max-width: 415px) {
+    /*모바일 세로*/
+    .detailPage {
+        width: 100%;
+        padding: 3rem 2rem; 
+    }
+
+    .icon-edit { font-size: 18px; }
+    .icon-delete { font-size: 17px; }
+    .ant-btn-primary {
+        width: 115px;
+        height: 18px;
+    }
+    .ant-btn-primary span {
+        font-size: small;
+    }
+    .comment-button {
+        margin-top:42px;
+        margin-left:-64px; 
+        width: 55px;
+        height: 32px;
+        border-radius: 5px;
+    }
+    .comment { margin-top: 0; }
+    .download { margin-left: 11%; width: 37%; }
+    .link { width: 30%; }
+    .like { margin-left: 55%; width:20%; }
+    .share { width: 18%; }
+}
+

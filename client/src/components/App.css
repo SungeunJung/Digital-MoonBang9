@@ -1,0 +1,92 @@
+.App {
+  text-align: center;
+}
+
+.App-logo {
+  height: 40vmin;
+  pointer-events: none;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .App-logo {
+    animation: App-logo-spin infinite 20s linear;
+  }
+}
+
+@font-face {
+  font-family: 'cookie-bold';
+  src: url(../fonts/CookieRunFont_TTF/CookieRun\ Bold.ttf)
+}
+@font-face {
+  font-family: 'cookie-regular';
+  src: url(../fonts/CookieRunFont_TTF/CookieRun\ Regular.ttf)
+}
+@font-face {
+  font-family: 'netmarble-bold';
+  src: url(../fonts/netmarble_font/netmarbleB.ttf)
+}
+@font-face {
+  font-family: 'Timon-bold';
+  src: url(../fonts/Timon/TmonMonsori.ttf.ttf)
+}
+@font-face {
+  font-family: 'Timon-regular';
+  src: url(../fonts/Timon/TmonTium.ttf)
+}
+@font-face {
+  font-family: 'kyobo';
+  src: url(../fonts/Kyobo/Kyobo\ Handwriting\ 2019.ttf)
+}
+@font-face {
+  font-family: 'BR-bold';
+  src: url(../fonts/BR_FONT/배스킨라빈스\ B.ttf)
+}
+@font-face {
+  font-family: 'UhBeeMiMi-bold';
+  src: url(../fonts/UhBeeMiMi/UhBee\ MiMi\ Bold.ttf)
+}
+@font-face {
+  font-family: 'UhBeeMiMi-regular';
+  src: url(../fonts/UhBeeMiMi/UhBee\ MiMi.ttf)
+}
+
+.logo {
+  background-color: aliceblue;
+  display:inline-block;
+  position: fixed;
+  margin: 0 auto;
+  width: 100%;
+  height: 15%;
+  z-index: 5;
+  text-align: center;
+}
+
+.logo a {
+  font-size: 35px;
+  font-family: cookie-bold;
+  padding: 15px 0px;
+}
+
+.App-header {
+  background-color: #282c34;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  font-size: calc(10px + 2vmin);
+  color: white;
+}
+
+.App-link {
+  color: #61dafb;
+}
+
+@keyframes App-logo-spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
