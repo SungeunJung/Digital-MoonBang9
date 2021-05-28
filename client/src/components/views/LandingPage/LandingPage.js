@@ -2,7 +2,6 @@ import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 //import { response } from 'express';
 import { Col, Card, Row } from 'antd';
-import { withRouter } from 'react-router-dom';
 import ImageSlider from '../../utils/ImageSlider'
 import SearchFeature from './Sections/SearchFeature'
 import SortFeature from './Sections/SortFeature'
@@ -40,7 +39,7 @@ function LandingPage(props) {
     }, [])
 
     const getTemplates = (variables) => { 
-        axios.post('/api/template/getTemplates', variables)
+        axios.get('/api/template/getTemplates', variables)
             .then(response => {
                 if(response.data.success) {
                     if(variables.loadMore) {

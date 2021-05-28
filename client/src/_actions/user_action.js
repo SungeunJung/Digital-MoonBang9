@@ -34,7 +34,7 @@ export function loginUser(dataToSubmit) {
 
 export function auth() {
 
-    const request = axios.get(`${USER_SERVER}/auth`) //server에 요청
+    const request = axios.post(`${USER_SERVER}/auth`) //server에 요청
             .then(response => response.data)
 
     return { //request를 reducer로 넘겨줌

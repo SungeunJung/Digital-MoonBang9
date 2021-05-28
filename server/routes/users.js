@@ -26,7 +26,7 @@ router.get('/getAdmin', auth, (req, res) => {
 })
 
 //여기까지 미들웨어(auth)를 통과했다는 얘기는 Authentication이 True 라는 의미
-router.get("/auth", auth, (req, res) => {
+router.post("/auth", auth, (req, res) => {
     res.status(200).json({
         _id: req.user._id, //auth.js에서 user를 req.user에 넣어줘서 가능
         nickname: req.user.nickname,

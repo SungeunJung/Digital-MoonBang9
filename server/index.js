@@ -2,7 +2,8 @@ const express = require('express');
 const app = express();
 const path = require("path");
 const cors = require('cors')
-const port = process.env.PORT || 2000;
+const port = process.env.PORT || 5000;
+const helmet = require('helmet');
 
 const bodyParser = require('body-parser'); //req.body에 넣을 수 있게 해줌
 const cookieParser = require('cookie-parser');
@@ -22,6 +23,9 @@ app.use(bodyParser.urlencoded({extended: true}));
 // support parsing of application/json type post data
 app.use(bodyParser.json());
 app.use(cookieParser());
+
+app.use(helmet());
+app.use(cors());
 
 app.use('/api/users', require('./routes/users'));
 app.use('/api/template', require('./routes/template'));
@@ -49,5 +53,5 @@ if (process.env.NODE_ENV === "production") {
 
 
 app.listen(port, () => {
-  console.log(`Server Listening on http://localhost:${port}`)
+  console.log(`Server Running at ${port}`)
 })
