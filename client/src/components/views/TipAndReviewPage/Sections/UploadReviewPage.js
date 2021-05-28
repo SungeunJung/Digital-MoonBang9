@@ -3,6 +3,7 @@ import QuillEditor from '../../../editor/QuillEditor';
 import { Typography, Button, Form, message, Input, Rate, Select } from 'antd';
 import axios from 'axios';
 import { useSelector } from "react-redux";
+import './TipAndReviewPage.css';
 
 const { Option } = Select;
 const { Title } = Typography;
@@ -39,7 +40,6 @@ function UploadReviewPage(props) {
         axios.post('/api/template/getMyPageTemplates', variables)
             .then(response => {
                 if(response.data.success) {
-                    console.log(response.data.templates)
                     setTemplates(response.data.templates)
                 } else {
                     alert('Failed to fetch template data')
@@ -49,7 +49,6 @@ function UploadReviewPage(props) {
         axios.post('/api/review/getReviews', variables)
         .then(response => {
             if (response.data.success) {
-                console.log(response.data.reviews)
                 setReviews(response.data.reviews)
             } else {
                 alert('Couldnt get review`s lists')
@@ -60,17 +59,14 @@ function UploadReviewPage(props) {
 
     const onTitleChange = (event) => {
         setTitleValue(event.currentTarget.value)
-        console.log(TitleValue)
     }
 
     const onTemplateChange = (event) => {
         setTemplateValue(event.currentTarget.value)
-        console.log(TemplateValue)
     }
 
     const onRateChange = (value) => {
         setRateValue(value)
-        console.log(RateValue)
       };
 
     const onEditorChange = (value) => {
@@ -113,50 +109,51 @@ function UploadReviewPage(props) {
     const renderOptions = (Templates && Templates.map((template, index) => {//리뷰에 있는 템플릿이면 push안해줌   
         if(!ReviewNames.includes(template.title)){
             TemplateNames.push(template.title)
-            return <Option value={index}>{template.title}</Option>
+            return <Option value={index} key={index}>{template.title}</Option>
         }
     }))
 
     const onChange = (value) => {
         setTemplateValue(TemplateNames[value])
-        console.log(`selected ${value}`,TemplateNames[value]);
     }
 
     return (
-        <div style={{ maxWidth: '700px', margin: '2rem auto' }}>
+        <div className="tipAndReview">
+            <div className="form-body">
             <div style={{ textAlign: 'center' }}>
-                <Title level={2} > 리뷰 작성하기</Title>
+                <Title level={2} ><span className="header">리뷰 작성하기</span></Title>
             </div>
 
             <Form onSubmit={onSubmit}>
-                <p style={{ textAlign: 'center', fontSize: '14px' }} >Title</p>
-                <Input
-                    onChange={onTitleChange}
-                    value={TitleValue}
-                />
-                <br/>
-                <br/>
-                <p style={{ textAlign: 'center', fontSize: '14px' }} >Template Name</p>
-                {makeReviewList}
-                <Select
-                    style={{ width: 700 }}
-                    placeholder="Select a template"
-                    onChange={onChange}
-                >
-                    {renderOptions}
-                </Select>
-                <br/>
-                <br/>
-                <div style={{ textAlign: 'center' }}>
-                <span style={{ fontSize: '14px' }} >Rate: </span>&nbsp;&nbsp;&nbsp;&nbsp;
-                <Rate tooltips={desc} onChange={onRateChange} value={RateValue} />
-                {RateValue ? <span className="ant-rate-text" style={{ color: '#DAA520' }}>
-                    {desc[RateValue - 1]}</span> : ''}
+                <div className="content">
+                    <p className="title" >제목</p>
+                    <Input
+                        onChange={onTitleChange}
+                        value={TitleValue}
+                        placeholder="제목을 입력하세요"
+                        style={{height:'35px'}}
+                    />
+               </div>
+               <div className="content">
+                    <p className="title" >속지 이름</p>
+                    {makeReviewList}
+                    <Select
+                        style={{ width: '100%',height:'35px' }}
+                        placeholder="속지를 선택하세요"
+                        onChange={onChange}
+                    >
+                        {renderOptions}
+                    </Select>
+                </div>
+                <div style={{ display:'flex', marginBottom:"2%", alignItems:'center'}}>
+                <span className="title" >평점: </span>&nbsp;&nbsp;&nbsp;&nbsp;
+                <Rate tooltips={desc} onChange={onRateChange} value={RateValue} style={{fontSize:35}} />
+                {RateValue ? <span className="ant-rate-text" style={{ color: '#DAA520' }}></span> : ''}
                 </div>
                 <br/>
-                <p style={{ textAlign: 'center', fontSize: '14px' }} >Description</p>
+                <p className="title" >내용</p>
                 <QuillEditor
-                    placeholder={"Start Posting Something"}
+                    placeholder={"내용을 입력하세요"}
                     onEditorChange={onEditorChange}
                     onFilesChange={onFilesChange}
                 />
@@ -167,10 +164,11 @@ function UploadReviewPage(props) {
                         className=""
                         onClick={onSubmit}
                     >
-                        Submit
+                        작성
                     </Button>
                 </div>
             </Form>
+        </div>
         </div>
     )
 }

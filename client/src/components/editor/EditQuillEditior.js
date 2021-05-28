@@ -1,7 +1,7 @@
 import React from 'react';
 import ReactQuill, { Quill } from 'react-quill';
 import "react-quill/dist/quill.snow.css";
-
+import { FolderAddOutlined, PictureOutlined, PlaySquareOutlined } from '@ant-design/icons';
 import axios from 'axios';
 const __ISMSIE__ = navigator.userAgent.match(/Trident/i) ? true : false;
 
@@ -376,13 +376,13 @@ class EditQuillEditor extends React.Component {
                     <button className="ql-underline" />
                     <button className="ql-strike" />
                     <button className="ql-insertImage">
-                        I
+                        <PictureOutlined style={{ fontSize:'16px' }}/>
                     </button>
                     <button className="ql-insertVideo">
-                        V
+                        <PlaySquareOutlined style={{ fontSize:'16px' }}/>
                     </button>
                     <button className="ql-insertFile">
-                        F
+                        <FolderAddOutlined style={{ fontSize:'18px' }}/>
                     </button>
                     <button className="ql-link" />
                     <button className="ql-code-block" />
@@ -402,6 +402,7 @@ class EditQuillEditor extends React.Component {
                     //value={this.state.editorHtml}
                     defaultValue={this.props.defaultValue}
                     placeholder={this.props.defaultValue}
+                    style={{height:'200px'}}
                 />
                 <input type="file" accept="image/*" ref={this.inputOpenImageRef} style={{ display: "none" }} onChange={this.insertImage} />
                 <input type="file" accept="video/*" ref={this.inputOpenVideoRef} style={{ display: "none" }} onChange={this.insertVideo} />

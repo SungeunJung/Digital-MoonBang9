@@ -1,0 +1,43 @@
+.detail-page {
+    width: 100%;
+    padding: 3rem 4rem;
+    font-family: 'cookie-regular';
+}
+
+.header {
+    font-size: 50px;
+    font-weight: bold;
+    margin-right: 20px;
+    background: linear-gradient(to top, #bae7ff 50%, transparent 50%);
+}
+
+.title-col { font-size: 30px; font-weight: bold; display: flex; align-items: flex-end; }
+.edit-col { margin-left: 20px; margin-top: 2%; }
+.delete-col { margin-left: 15px; margin-top: 2%; }
+
+@media (max-width: 1199px) {
+    /*테블릿 가로*/
+}
+
+@media (max-width: 991px) {
+    /*테블릿 세로*/
+}
+
+@media (max-width: 767px) {
+    /*모바일 가로*/
+}
+
+@media (max-width: 415px) {
+    /*모바일 세로*/
+    .detail-page {
+        width: 100%;
+        padding: 3rem 2rem; 
+    }
+    .header {
+        font-size: 30px;
+    }
+    
+    .title-col { font-size: 20px; width: 86%; }
+    .edit-col { width: 8%; margin-left: 0; }
+    .delete-col { width: 6%; margin-left: 0; }
+}

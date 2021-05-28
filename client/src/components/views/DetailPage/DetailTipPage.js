@@ -4,6 +4,7 @@ import { Avatar, Col, Typography, Row, Tooltip, message, Popconfirm } from 'antd
 import { EditOutlined, DeleteOutlined } from '@ant-design/icons';
 import { useSelector } from "react-redux";
 import { Link } from 'react-router-dom';
+import './DetailPage.css';
 const { Title } = Typography
 
 function DetailTipPage(props) {
@@ -19,7 +20,6 @@ function DetailTipPage(props) {
         axios.post('/api/tip/getPost', variable)
             .then(response => {
                 if (response.data.success) {
-                    console.log('<tip 정보>', response.data.post)
                     setPost(response.data.post)
                     window.localStorage.setItem("title_tip", response.data.post.title)
                     window.localStorage.setItem("description_tip", response.data.post.description)
@@ -53,10 +53,35 @@ function DetailTipPage(props) {
 
     if (post.writer) {
         return (
-            <div className="postPage" style={{ width: '60%', margin: '5rem auto' }}>
-                <Title level={2}>{post.title}</Title>
+            <div className="detail-page">
                 <Row>
-                    <Col style={{width: '90%'}}>
+                    <Col>
+                        <span className="header">TIP</span>
+                    </Col>
+                    <Col className="title-col">
+                        {post.title}
+                    </Col>
+                    
+                {(user.userData && post.writer && post.writer._id == user.userData._id) ?
+                    <Col className="edit-col">
+                        <Link to={`/tip/upload/modify/${postId}`}>
+                            <Tooltip title="edit"><div><EditOutlined className="icon-edit"/> </div></Tooltip>
+                        </Link>
+                    </Col> : <Col></Col>}
+                    {(user.userData && post.writer && post.writer._id == user.userData._id) ?
+                    <Col className="delete-col">
+                        <Popconfirm
+                            title="Are you sure to delete this tip?"
+                            onConfirm={confirm}
+                            onCancel={cancel}
+                            okText="Yes"
+                            cancelText="No"
+                        ><a href="#"><Tooltip placement="bottom" title="delete"><DeleteOutlined className="icon-delete"/></Tooltip></a>
+                        </Popconfirm>
+                    </Col> : <Col></Col>}
+                </Row>
+                <Row >
+                    <Col>
                         <div style={{ display: 'flex'}}>
                             <Avatar
                                 src={process.env.REACT_APP_S3_URL+`userProfile/${post.writer.image}`}
@@ -65,27 +90,13 @@ function DetailTipPage(props) {
                             <Title level={5}>{post.writer.nickname}</Title>
                         </div>
                     </Col>
-                    {(user.userData && post.writer && post.writer._id == user.userData._id) ?
-                    <Col style={{width: '5%'}}>
-                        <Link to={`/tip/upload/modify/${postId}`}>
-                            <Tooltip title="edit"><div><EditOutlined /> </div></Tooltip>
-                        </Link>
-                    </Col> : <Col></Col>}
-                    {(user.userData && post.writer && post.writer._id == user.userData._id) ?
-                    <Col style={{width: '5%'}}>
-                        <Popconfirm
-                            title="Are you sure to delete this tip?"
-                            onConfirm={confirm}
-                            onCancel={cancel}
-                            okText="Yes"
-                            cancelText="No"
-                        ><a href="#"><Tooltip placement="bottom" title="delete"><DeleteOutlined /></Tooltip></a>
-                        </Popconfirm>
-                    </Col> : <Col></Col>}
-                </Row>
-                <div style={{ display: 'flex', justifyContent: 'flex-end' }}>
-                    <Title level={4}>{post.createdAt.split('T')[0]}</Title>
+                   <Col>
+                   <div style={{ display: 'flex', justifyContent: 'flex-start', color:'#c9c9c9', fontSize:'14px' }}>
+                    {post.createdAt.split('T')[0]}
                 </div>
+                   </Col>
+                </Row>
+                
                 <br />
                 <div dangerouslySetInnerHTML={{ __html: post.description }} />
 
@@ -96,7 +107,5 @@ function DetailTipPage(props) {
             <div style={{ width: '80%', margin: '3rem auto' }}>loading...</div>
         )
     }
-
 }
-
 export default DetailTipPage

@@ -1,0 +1,73 @@
+.tipAndReview {
+    margin: 2rem auto;
+    max-width: 800px;
+    font-family: "cookie-regular";
+}
+.form-body {
+    border-style: solid;
+    border-radius: 3px;
+    border-color: #c9c9c9;
+    border-width: 1px;
+    margin-top: 3%;
+    padding: 35px 50px 10px 50px;
+}
+
+.header {
+background: linear-gradient(to top, #bae7ff 50%, transparent 50%) 
+}
+
+.content {
+    margin-top: 9%;
+    margin-bottom: 6%;
+}
+
+div .title {
+    text-align: left;
+    font-size: 16px;
+    padding-left: 1%;
+}
+
+
+@media (max-width: 1199px) {
+    /*테블릿 가로*/
+}
+
+@media (max-width: 991px) {
+    /*테블릿 세로*/
+    .tipAndReview {
+        margin: 2rem 3rem;
+        max-width: 90%;
+    }
+}
+
+@media (max-width: 767px) {
+    /*모바일 가로*/
+    .tipAndReview {
+        margin: 2rem 2rem;
+        max-width: 90%;
+    }
+}
+
+@media (max-width: 415px) {
+    /*모바일 세로*/
+    .tipAndReview {
+        margin: 2rem auto;
+        max-width: 90%;
+    }
+    .title {
+        text-align: left;
+        font-size: 14px;
+    }
+    .content {
+        margin-top: 14%;
+        margin-bottom: 6%;
+    }
+    .form-body {
+        border-style: solid;
+        border-radius: 3px;
+        border-color: #c9c9c9;
+        border-width: 1px;
+        margin-top: 3%;
+        padding: 35px 20px 0px 20px;
+    }
+}

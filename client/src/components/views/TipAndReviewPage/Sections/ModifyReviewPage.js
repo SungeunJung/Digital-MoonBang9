@@ -66,51 +66,52 @@ function ModifyReviewPage(props) {
     }
 
     return (
-        <div style={{ maxWidth: '700px', margin: '2rem auto' }}>
-            <div style={{ textAlign: 'center' }}>
-                <Title level={2} > 리뷰 수정하기</Title>
-            </div>
-
-            <Form onSubmit={onSubmit}>
-                <p style={{ textAlign: 'center', fontSize: '14px' }} >Title</p>
-                <Input
-                    defaultValue={window.localStorage.getItem("title_review")}
-                    onChange={onTitleChange}
-                />
-                <br/>
-                <br/>
-                <p style={{ textAlign: 'center', fontSize: '14px' }} >Template Name</p>
-                <Mentions style={{ width: '100%' }} 
-                    placeholder={window.localStorage.getItem("template_review")} disabled />
-                <br/>
-                <br/>
+        <div className="tipAndReview">
+            <div className="form-body">
                 <div style={{ textAlign: 'center' }}>
-                <span style={{ fontSize: '14px' }} >Rate: </span>&nbsp;&nbsp;&nbsp;&nbsp;
-                <Rate tooltips={desc} onChange={onRateChange} value={RateValue} />
-                {RateValue ? <span className="ant-rate-text" style={{ color: '#DAA520' }}>
-                    {desc[RateValue - 1]}</span> : ''}
+                    <Title level={2}><span className="header">리뷰 수정하기</span></Title>
                 </div>
-                <br/>
-                <p style={{ textAlign: 'center', fontSize: '14px' }} >Description</p>
-                <EditQuillEditior
-                    defaultValue={window.localStorage.getItem("description_review")}
-                    onEditorChange={onEditorChange}
-                    onFilesChange={onFilesChange}
-                />
-                <div style={{ textAlign: 'center', margin: '2rem', }}>
-                    <Button size="large"
-                        onClick={onCancel}>
-                        취소하기
-                    </Button>
-                    &nbsp;&nbsp;
-                    <Button
-                        size="large"
-                        onClick={onSubmit}
-                        >
-                        수정하기
-                    </Button>
-                </div>
-            </Form>
+                    <Form onSubmit={onSubmit}>
+                    <div className="content">
+                        <p className="title">제목</p>
+                        <Input
+                            defaultValue={window.localStorage.getItem("title_review")}
+                            onChange={onTitleChange}
+                            style={{height:'35px'}}
+                        />
+                    </div>
+                    <div className="content">
+                        <p className="title">속지 이름</p>
+                        <Mentions style={{ width: '100%' }} 
+                            placeholder={window.localStorage.getItem("template_review")} disabled />
+                    </div>
+                    <div style={{ display:'flex', marginBottom:"2%", alignItems:'center'}}>
+                    <span className="title">평점: </span>&nbsp;&nbsp;&nbsp;&nbsp;
+                    <Rate onChange={onRateChange} value={RateValue} style={{fontSize:35}} />
+                    {RateValue ? <span className="ant-rate-text" style={{ color: '#DAA520' }}></span> : ''}
+                    </div>
+                    <br/>
+                    <p className="title" >내용</p>
+                    <EditQuillEditior
+                        defaultValue={window.localStorage.getItem("description_review")}
+                        onEditorChange={onEditorChange}
+                        onFilesChange={onFilesChange}
+                    />
+                    <div style={{ textAlign: 'center', margin: '2rem', }}>
+                        <Button
+                            size="large"
+                            onClick={onSubmit}
+                            >
+                            저장
+                        </Button>
+                        &nbsp;&nbsp;
+                        <Button size="large"
+                            onClick={onCancel}>
+                            취소
+                        </Button>
+                    </div>
+                </Form>
+            </div>
         </div>
     )
 }

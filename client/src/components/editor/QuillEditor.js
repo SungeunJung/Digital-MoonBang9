@@ -1,7 +1,7 @@
 import React from 'react';
 import ReactQuill, { Quill } from 'react-quill';
 import "react-quill/dist/quill.snow.css";
-
+import { FolderAddOutlined, PictureOutlined, PlaySquareOutlined } from '@ant-design/icons';
 import axios from 'axios';
 const __ISMSIE__ = navigator.userAgent.match(/Trident/i) ? true : false;
 
@@ -375,21 +375,18 @@ class QuillEditor extends React.Component {
                     <button className="ql-underline" />
                     <button className="ql-strike" />
                     <button className="ql-insertImage">
-                        I
+                        <PictureOutlined style={{ fontSize:'16px' }}/>
                     </button>
                     <button className="ql-insertVideo">
-                        V
+                        <PlaySquareOutlined style={{ fontSize:'16px' }}/>
                     </button>
                     <button className="ql-insertFile">
-                        F
+                        <FolderAddOutlined style={{ fontSize:'18px' }}/>
                     </button>
                     <button className="ql-link" />
                     <button className="ql-code-block" />
                     <button className="ql-video" />
                     <button className="ql-blockquote" />
-                    <button className="ql-clean" />
-
-                    
 
                 </div>
                 <ReactQuill
@@ -400,6 +397,7 @@ class QuillEditor extends React.Component {
                     formats={this.formats}
                     value={this.state.editorHtml}
                     placeholder={this.props.placeholder}
+                    style={{height:'200px'}}
                 />
                 <input type="file" accept="image/*" ref={this.inputOpenImageRef} style={{ display: "none" }} onChange={this.insertImage} />
                 <input type="file" accept="video/*" ref={this.inputOpenVideoRef} style={{ display: "none" }} onChange={this.insertVideo} />

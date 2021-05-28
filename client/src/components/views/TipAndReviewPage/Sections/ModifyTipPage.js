@@ -58,38 +58,44 @@ function ModifyTipPage(props) {
     }
 
     return (
-        <div style={{ maxWidth: '700px', margin: '2rem auto' }}>
-            <div style={{ textAlign: 'center' }}>
-                <Title level={2} > 팁 수정하기</Title>
-            </div>
-            
-            <Form onSubmit={onSubmit}>
-                <p style={{ textAlign: 'center', fontSize: '14px' }} >Title</p>
-                <Input
-                    defaultValue={window.localStorage.getItem("title_tip")}
-                    onChange={onTitleChange}
-                />
-                <br/><br/>
-                <p style={{ textAlign: 'center', fontSize: '14px' }} >Description</p>
-                <EditQuillEditor
-                    defaultValue={window.localStorage.getItem("description_tip")}
-                    onEditorChange={onEditorChange}
-                    onFilesChange={onFilesChange}
-                />
-                <div style={{ textAlign: 'center', margin: '2rem', }}>
-                    <Button size="large"
-                        onClick={onCancel}>
-                        취소하기
-                    </Button>
-                    &nbsp;&nbsp;
-                    <Button
-                        size="large"
-                        onClick={onSubmit}
-                        >
-                        수정하기
-                    </Button>
+        <div className="tipAndReview">
+            <div className="form-body">
+                <div style={{ textAlign: 'center' }}>
+                    <Title level={2}><span className="header">팁 수정하기</span></Title>
                 </div>
-            </Form>
+                
+                <Form onSubmit={onSubmit}>
+                    <div className="content">
+                        <p className="title" >제목</p>
+                        <Input
+                            defaultValue={window.localStorage.getItem("title_tip")}
+                            onChange={onTitleChange}
+                            style={{height:'35px'}}
+                        />
+                    </div>
+                    <div className="content">
+                    <p className="title">내용</p>
+                    <EditQuillEditor
+                        defaultValue={window.localStorage.getItem("description_tip")}
+                        onEditorChange={onEditorChange}
+                        onFilesChange={onFilesChange}
+                    />
+                    </div>
+                    <div style={{ textAlign: 'center', margin: '2rem', }}>
+                        <Button
+                            size="large"
+                            onClick={onSubmit}
+                            >
+                            저장
+                        </Button>
+                        &nbsp;&nbsp;
+                        <Button size="large"
+                            onClick={onCancel}>
+                            취소
+                        </Button>
+                    </div>
+                </Form>
+            </div>
         </div>
     )
 }
