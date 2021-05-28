@@ -1,7 +1,8 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react'; 
 import { Col, Card, Row, Typography } from 'antd';
 import ImageSlider from '../../../utils/ImageSlider'
 import axios from 'axios';
+import './MyDownload.css'
 
 const { Meta } = Card;
 const { Title } = Typography;
@@ -87,15 +88,14 @@ function MyDownload(props) {
     })
 
     return (
-        <div style ={{ width: '75%', margin:'3rem auto', fontFamily: 'kyobo' }}>
-            <div style ={{ textAlign: 'center' }}>
-                <Title level={1}>마이페이지</Title>
-                <Title level={3}>다운로드 기록</Title>
-            </div>
+        <div className="mydownload">
+            <Title>
+                <div className="Mydownload-pageheader-1">마이페이지</div>
+                <div className="Mydownload-pageheader-2">다운로드 기록</div>
+            </Title>
 
-            <br/>
             {Templates.length === 0 ?
-                <div style ={{ display: 'flex', height:'300px', justifyContent: 'center', alignItems: 'center' }}>
+                <div className="Mydownload-noCards">
                     <h2>다운로드 받은 속지가 없습니다.</h2>
                 </div> :
                 <div>
@@ -106,7 +106,7 @@ function MyDownload(props) {
             }
             <br /><br />
             {PostSize >= Limit &&
-                <div style ={{ display: 'flex', justifyContent: 'center' }}>
+                <div className="Mydownload-loardMore">
                     <button onClick={onLoadMore}>Load More</button>
                 </div>
             }

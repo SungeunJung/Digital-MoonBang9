@@ -1,0 +1,67 @@
+.reviewPage {
+    width: 95%;
+    padding: 3rem 4rem; 
+    margin: 2.5rem auto;
+    font-family: 'cookie-regular';
+}
+.Review-headerStyleOut { font-size: 27px; color: #E2E2E2;}
+.Review-headerStyleOn { font-size: 27px; color: black;}
+.Review-halfCol-1 { width: 50%; }
+.Review-halfCol-2 { width: 50%; }
+.Review-rightAlign {  box-align: right; }
+.Review-rate { width: 100%; }
+.Review-noCards {
+    display: flex; 
+    height: 300px; 
+    justify-content: center; 
+    align-items: center;
+}
+.Review-cards {
+    width: 85%;
+    margin: 0.5rem auto;
+}
+.Review-card {
+    width: 250; 
+    margin-top: 16;
+}
+.Review-pagination {
+    display: flex; 
+    justify-content: center;
+}
+@media (max-width: 1199px) {
+    /*테블릿 가로*/
+    .reviewPage {
+        padding: 2rem 4rem;
+    }
+}
+
+@media (max-width: 991px) {
+    /*테블릿 세로*/
+}
+
+@media (max-width: 767px) {
+    /*모바일 가로*/
+    .reviewPage {
+        padding: 1rem 4rem;
+    }
+    .Review-headerStyleOut { font-size: 24px; color: #E2E2E2;}
+    .Review-headerStyleOn { font-size: 24px; color: black;}
+    .Review-halfCol-1 { width: 80%; }
+    .Review-halfCol-2 { width: 20%; }
+    .ant-btn-background-ghost.ant-btn-primary {
+        height: auto;
+        width: auto;
+    }
+}
+
+@media (max-width: 415px) {
+    /*모바일 세로*/
+    .Review-headerStyleOut { font-size: 22px; color: #E2E2E2;}
+    .Review-headerStyleOn { font-size: 22px; color: black;}
+    .Review-halfCol-1 { width: 80%; }
+    .Review-halfCol-2 { width: 20%; }
+    .ant-btn-background-ghost.ant-btn-primary {
+        height: auto;
+        width: auto;
+    }
+}

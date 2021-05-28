@@ -1,24 +1,16 @@
-import React, { useState, useEffect }  from 'react'
+import React, { useState, useEffect }  from 'react' 
 import { NavLink } from 'react-router-dom';
 import { Link } from 'react-router-dom';
 import { Col, Row, Button, Card, Avatar, Typography, Rate, Pagination } from 'antd';
 import axios from 'axios';
 import { UserOutlined } from '@ant-design/icons';
 import { useSelector } from "react-redux";
+import './ReviewPage.css';
 
 const { Title } = Typography
 const { Meta } = Card;
 
 const desc = ['terrible', 'bad', 'normal', 'good', 'wonderful'];
-
-const headerStyleOn = {
-    color: "black", 
-    fontSize: "28px"
-};
-const headerStyleOut = {
-    color: "#E2E2E2", 
-    fontSize: "28px"
-};
 
 function ReviewPage() {
     const user = useSelector(state => state.user);
@@ -83,7 +75,7 @@ function ReviewPage() {
             <NavLink to = {`/review/post/${review._id}`}>
             <Card
                 hoverable
-                style={{ width: 250, marginTop: 16 }}
+                className="Review-card"
             >
                 <Meta
                     avatar={
@@ -99,7 +91,7 @@ function ReviewPage() {
                     description={review.template}
                 />
                 <div >
-                    <Rate value={review.rate} style={{ width: "100%" }} disabled />
+                    <Rate value={review.rate} className="Review-rate" disabled />
                     {review.rate ? <span className="ant-rate-text" style={{ color: "#DAA520" }}>
                         {desc[review.rate - 1]}</span> : ''}
                 </div>
@@ -112,27 +104,29 @@ function ReviewPage() {
     }))
 
     return (
-        <div style={{ maxWidth: '900px', margin: '4rem auto'}}>       
+        <div className="reviewPage">       
             <Row>
-                <Col style={{width : '450px'}}>
-                <strong><Link to="/tip" style={headerStyleOut}>
-                    Tip</Link> <span style={headerStyleOn}>  /  </span>
-                    <Link to="/review" style={headerStyleOn}>
+                <Col className="Review-halfCol-1">
+                <strong><Link to="/tip" className="Review-headerStyleOut">
+                    Tip</Link> <span className="Review-headerStyleOut">  /  </span>
+                    <Link to="/review" className="Review-headerStyleOn">
                     Review</Link></strong>
                 </Col>
-                <Col align="right" style={{ width : '450px' }}>
+                <Col align="right" className="Review-halfCol-2">
                 { (user.userData && !user.userData.isAuth) ?
                     <span></span> : 
                     <Link to="/review/upload"> 
-                        <Button size='large' type="primary" ghost style={{ align: 'right' }}> 작성하기 </Button>
+                        <Button size='large' type="primary" ghost className="Review-rightAlign"> 
+                            작성하기 
+                        </Button>
                     </Link>
                 }
                 </Col>
             </Row>
-            <div style={{ width: '85%', margin: '0rem auto' }}>
+            <div className="Review-cards">
                 {Reviews.length === 0 ?
-                    <div style ={{ display: 'flex', height:'300px', justifyContent: 'center', alignItems: 'center' }}>
-                    <h2>No post yet...</h2>
+                    <div className="Review-noCards">
+                    <h2>작성된 리뷰가 없습니다.</h2>
                     </div> :
                     <div>
                     <Row gutter={[32, 8]}>
@@ -141,7 +135,7 @@ function ReviewPage() {
                     </div>
                 }
             </div>
-            <div style ={{ display: 'flex', justifyContent: 'center' }}>
+            <div className="Review-pagination">
                 <Pagination defaultCurrent={1} defaultPageSize={9} total={Count} 
                 current={Current} onChange={onPageChange} />
             </div>

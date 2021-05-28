@@ -1,10 +1,11 @@
-import React, { useState, useEffect }  from 'react'
+import React, { useState, useEffect }  from 'react' 
 import { NavLink } from 'react-router-dom';
 import { Link } from 'react-router-dom';
 import { Col, Row, Button, Card, Avatar, Typography, Pagination } from 'antd';
 import axios from 'axios';
 import { UserOutlined } from '@ant-design/icons';
 import { useSelector } from "react-redux";
+import './TipPage.css';
 
 const { Title } = Typography
 const { Meta } = Card;
@@ -80,7 +81,7 @@ function TipPage() {
                 type="inner"
                 
                 hoverable={true}
-                style={{ width: 250, marginTop: 16 }}
+                className="Tip-card"
             ><Meta 
                     avatar={
                         tip.writer.image?
@@ -91,7 +92,6 @@ function TipPage() {
                     <Avatar style={{ backgroundColor: '#87d068' }} icon={<UserOutlined />} />
                     }
                     title={tip.writer.nickname}
-                    //description={tip.writer.nickname}
                 />
                 <div style={{ height: 150, overflowY: 'scroll', marginTop: 10 }}>
                     <div dangerouslySetInnerHTML={{ __html: tip.description }} />
@@ -105,28 +105,30 @@ function TipPage() {
     }))
 
     return (
-        <div style={{ maxWidth: '900px', margin: '4rem auto'}}>       
+        <div className="tipPage">       
             <Row>
-                <Col style={{width : '450px'}}>
+                <Col className="Tip-halfCol-1">
                     <strong>
-                        <Link to="/tip" style={headerStyleOn}>Tip</Link> 
-                        <span style={headerStyleOn}>  /  </span>
-                        <Link to="/review" style={headerStyleOut}>Review</Link>
+                        <Link to="/tip" className="Tip-headerStyleOn">Tip</Link> 
+                        <span className="Tip-headerStyleOn">  /  </span>
+                        <Link to="/review" className="Tip-headerStyleOut">Review</Link>
                     </strong>
                 </Col>
-                <Col align="right" style={{ width : '450px' }}>
+                <Col align="right" className="Tip-halfCol-2">
                     {(user.userData && !user.userData.isAuth) ?
                         <span></span> : 
                         <Link to="/tip/upload"> 
-                            <Button size='large' type="primary" ghost style={{ align: 'right' }}> 작성하기 </Button>
+                            <Button size='large' type="primary" ghost className="Notice-rightAlign"> 
+                                작성하기 
+                            </Button>
                         </Link>
                     }
                 </Col>
             </Row>
-            <div style={{ width: '85%', margin: '0rem auto' }}>
+            <div className="Tip-cards">
                 {Tips.length === 0 ?
-                    <div style ={{ display: 'flex', height:'300px', justifyContent: 'center', alignItems: 'center' }}>
-                    <h2>No post yet...</h2>
+                    <div className="Tip-noCards">
+                    <h2>작성된 팁이 없습니다.</h2>
                     </div> :
                     <div>
                     <Row gutter={[32, 8]}>
@@ -135,7 +137,7 @@ function TipPage() {
                     </div>
                 }
             </div>
-            <div style ={{ display: 'flex', justifyContent: 'center' }}>
+            <div className="Tip-pagination">
                 <Pagination defaultCurrent={1} defaultPageSize={9} total={Count} 
                 current={Current} onChange={onPageChange} />
             </div>

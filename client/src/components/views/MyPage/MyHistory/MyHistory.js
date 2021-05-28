@@ -1,7 +1,8 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react'; 
 import { Col, Card, Row, Typography } from 'antd';
 import ImageSlider from '../../../utils/ImageSlider'
 import axios from 'axios';
+import './MyHistory.css'
 
 const { Meta } = Card;
 const { Title } = Typography;
@@ -87,15 +88,14 @@ function MyHistory(props) {
     })
 
     return (
-        <div style ={{ width: '75%', margin:'3rem auto', fontFamily: 'kyobo' }}>
-            <div style ={{ textAlign: 'center' }}>
-                <Title level={1}>마이페이지</Title>
-                <Title level={3}>방문 기록</Title>
-            </div>
-
-            <br/>
+        <div className="myhistory">
+            <Title>
+                <div className="Myhistory-pageheader-1">마이페이지</div>
+                <div className="Myhistory-pageheader-2">방문 기록</div>
+            </Title>
+            
             {Templates.length === 0 ?
-                <div style ={{ display: 'flex', height:'300px', justifyContent: 'center', alignItems: 'center' }}>
+                <div className="Myhistory-noCards">
                     <h2>방문 기록이 없습니다.</h2>
                 </div> :
                 <div>
@@ -106,7 +106,7 @@ function MyHistory(props) {
             }
             <br /><br />
             {PostSize >= Limit &&
-                <div style ={{ display: 'flex', justifyContent: 'center' }}>
+                <div className="Myhistory-loadMore">
                     <button onClick={onLoadMore}>Load More</button>
                 </div>
             }

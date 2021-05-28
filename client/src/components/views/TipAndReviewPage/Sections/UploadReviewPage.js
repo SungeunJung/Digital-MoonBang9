@@ -34,9 +34,9 @@ function UploadReviewPage(props) {
         let variables = {
             skip: 0,
             limit: user.userData.download.length,
-            download: downloadArr
+            template: downloadArr
         }
-        axios.post('/api/template/getMyDownload', variables)
+        axios.post('/api/template/getMyPageTemplates', variables)
             .then(response => {
                 if(response.data.success) {
                     console.log(response.data.templates)

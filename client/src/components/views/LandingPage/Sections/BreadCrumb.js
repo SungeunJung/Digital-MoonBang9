@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Breadcrumb, Typography, Menu } from 'antd';
 import { pages } from './Datas';
+import '../LandingPage.css'
 
 const { Title } = Typography;
 let CategoryNum = ""
@@ -12,17 +13,14 @@ function BreadCrumb(props) {
     const [Detail, setDetail] = useState("")
 
     useEffect(() => {
-        console.log(props.page)
         if(props.page != undefined) {
             let splitPage = props.page.split("");
             setCategory(splitPage[1]);
             CategoryNum = splitPage[1];
             Pages = 1;
-            //console.log(splitPage[1])
             if(splitPage[2] != undefined) {
                 setDetail(splitPage[2]);
                 Pages = 2;
-                //console.log(splitPage[2])
             }            
         }
         getNames();
@@ -32,8 +30,7 @@ function BreadCrumb(props) {
         if(Pages>0) {
             DetailName = pages[CategoryNum-1].detail.map( (item, index) => {
                 let indexNum = index+1
-                console.log(item)
-                return <Menu.Item><a href={`/:${CategoryNum}${indexNum}`}>{item}</a></Menu.Item>
+                return <Menu.Item className="Landing-font"><a href={`/:${CategoryNum}${indexNum}`}>{item}</a></Menu.Item>
                 
             })
         }
@@ -42,7 +39,7 @@ function BreadCrumb(props) {
 
     const menu = (
         <Menu>
-            <Menu.Item>
+            <Menu.Item className="Landing-font">
                 <a href={`/:${CategoryNum}`}>전체보기</a>
             </Menu.Item>
             {DetailName}
@@ -53,17 +50,17 @@ function BreadCrumb(props) {
         <div>
             <Title>
                 {Pages==0? 
-                <Breadcrumb style={{ fontSize:"27px" }}>
+                <Breadcrumb className="Landing-breadcrump-1">
                     <Breadcrumb.Item>모든속지</Breadcrumb.Item>
                 </Breadcrumb>
                 :
                 Pages==1?
-                <Breadcrumb style={{ fontSize:"22px" }} separator=">">
+                <Breadcrumb className="Landing-breadcrump-2" separator=">">
                     <Breadcrumb.Item>{pages[Category-1].category}</Breadcrumb.Item>
                     <Breadcrumb.Item overlay={menu}>전체보기</Breadcrumb.Item>
                 </Breadcrumb>
                 :
-                <Breadcrumb style={{ fontSize:"22px" }} separator=">">
+                <Breadcrumb className="Landing-breadcrump-2" separator=">">
                     <Breadcrumb.Item>{pages[Category-1].category}</Breadcrumb.Item>
                     <Breadcrumb.Item overlay={menu}>{pages[Category-1].detail[Detail-1]}</Breadcrumb.Item>
                 </Breadcrumb>
