@@ -42,8 +42,8 @@ function MyPage(props) {
             </Title>                  
            
                 <Row className="Mypage-content">     
-                    <Col lg={8} md={16} xs={24} > 
-                        <Avatar icon={<UserOutlined />} size={250}
+                    <Col lg={8} md={16} xs={24} className="Mypage-col">
+                        <Avatar icon={<UserOutlined />} size={225}
                                 src={process.env.REACT_APP_S3_URL+`userProfile/${Image}`} 
                                 className="Mypage-avatar"
                                 />
@@ -51,7 +51,7 @@ function MyPage(props) {
                             <Link to="/mypage/modifyinfo/" >회원정보 수정</Link>
                         </Button>
                     </Col> 
-                    <Col lg={8} md={16} xs={24} >
+                    <Col lg={8} md={16} xs={24} className="Mypage-col">
                         <Button type="default" block className="Mypage-button">
                             <Link to="/user/like" className="Mypage-link">찜하기 목록</Link>
                         </Button>
@@ -59,7 +59,7 @@ function MyPage(props) {
                             <Link to="/mypage/history" className="Mypage-link">방문 기록</Link>
                         </Button>
                     </Col>
-                    <Col lg={8} md={16} xs={24}>
+                    <Col lg={8} md={16} xs={24} className="Mypage-col">
                         <Button type="default" block className="Mypage-button">
                             <Link to="/mypage/mypost" className="Mypage-link">작성한 글</Link>
                         </Button>

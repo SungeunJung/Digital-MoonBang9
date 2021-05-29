@@ -162,19 +162,23 @@ function LandingPage(props) {
                 handleFilters={filters => handleFilters(filters, "styles")} 
             />  
             {/* Search */}
-            <Row>
-            <Col className="Landing-search">
-                <SearchFeature
-                    refreshFunction={updateSearchTerm} //검색어 입력시 자동으로 결과 페이지 보여줌
-                />
-            </Col>
-            {/* Sort */}
-            <Col className="Landing-sort">
-                <SortFeature
-                    sortFunction = {showSortedResults} 
-                />
-            </Col>
-            </Row>
+            <table>
+                <tbody>
+                    <tr>
+                        <td className="Landing-search">
+                            <SearchFeature
+                                refreshFunction={updateSearchTerm} //검색어 입력시 자동으로 결과 페이지 보여줌
+                            />
+                        {/* Sort */}
+                        </td>
+                        <td className="Landing-sort">
+                            <SortFeature
+                                sortFunction = {showSortedResults} 
+                            />
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
             <br/>
             {/* Cards */}
             {Templates.length === 0 ?

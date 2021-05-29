@@ -19,7 +19,6 @@ function SearchFeature(props) {
 
     return (
         <div>
-         
             <Select
                 className="Landing-searchFeature-1"
                 defaultValue="total"

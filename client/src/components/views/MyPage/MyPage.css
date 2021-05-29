@@ -3,9 +3,8 @@
 }
 */
 .myPage {
-    width: 95%;
-    padding: 3rem 4rem;  
-    margin: 2.5rem auto;
+    width: 75%;
+    margin: 3rem auto;
     font-family: 'cookie-regular';
 }
 .Mypage-pageheader {
@@ -14,15 +13,16 @@
     margin-bottom: 10px;
 }
 .Mypage-avatar {
-    width: 250px; 
-    height: 250px; 
+    text-align: center;
     align-items: center;
+    display:flex;
     justify-content: center;
     background-color:#a5cbf0;
+    margin:0 auto;
 }
 .ant-btn.ant-btn-default.ant-btn-block.Mypage-modify {
     height: 40px;
-    margin-top: 20px; 
+    margin-top: 20px;
     font-size: 20px;
     border-radius: 10px;
     background-color: #8e8f92;
@@ -32,11 +32,14 @@
     margin-top: 20px;
     border-radius: 10px;
 }
+.Mypage-col { padding: 10px; }
 .Mypage-link { font-size: 20px; }
 
 @media (max-width: 1199px) {
     /*테블릿 가로*/
     .myPage {
+        width: 95%;
+        margin: 2.5rem auto;
         padding: 2rem 4rem;
     }
     .Mypage-content {
@@ -57,6 +60,8 @@
 @media (max-width: 767px) {
     /*모바일 가로*/
     .myPage {
+        width: 95%;
+        margin: 2.5rem auto;
         padding: 1rem 4rem;
     }
 }

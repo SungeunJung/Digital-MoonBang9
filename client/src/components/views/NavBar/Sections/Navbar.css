@@ -1,14 +1,26 @@
 @import '~antd/dist/antd.css';
 
+.logo_bg {
+  position:relative;
+  background-color: #e6f7ff;  
+  display:flex;
+  height:70%; 
+  justify-content: center;
+  align-items:center;
+}
+.logo {  
+  font-size: 50px;
+  font-family: cookie-bold;
+  padding: 15px 0px;   
+}
+
 .menu {
-  margin-top: 80px;
   padding: 0 20px;
   border-bottom: solid 1px #e8e8e8;
-  /*overflow: auto;*/
+  overflow: hidden;
   box-shadow: 0 0 30px #f3f1f1;
   background-color: white;
 }
-
 
 .menu__container .ant-menu-item {
   padding: 0px 5px;
@@ -27,52 +39,99 @@
   border-bottom: none;
 }
 
-.menu__container .menu_left {
-  float: left;
+.menu__container .menu_bar {  
+  justify-content:center;
+  align-items:center;
+  display:flex;
 }
 
-.menu__container .menu_right {
-  float: right;
+
+@media (max-width: 1199px) {
+  /*테블릿 가로*/
+  .uploadPage {
+      width: 90%;
+      margin:2rem auto 0 auto;
+      padding: 1rem 1rem;
+  }
+  .logo {  
+    font-size: 35px;
+    font-family: cookie-bold;
+    padding: 15px 0px;   
+  }
+  .logo_bg {
+    position:relative;
+    background-color: #e6f7ff;  
+    display:flex;
+    height:55%; 
+    justify-content: center;
+    align-items:center;
+  }
+  .menu {
+    overflow : hidden;
+  }
 }
 
-.menu__mobile-button {
-  float: right;
-  height: 32px;
-  padding: 6px;
-  margin-top: 8px;
-  display: none !important; /* use of important to overwrite ant-btn */
-  background: #3e91f7;
-}
-
-.menu_drawer .ant-drawer-body {
-  padding: 0 !important;
-}
-
-/* align header of Drawer with header of page */
-.menu_drawer .ant-drawer-header {
-  padding: 14px 24px !important;
+@media (max-width: 991px) {
+  /*테블릿 세로*/
+  .uploadPage {
+    width: 90%;
+    margin:2rem auto 0 auto;
+    padding: 1rem 1rem;
+  }
+  .logo {  
+    font-size: 35px;
+    font-family: cookie-bold;
+    padding: 15px 0px;   
+  }
+  .logo_bg {
+    position:relative;
+    background-color: #e6f7ff;  
+    display:flex;
+    height:70%; 
+    justify-content: center;
+    align-items:center;
+  }
 }
 
 @media (max-width: 767px) {
-  .menu__mobile-button {
-    display: inline-block !important;
+  /*모바일 가로*/
+  .menu {
+    padding: 0 20px;
+    border-bottom: solid 1px #e8e8e8;
+    /*overflow: auto;*/
+    box-shadow: 0 0 30px #f3f1f1;
+    background-color: white;
   }
-
-  .menu_left,
-  .menu_rigth {
-    display: none;
+  .logo_bg {
+    position:relative;
+    background-color: #e6f7ff;  
+    display:flex;
+    height:100%; 
+    justify-content: center;
+    align-items:center;
   }
-
-  .menu__logo a {
-    margin-left: -20px;
+  .logo {  
+    font-size: 25px;
+    font-family: cookie-bold;
+    padding: 15px 0px;   
   }
+  
+}
 
-  .menu__container .ant-menu-item,
-  .menu__container .ant-menu-submenu-title {
-    padding: 1px 20px;
+@media (max-width: 415px) {
+  /*모바일 세로*/
+
+  .logo {  
+    font-size: 25px;
+    font-family: cookie-bold;
+    padding: 15px 0px;   
   }
-
-  .menu__logo a {
-    padding: 10px 20px;
+  .logo_bg {
+    position:relative;
+    background-color: #e6f7ff;  
+    display:flex;
+    height:70%; 
+    justify-content: center;
+    align-items:center;
   }
 }

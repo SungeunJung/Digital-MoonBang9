@@ -1,24 +1,28 @@
 .landingPage {
-    width: 95%; 
-    padding: 3rem 4rem;
-    margin: 2.5rem auto;
+    width: 75%; 
+    margin: 3rem auto;
     font-family: 'cookie-regular';
 }
 .Landing-pageheader { text-align: center; }
 .Landing-breadcrump-1 { font-size: 27px; }
 .Landing-breadcrump-2 { font-size: 22px; }
 .Landing-search {
-    display: flex; 
-    justify-content:flex-end; 
-    margin: 1.4rem auto 1rem 0;
+    font-family: 'cookie-regular';
+    padding-left: 0px;
+    padding-right: 0px;
+    padding-bottom: 0px;
+    border: none;
 }
+.ant-select-selector { height: 48px; }
 .Landing-searchFeature-1 { width: 88px; }
 .Landing-searchFeature-2 { width: 300px; }
-.Landing-font { font-family: 'cookie-regular'; }
+.Landing-font { font-family: 'cookie-regular'; font-size: 14px;}
 .Landing-sort {
-    display: flex; 
-    justify-content: flex-end; 
-    margin: 1.4rem 0 1rem auto;
+    text-align: right;
+    font-family: 'cookie-regular';
+    padding-right: 0px;
+    padding-bottom: 0px;
+    border: none;
 }
 .Landing-sortFeature { width: 100px; }
 .Landing-noCards {
@@ -35,6 +39,8 @@
 @media (max-width: 1199px) {
     /*테블릿 가로*/
     .landingPage {
+        width: 95%;
+        margin: 2.5rem auto;
         padding: 2rem 4rem;
     }
 }    
@@ -49,6 +55,8 @@
 @media (max-width: 767px) {
     /*모바일 가로*/
     .landingPage {
+        width: 95%;
+        margin: 2.5rem auto;
         padding: 1rem 4rem;
     }
     .ant-btn.ant-btn-primary.ant-input-search-button {
@@ -59,6 +67,15 @@
 
 @media (max-width: 415px) {
     /*모바일 세로*/
+    .landingPage {
+        width: 95%;
+        padding-left: 10px;
+        padding-right: 10px;
+    }
+    .Landing-searchFeature-1 { width: 30%; float: left; }
+    .Landing-searchFeature-2 { width: 70%; float: left; }
+    .Landing-sortFeature { width: 90px; }
+    
     .ant-input-group-wrapper {
         display: inline;
     }

@@ -173,10 +173,10 @@ function MyPost(props) {
                             <List.Item>
                                 <List.Item.Meta
                                     avatar={<Avatar icon={<UserOutlined />} src={process.env.REACT_APP_S3_URL+`userProfile/${Image}`} style={{ alignItems:'center',backgroundColor:'#a5cbf0'}}/>}
-                                    title={item.title}
-                                    description={<div dangerouslySetInnerHTML={{ __html: item.description }} />}
+                                    title={<div className="Mypost-font-title" >{item.title}</div>}
+                                    description={<div className="Mypost-font-description" dangerouslySetInnerHTML={{ __html: item.description }} />}
                                 />
-                                <div><span>{item.createdAt.split('T')[0]}</span></div>
+                                <div><div className="Mypost-font-date">{item.createdAt.split('T')[0]}</div></div>
                             </List.Item>
                             </div>
                         </NavLink>
@@ -196,12 +196,12 @@ function MyPost(props) {
     }
 
     return (
+        
         <div className="mypost">
             <Title>
                 <div className="Mypost-pageheader-1">마이페이지</div>
                 <div className="Mypost-pageheader-2">작성한 글 목록</div>
             </Title>
-
             <Tabs defaultActiveKey="1" type='card' size='large' onChange={tabChange}>
                 <TabPane tab="속지" key="1">
                     {PostList(Templates, '/template/')}
