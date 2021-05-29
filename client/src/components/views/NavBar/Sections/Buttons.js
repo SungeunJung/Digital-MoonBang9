@@ -19,21 +19,28 @@ function Buttons(props) {
         });
     };
 
+    const alertHandler = () => {
+        alert('로그인 부터 하세요')
+    }
+
     if (user.userData && !user.userData.isAuth) {
         return (
-            <div mode={props.state.mode} className="loginbtn">
-                <Button >           
+            <div mode={props.state.mode} className="btn_container">
+                <Button className="uploadbtn">           
+                    <a href="/login" onClick={alertHandler}>등록하기</a>
+                </Button>
+                <Button type="primary" className="logbtn">           
                     <a href="/login">로그인</a>
                 </Button>
             </div>
         )
       } else {
         return (
-            <div mode={props.state.mode} className="loginbtn">
-                <Button >           
+            <div mode={props.state.mode} className="btn_container">
+                <Button className="uploadbtn">           
                     <a href="/template/upload">등록하기</a>
                 </Button>
-                <Button >           
+                <Button type="primary" className="logbtn">           
                     <a href="/login" onClick={logoutHandler}>로그아웃</a>
                 </Button>  
             </div>        
