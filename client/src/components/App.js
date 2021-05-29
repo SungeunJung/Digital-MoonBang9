@@ -54,7 +54,7 @@ function App() {
       <Suspense fallback={(<div>Loading...</div>)}>
       <NavBar />
 
-      <div style={{ paddingTop: '120px', minHeight: 'calc(100vh - 80px)' }}>
+      <div style={{ paddingTop: '120px'/*, minHeight: 'calc(100vh - 80px)' */}}>
 
         {/*
           A <Switch> looks through all its children <Route>

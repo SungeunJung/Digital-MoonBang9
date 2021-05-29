@@ -84,10 +84,10 @@ function NoticePage(props) {
                             <List.Item>
                                 <List.Item.Meta
                                     avatar={<Avatar size={40}>운영자</Avatar>} 
-                                    title={item.title}
-                                    description={<span>{item.summary}</span>}
+                                    title={<div className="Notice-font-title" >{item.title}</div>}
+                                    description={<span><div className="Notice-font-title" >{item.summary}</div></span>}
                                 />
-                                <div><span>{item.createdAt.split('T')[0]}</span></div>
+                                <div><div className="Notice-font-date">{item.createdAt.split('T')[0]}</div></div>
                             </List.Item>
                             </div>
                         </NavLink>

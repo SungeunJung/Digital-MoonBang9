@@ -1,9 +1,9 @@
 .mypost {
-    width: 95%;
-    padding: 3rem 4rem; 
-    margin: 2.5rem auto;
+    width: 75%;
+    margin: 3rem auto;
     font-family: 'cookie-regular';
 }
+
 .Mypost-pageheader-1 {
     text-align: center;
     font-size: 27px;
@@ -12,14 +12,15 @@
 .Mypost-pageheader-2 {
     text-align: center;
     font-size: 20px;
-    margin-bottom: 0px;
+    padding-bottom: 10px;
 }
 .Mypost-pagination {
     display: flex; 
     justify-content: center;
+    margin-top: 50px;
 }
 a.nav_link div{ 
-    margin: 0px 12px;
+    margin: 0px 2px;
 }
 a.nav_link:hover div{
     background-color: rgb(245, 251, 255);
@@ -36,6 +37,8 @@ a.nav_link span{
 @media (max-width: 1199px) {
     /*테블릿 가로*/
     .mypost {
+        width: 95%;
+        margin: 2.5rem auto;
         padding: 2rem 4rem;
     }
 }
@@ -46,14 +49,17 @@ a.nav_link span{
 
 @media (max-width: 767px) {
     /*모바일 가로*/
-    .mypost {
-        padding: 1rem 0rem;
-    }
 }
 
 @media (max-width: 415px) {
     /*모바일 세로*/
+    .mypost {
+        padding: 0rem 2.5rem;
+    }
     .ant-tabs-nav-wrap::after {
         width: 0px;
     }
+    .Mypost-font-title { font-size: 11px; }
+    .Mypost-font-description { font-size: 9px; }
+    .Mypost-font-date {  font-size: 5px; }
 }

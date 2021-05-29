@@ -1,7 +1,6 @@
 .mydownload {
-    width: 95%;
-    padding: 3rem 4rem; 
-    margin: 2.5rem auto;
+    width: 75%;
+    margin: 3rem auto;
     font-family: 'cookie-regular';
 }
 .Mydownload-pageheader-1 {
@@ -28,7 +27,8 @@
 @media (max-width: 1199px) {
     /*테블릿 가로*/
     .mydownload {
-        padding: 2rem 4rem;
+        width: 95%;
+        padding: 0rem 4rem;
     }
 }
 
@@ -38,9 +38,6 @@
 
 @media (max-width: 767px) {
     /*모바일 가로*/
-    .mydownload {
-        padding: 1rem 4rem;
-    }
 }
 
 @media (max-width: 415px) {
