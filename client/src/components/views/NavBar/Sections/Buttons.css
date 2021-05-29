@@ -1,0 +1,89 @@
+@import '~antd/dist/antd.css';
+
+.btn_container {
+    float:inline-end;
+    position:absolute;  
+    right: 1%;
+    width: 20%;   
+}
+
+.logbtn {
+    font-family: cookie-regular;
+    width: 30%;
+   
+    
+}
+.uploadbtn {
+    margin-right:5%;
+    font-family: cookie-regular;
+    width: 35%;
+    height: 50px;
+    font-size: large;
+    
+}
+
+@media (max-width: 1199px) {
+    /*테블릿 가로*/
+    .logbtn {
+        font-family: cookie-regular;
+        width: 33%;
+        font-size:12px; 
+    }
+    .uploadbtn {
+        margin-right:5%;
+        font-family: cookie-regular;
+        width: 40%;
+        height: 50px;   
+        font-size:medium;        
+    }   
+  }
+  
+  @media (max-width: 991px) {
+    /*테블릿 세로*/
+    .logbtn {
+        font-family: cookie-regular;
+        width: 55%;
+        font-size:8px; 
+    }
+    .uploadbtn {
+        margin-right:5%;
+        font-family: cookie-regular;
+        width: 55%;
+        font-size:8px;
+        height: 32px;
+        margin-bottom: 5%;           
+    }   
+  }
+  
+  @media (max-width: 767px) {
+    /*모바일 가로*/
+    
+    .uploadbtn {
+        font-family: cookie-regular;
+        width: 50%;
+        font-size:8px;
+        height: 22px;
+        margin-bottom: 3%;           
+    }
+    .ant-btn-primary.logbtn{
+        width: 50%;
+        font-size:8px;
+        height: 22px;
+    }   
+  }
+  
+  @media (max-width: 415px) {
+    /*모바일 세로*/
+    .ant-btn-primary.logbtn{
+        width: 65px;
+        font-size:7px;
+        height: 22px;
+    }   
+    .uploadbtn {
+        font-family: cookie-regular;
+        width: 65px;
+        font-size:7px;       
+        margin-bottom: 5%;           
+    }   
+  }
+  

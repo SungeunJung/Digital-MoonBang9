@@ -46,15 +46,16 @@ import './App.css';
 function App() {
   return (
     <Router>
-      <div style={{background:'aliceblue'}}>
-        <div className="logo">
-          <a href="/">디지털 문방구</a>
-        </div>
-      </div>
       <Suspense fallback={(<div>Loading...</div>)}>
+<<<<<<< HEAD
       <NavBar />
 
       <div style={{ paddingTop: '120px'/*, minHeight: 'calc(100vh - 80px)' */}}>
+=======
+      <NavBar /> 
+      
+      <div style={{ paddingTop: '120px', minHeight: 'calc(100vh - 80px)' }}>
+>>>>>>> master
 
         {/*
           A <Switch> looks through all its children <Route>
