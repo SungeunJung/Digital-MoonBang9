@@ -12,8 +12,9 @@
     padding: 35px 50px 10px 50px;
 }
 
-.header {
-background: linear-gradient(to top, #bae7ff 50%, transparent 50%) 
+.tipAndReview-header {
+    padding: 0 5px;
+    background: linear-gradient(to top, #bae7ff 50%, transparent 50%) 
 }
 
 .content {

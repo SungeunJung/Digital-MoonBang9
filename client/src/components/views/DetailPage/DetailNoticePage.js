@@ -62,36 +62,38 @@ function DetailNoticePage(props) {
 
     if (post.writer) {
         return (
-            <div className="postPage" style={{ width: '60%', margin: '7rem auto' }}>
+            <div className="notice-page">
+                <Row style={{marginBottom:'8%'}}>
+                    <Col style={{width:'100%', textAlign:'center'}}>
+                        <span className="notice-header">NOTICE</span>
+                    </Col>
+                </Row>
                 <Row>
-                    <Col style={{width: '90%'}}>
-                        <Title level={2}>{post.title}</Title>
-                        </Col>
+                    <Col className="title-col"> {post.title} </Col>
                     { (user.userData && !Admin) ?
                     <Col></Col> :
-                    <Col style={{width: '5%'}}>
+                    <Col className="edit-col">
                         <Link to={`/notice/upload/modify/${postId}`}>
-                            <Tooltip title="edit"><div><EditOutlined /> </div></Tooltip>
+                            <Tooltip title="edit"><div><EditOutlined className="icon-edit" /> </div></Tooltip>
                         </Link>
                     </Col>}
                     { (user.userData && !Admin) ?
                     <Col></Col> :
-                    <Col style={{width: '5%'}}>
+                    <Col className="delete-col">
                         <Popconfirm
                             title="Are you sure to delete this tip?"
                             onConfirm={confirm}
                             onCancel={cancel}
                             okText="Yes"
                             cancelText="No"
-                        ><a href="#"><Tooltip placement="bottom" title="delete"><DeleteOutlined /></Tooltip></a>
+                        ><a href="#"><Tooltip placement="bottom" title="delete"><DeleteOutlined className="icon-delete" /></Tooltip></a>
                         </Popconfirm>
                     </Col>}
                 </Row>
-                <div style={{ display: 'flex', justifyContent: 'flex-end' }}>
-                    <Title level={4}>{post.createdAt.split('T')[0]}</Title>
-                </div>
+                <div className="notice-date"> {post.createdAt.split('T')[0]} </div>
+                <hr/>
                 <br/>
-                <div dangerouslySetInnerHTML={{ __html: post.description }} />
+                <div className="detail-content" dangerouslySetInnerHTML={{ __html: post.description }} />
 
             </div>
         )

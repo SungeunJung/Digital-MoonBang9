@@ -69,7 +69,7 @@ function ModifyReviewPage(props) {
         <div className="tipAndReview">
             <div className="form-body">
                 <div style={{ textAlign: 'center' }}>
-                    <Title level={2}><span className="header">리뷰 수정하기</span></Title>
+                    <Title level={2}><span className="tipAndReview-header">리뷰 수정하기</span></Title>
                 </div>
                     <Form onSubmit={onSubmit}>
                     <div className="content">

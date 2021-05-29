@@ -66,43 +66,49 @@ function ModifyNoticePage(props) {
     }
 
     return (
-        <div style={{ maxWidth: '700px', margin: '2rem auto' }}>
+        <div className="tipAndReview">
+            <div className="form-body">
             <div style={{ textAlign: 'center' }}>
-                <Title level={2} > 공지사항 수정하기</Title>
+                <Title level={2}><span className="tipAndReview-header">공지사항 수정하기</span></Title>
             </div>
 
             <Form onSubmit={onSubmit}>
-                <p style={{ textAlign: 'center', fontSize: '14px' }} >Title</p>
-                <Input
-                    defaultValue={window.localStorage.getItem("title_notice")}
-                    onChange={onTitleChange}
-                />
-                <br/><br/>
-                <p style={{ textAlign: 'center', fontSize: '14px' }} >Summary</p>
-                <Input
-                    defaultValue={window.localStorage.getItem("summary_notice")}
-                    onChange={onSummaryChange}
-                />
-                <br/><br/>
-                <p style={{ textAlign: 'center', fontSize: '14px' }} >Description</p>
+                <div className="content">
+                    <p className="title" >제목</p>
+                    <Input
+                        defaultValue={window.localStorage.getItem("title_notice")}
+                        onChange={onTitleChange}
+                    />
+                </div>
+                <div className="content">
+                    <p className="title">요약</p>
+                    <Input
+                        defaultValue={window.localStorage.getItem("summary_notice")}
+                        onChange={onSummaryChange}
+                    />
+                </div>
+                <div className="content">
+                <p className="title">내용</p>
                 <EditQuillEditor
                     defaultValue={window.localStorage.getItem("description_notice")}
                     onEditorChange={onEditorChange}
                     onFilesChange={onFilesChange}
                 />
-
+                </div>
                 <div style={{ textAlign: 'center', margin: '2rem', }}>
-                    <Button size="large" onClick={onCancel}>
-                        취소하기
-                    </Button>
                     <Button
-                        size="large"
-                        onClick={onSubmit}
-                    >
-                        수정하기
-                </Button>
+                            size="large"
+                            onClick={onSubmit}
+                        >
+                            저장
+                    </Button>
+                    &nbsp;&nbsp;
+                    <Button size="large" onClick={onCancel}>
+                        취소
+                    </Button>
                 </div>
             </Form>
+        </div>
         </div>
     )
 }

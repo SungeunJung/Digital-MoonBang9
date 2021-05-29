@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import axios from 'axios';
-import { Card, Icon, Avatar, Col, Typography, Rate, Row, Tooltip, message, Popconfirm } from 'antd';
+import { Avatar, Col, Typography, Rate, Row, Tooltip, message, Popconfirm } from 'antd';
 import { EditOutlined, DeleteOutlined } from '@ant-design/icons';
 import { useSelector } from "react-redux";
 import { Link } from 'react-router-dom';
@@ -60,10 +60,34 @@ function DetailReviewPage(props) {
 
     if (post.writer) {
         return (
-            <div className="postPage" style={{ width: '60%', margin: '5rem auto' }}>
-                <Title level={2}>{post.title}</Title>
-                <Row>
-                    <Col style={{width: '90%'}}>
+            <div className="detail-page">
+                <Row style={{marginBottom:'25px'}}>
+                    <Col>
+                        <span className="detail-header">REVIEW</span>
+                    </Col>
+                    <Col className="title-col">
+                        {post.title}
+                    </Col>
+                    {(user.userData && post.writer && post.writer._id == user.userData._id) ?
+                    <Col className="edit-col">
+                        <Link to={`/review/upload/modify/${postId}`}>
+                            <Tooltip title="edit"><div><EditOutlined className="icon-edit" /> </div></Tooltip>
+                        </Link>
+                    </Col> : <Col></Col>}
+                    {(user.userData && post.writer && post.writer._id == user.userData._id) ?
+                    <Col className="delete-col">
+                        <Popconfirm
+                            title="Are you sure to delete this reviews?"
+                            onConfirm={confirm}
+                            onCancel={cancel}
+                            okText="Yes"
+                            cancelText="No"
+                        ><a href="#"><Tooltip placement="bottom" title="delete"><DeleteOutlined className="icon-delete" /></Tooltip></a>
+                        </Popconfirm>
+                    </Col> : <Col></Col>}
+                </Row>
+                <Row gutter={[16, 16]} style={{marginBottom:'3%'}}>
+                    <Col className="writer">
                         <div style={{ display: 'flex'}}>
                             <Avatar
                                 src={process.env.REACT_APP_S3_URL+`userProfile/${post.writer.image}`}
@@ -72,36 +96,21 @@ function DetailReviewPage(props) {
                             <Title level={5}>{post.writer.nickname}</Title>
                         </div>
                     </Col>
-                    {(user.userData && post.writer && post.writer._id == user.userData._id) ?
-                    <Col style={{width: '5%'}}>
-                        <Link to={`/review/upload/modify/${postId}`}>
-                            <Tooltip title="edit"><div><EditOutlined /> </div></Tooltip>
-                        </Link>
-                    </Col> : <Col></Col>}
-                    {(user.userData && post.writer && post.writer._id == user.userData._id) ?
-                    <Col style={{width: '5%'}}>
-                        <Popconfirm
-                            title="Are you sure to delete this reviews?"
-                            onConfirm={confirm}
-                            onCancel={cancel}
-                            okText="Yes"
-                            cancelText="No"
-                        ><a href="#"><Tooltip placement="bottom" title="delete"><DeleteOutlined /></Tooltip></a>
-                        </Popconfirm>
-                    </Col> : <Col></Col>}
+                    <Col className="date">
+                        <div style={{ display: 'flex', justifyContent: 'flex-end', color:'#c9c9c9', fontSize:'16px' }}>
+                            {post.createdAt.split('T')[0]}
+                        </div>
+                   </Col>
                 </Row>
-                <div style={{ display: 'flex', justifyContent: 'flex-end' }}>
-                    <Title level={4}>{post.createdAt.split('T')[0]}</Title>
-                </div>
+
                 <div>
-                <Rate tooltips={desc} value={post.rate} />
-                {post.rate ? <span className="ant-rate-text" style={{ color: "#DAA520" }}>
-                    {desc[post.rate - 1]}</span> : ''}
+                    <Rate tooltips={desc} value={post.rate} style={{fontSize:35}} />
+                    {post.rate ? <span className="ant-rate-text" style={{ color: "#DAA520" }}></span> : ''}
                 </div>
                 <br/>
-                <div style = {{fontSize : '15px'}}><strong>상품명 : {post.template}</strong></div>
-                <hr /><br />
-                <div dangerouslySetInnerHTML={{ __html: post.description }} />
+                <div style = {{fontSize : '16px'}}><strong>상품명 : {post.template}</strong></div>
+                <hr />
+                <div className="detail-content" dangerouslySetInnerHTML={{ __html: post.description }} />
             </div>
         )
     } else {

@@ -59,30 +59,36 @@ function UploadNoticePage(props) {
     }
 
     return (
-        <div style={{ maxWidth: '700px', margin: '2rem auto' }}>
+        <div className="tipAndReview">
+            <div className="form-body">
             <div style={{ textAlign: 'center' }}>
-                <Title level={2} > 공지사항 작성하기</Title>
+                <Title level={2}><span className="tipAndReview-header">공지사항 작성하기</span></Title>
             </div>
             <Form onSubmit={onSubmit}>
-            <p style={{ textAlign: 'center', fontSize: '14px' }} >Title</p>
-            <Input
-                onChange={onTitleChange}
-                value={TitleValue}
-            />
-            <br/><br/>
-            <p style={{ textAlign: 'center', fontSize: '14px' }} >Summary</p>
-            <Input
-                onChange={onSummaryChange}
-                value={SummaryValue}
-            />
-            <br/><br/>
-            <p style={{ textAlign: 'center', fontSize: '14px' }} >Description</p>
-            <QuillEditor
-                placeholder={"Start Posting Something"}
-                onEditorChange={onEditorChange}
-                onFilesChange={onFilesChange}
-            />
-
+                <div className="content">
+                    <p className="title">제목</p>
+                    <Input
+                        onChange={onTitleChange}
+                        value={TitleValue}
+                        placeholder="제목을 입력하세요"
+                    />
+                </div>
+                <div className="content">
+                    <p className="title">요약</p>
+                    <Input
+                        onChange={onSummaryChange}
+                        value={SummaryValue}
+                        placeholder="내용을 요약해서 입력하세요"
+                    />
+                </div>
+                <div className="content">
+                    <p className="title" >내용</p>
+                    <QuillEditor
+                        placeholder={"내용을 입력하세요"}
+                        onEditorChange={onEditorChange}
+                        onFilesChange={onFilesChange}
+                    />
+                </div>
                 <div style={{ textAlign: 'center', margin: '2rem', }}>
                     <Button
                         size="large"
@@ -90,10 +96,11 @@ function UploadNoticePage(props) {
                         className=""
                         onClick={onSubmit}
                     >
-                        Submit
+                        작성
                 </Button>
                 </div>
             </Form>
+            </div>
         </div>
     )
 }

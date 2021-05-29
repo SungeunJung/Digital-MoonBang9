@@ -54,9 +54,9 @@ function DetailTipPage(props) {
     if (post.writer) {
         return (
             <div className="detail-page">
-                <Row>
+                <Row style={{marginBottom:'25px'}}>
                     <Col>
-                        <span className="header">TIP</span>
+                        <span className="detail-header">TIP</span>
                     </Col>
                     <Col className="title-col">
                         {post.title}
@@ -80,25 +80,25 @@ function DetailTipPage(props) {
                         </Popconfirm>
                     </Col> : <Col></Col>}
                 </Row>
-                <Row >
-                    <Col>
-                        <div style={{ display: 'flex'}}>
+                <Row gutter={[16, 16]} style={{marginBottom:'3%'}}>
+                    <Col className="writer">
+                        <div style={{ display: 'flex' }}>
                             <Avatar
                                 src={process.env.REACT_APP_S3_URL+`userProfile/${post.writer.image}`}
                                 alt="image"
                             />&nbsp;&nbsp;
-                            <Title level={5}>{post.writer.nickname}</Title>
+                            <div>{post.writer.nickname}</div>
                         </div>
                     </Col>
-                   <Col>
-                   <div style={{ display: 'flex', justifyContent: 'flex-start', color:'#c9c9c9', fontSize:'14px' }}>
+                   <Col className="date">
+                   <div style={{ display: 'flex', justifyContent: 'flex-end', color:'#c9c9c9', fontSize:'16px' }}>
                     {post.createdAt.split('T')[0]}
                 </div>
                    </Col>
                 </Row>
-                
-                <br />
-                <div dangerouslySetInnerHTML={{ __html: post.description }} />
+                <hr />
+
+                <div className="detail-content" dangerouslySetInnerHTML={{ __html: post.description }} />
 
             </div>
         )
