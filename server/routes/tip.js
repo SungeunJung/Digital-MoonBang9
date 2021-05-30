@@ -23,7 +23,7 @@ const multer = require("multer");
 router.post("/uploadfiles", auth, (req, res) => {    
     const upload_ = uploadQuillEditor.single("file");
     upload_(req, res, err => {
-        console.log(req.file)
+        //console.log(req.file)
         if(err) return res.json({ success: false, err })        
         return res.json({ success: true, url: res.req.file.location, fileNmae: res.req.file.key });
     });
@@ -76,7 +76,6 @@ router.get("/getTipsCount", (req, res) => {
 
 
 router.post("/getPost", (req, res) => {
-    console.log(req.body)
     Tip.findOne({ "_id": req.body.postId })
         .populate('writer')
         .exec((err, post) => {

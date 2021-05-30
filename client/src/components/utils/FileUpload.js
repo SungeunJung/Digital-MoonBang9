@@ -3,6 +3,7 @@ import DropZone from 'react-dropzone';
 import { PlusOutlined } from '@ant-design/icons';
 import axios from 'axios';
 import './FileUpload.css';
+import { message } from 'antd';
 //import { response } from 'express';
 
 function FileUpload(props) {
@@ -22,7 +23,7 @@ function FileUpload(props) {
                 setImages([...Images, response.data.image])
                 props.refreshFunction([...Images, response.data.image])
             } else {
-                alert('Failed to save the Image in Server')
+                message.error('이미지 저장에 실패했습니다.')
             }
         })
         

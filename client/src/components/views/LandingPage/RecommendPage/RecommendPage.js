@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react'; 
-import { Typography, Col, Card, Row } from 'antd';
+import { Typography, Col, Card, Row, message } from 'antd';
 import ImageSlider from '../../../utils/ImageSlider';
 import { useSelector } from 'react-redux';
 import axios from 'axios';
@@ -10,6 +10,7 @@ const { Meta } = Card;
 
 let categoryCountArr = [0, 0, 0, 0, 0, 0]
 let styleCountArr = [0, 0, 0, 0, 0, 0, 0, 0]
+let likeItems = [];
 
 function RecommendPage(props) {
     const user = useSelector(state => state.user);
@@ -23,11 +24,11 @@ function RecommendPage(props) {
                 if(response.data.success) {
                     setTemplates(response.data.templates)
                 } else {
-                    alert('Failed to fetch template data')
+                    message.error('템플릿 정보를 가져올 수 없습니다.')
                 }
             })
 
-        let likeItems = [];
+        likeItems = [];
         //리덕스 User state안에 cart 안에 상품이 들어있는지 확인 
         if (props.user.userData) {
             if(props.user.userData.nickname) {
@@ -75,13 +76,14 @@ function RecommendPage(props) {
                         newFilters["category"] = categoryArr
                         newFilters["styles"] = styleArr
     
-                        let variables = {
+                        let body = {
                             filters: newFilters,
+                            like: likeItems
                         }
-                        getRecommendTemplates(variables)
+                        getRecommendTemplates(body)
                     }
                 } else {
-                    alert('Failed to fetch template data')
+                    message.error('템플릿 정보를 가져올 수 없습니다.')
                 }
             })
     }
@@ -92,7 +94,7 @@ function RecommendPage(props) {
                 if(response.data.success) {
                     setRecommendTemplates(response.data.templates)
                 } else {
-                    alert('Failed to fetch template data')
+                    message.error('템플릿 정보를 가져올 수 없습니다.')
                 }
             })
     }

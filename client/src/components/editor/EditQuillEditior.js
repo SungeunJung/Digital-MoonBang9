@@ -3,6 +3,7 @@ import ReactQuill, { Quill } from 'react-quill';
 import "react-quill/dist/quill.snow.css";
 import { FolderAddOutlined, PictureOutlined, PlaySquareOutlined } from '@ant-design/icons';
 import axios from 'axios';
+import { message } from 'antd';
 const __ISMSIE__ = navigator.userAgent.match(/Trident/i) ? true : false;
 
 // Quill.register('modules/clipboard', PlainClipboard, true);
@@ -255,7 +256,7 @@ class EditQuillEditor extends React.Component {
 
         if (e.currentTarget && e.currentTarget.files && e.currentTarget.files.length > 0) {
             const file = e.currentTarget.files[0];
-            console.log(file)
+            //console.log(file)
             let formData = new FormData();
             const config = {
                 header: { 'content-type': 'multipart/form-data' }
@@ -283,7 +284,7 @@ class EditQuillEditor extends React.Component {
                             }, () => { this.props.onFilesChange(this.state.files) });
                         }
                     } else {
-                        return alert('failed to upload file')
+                        message.error('파일 업로드에 실패했습니다.')
                     }
                 })
         }
@@ -320,7 +321,7 @@ class EditQuillEditor extends React.Component {
                             }, () => { this.props.onFilesChange(this.state.files) });
                         }
                     } else {
-                        return alert('failed to upload file')
+                        message.error('파일 업로드에 실패했습니다.')
                     }
                 })
         }
@@ -332,7 +333,7 @@ class EditQuillEditor extends React.Component {
 
         if (e.currentTarget && e.currentTarget.files && e.currentTarget.files.length > 0) {
             const file = e.currentTarget.files[0];
-            console.log(file);
+            //console.log(file);
 
             let formData = new FormData();
             const config = {

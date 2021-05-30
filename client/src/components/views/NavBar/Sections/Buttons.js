@@ -2,7 +2,7 @@ import React from 'react';
 import axios from 'axios';
 import { USER_SERVER } from '../../../Config';
 import { useSelector } from "react-redux";
-import { Button } from 'antd';
+import { Button, message } from 'antd';
 import { withRouter } from 'react-router-dom';
 import './Buttons.css';
 
@@ -14,13 +14,13 @@ function Buttons(props) {
             if (response.status === 200) {
                 props.state.history.push("/login");
             } else {
-                alert('Log Out Failed')
+                message.error('로그아웃에 실패했습니다.')
             }
         });
     };
 
     const alertHandler = () => {
-        alert('로그인 부터 하세요')
+        message.warning('로그인이 필요합니다.')
     }
 
     if (user.userData && !user.userData.isAuth) {

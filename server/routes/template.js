@@ -13,7 +13,7 @@ const { uploadTemplateImage, uploadTemplateFile } = require("../S3upload");
 router.post("/uploadImage", auth, (req, res) => {
     var image_upload = uploadTemplateImage.single("file");
     image_upload(req, res, err => {
-        console.log(req.file)
+        //console.log(req.file)
         if(err) return res.json({ success: false, err })
         return res.json({ success: true, image: res.req.file.key})
     })
@@ -22,7 +22,7 @@ router.post("/uploadImage", auth, (req, res) => {
 router.post("/uploadFile", auth, (req, res) => {
     var file_upload = uploadTemplateFile.single("file")
     file_upload(req, res, err => {
-        console.log(req.file)
+        //console.log(req.file)
         if(err) return res.json({ success: false, err })
         return res.json({ success: true, fileName: res.req.file.key })
     })
@@ -179,8 +179,6 @@ router.post("/getBestTemplates", (req, res) => {
 
 router.post("/getRecommendTemplates", auth, (req, res) => {
     let category = {}, style={}, find = {}
-
-    //console.log(req.body.filters)
     for(let key in req.body.filters) {
         if(req.body.filters[key].length > 0) {
             if(key === "category") {
@@ -194,7 +192,10 @@ router.post("/getRecommendTemplates", auth, (req, res) => {
     find['$or'] = [category,style] //나중에 or->and로 변경
 
     Template.find(find)
+        .find({ writer: {$ne: req.user._id} })
+        //.find({ _id : { $ne : req.body.like} })
         .populate("writer")
+        .limit(12)
         .exec((err, templates) => {
             if(err) {return res.status(400).json({ success: false, err })}
             res.status(200).json({ success: true, templates })
@@ -262,8 +263,6 @@ router.post("/deleteTemplate", (req, res) => {
 })
 
 router.post("/modifyLikes", auth, (req, res) => {
-    //console.log(req.body.templateId)
-    //console.log(req.body.like)
     Template.findOneAndUpdate({ _id: req.body.templateId }, 
         { likes:req.body.like }, 
         (err, doc) => {

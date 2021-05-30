@@ -1,7 +1,7 @@
 import axios from 'axios' 
 //import { response } from 'express'
 import React, { useEffect, useState } from 'react'
-import { Row, Col } from 'antd'
+import { Row, Col, message } from 'antd'
 import TemplateImage from './Sections/TemplateImage'
 import TemplateInfo from './Sections/TemplateInfo'
 import Comments from './Sections/Comments'
@@ -21,7 +21,6 @@ function DetailTemplatePage(props) {
         axios.get(`/api/template/templates_by_id?id=${templateId}&type=single`)
             .then(response => {
                 //window.localStorage.clear()
-                console.log('<Template 정보> ',response.data[0])
                 setTemplate(response.data[0])
                
                 window.localStorage.setItem("link", response.data[0].uploadedUrl)
@@ -39,15 +38,13 @@ function DetailTemplatePage(props) {
                 if (response.data.success) {
                     setCommentLists(response.data.comments)
                 } else {
-                    alert('Failed to get video Info')
+                    message.error('비디오 정보를 불러올 수 없습니다.')
                 }
             })
         axios.post('/api/users/addHistory', templateVariable)
             .then(response => {
                 if (response.data.success) {
-                    console.log(response.data.count)
                     if(response.data.count>20) {
-                        console.log('here')
                         axios.post('/api/users/deleteHistory')
                         .then(response => {
                             if (response.data.success) {

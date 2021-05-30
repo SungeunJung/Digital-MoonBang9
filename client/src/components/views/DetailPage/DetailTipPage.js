@@ -24,7 +24,7 @@ function DetailTipPage(props) {
                     window.localStorage.setItem("title_tip", response.data.post.title)
                     window.localStorage.setItem("description_tip", response.data.post.description)
                 } else {
-                    alert('Couldnt get post')
+                    message.error('게시물을 불러올 수 없습니다.')
                 }
             })
     }, [])
@@ -37,12 +37,12 @@ function DetailTipPage(props) {
         axios.post('/api/tip/deleteTip', body)
             .then(response => {
                 if (response.data.success) {
-                    message.success('팁 게시물이 삭제되었습니다.')
+                    message.success('삭제되었습니다.')
                     setTimeout(() => {
                         window.location.href="/tip"
                     }, 150);
                 } else {
-                    alert('Failed to delete Tip')
+                    message.error('삭제에 실패했습니다.')
                 }
             })
       }
@@ -61,7 +61,8 @@ function DetailTipPage(props) {
                     <Col className="title-col">
                         {post.title}
                     </Col>
-                    
+                    {console.log(post.title)}
+                    {console.log(post.title.length)}
                 {(user.userData && post.writer && post.writer._id == user.userData._id) ?
                     <Col className="edit-col">
                         <Link to={`/tip/upload/modify/${postId}`}>

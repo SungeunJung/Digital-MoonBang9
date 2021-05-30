@@ -25,7 +25,7 @@
     background: linear-gradient(to top, #bae7ff 50%, transparent 50%);
 }
 .notice-header {
-    font-size: 50px;
+    font-size: 54px;
     font-weight: bold;
     color: #096dd9;
     text-shadow: 3px 2px 2px #002766;
@@ -35,6 +35,13 @@
 }
 
 .title-col { font-size: 34px; font-weight: bold; display: flex; align-items: flex-end; }
+.summary-col {
+    width:80%;
+    font-size: 20px;
+    /*color: #c9c9c9;*/
+    display: flex; 
+    justify-content: flex-start;
+}
 .edit-col { margin-left: 20px; margin-top: 2%; }
 .delete-col { margin-left: 15px; margin-top: 2%; }
 
@@ -47,12 +54,13 @@
     font-weight: bold;
     align-items: center;
 }
-.date { width:20%; }
+.date { width:20%; display: flex; align-items: center;}
 .notice-date { 
+    width:20%;
     font-size: 20px;
-    color: #c9c9c9;
     display: flex; 
-    justify-content: flex-end;
+    align-items: center;
+    color: #c9c9c9;
 }
 
 @media (max-width: 1199px) {
@@ -92,10 +100,11 @@
     .detail-header { font-size: 30px; }
     .notice-header { font-size: 30px; }
     .title-col { font-size: 20px; width: 86%; }
+    .summary-col { font-size: 16px; width: auto; }
     .edit-col { width: 8%; margin-left: 0; }
     .delete-col { width: 6%; margin-left: 0; }
     .writer { width:auto; }
     .writer > div { font-size: 16px; }
     .date { width:auto; }
-    .notice-date { font-size: 13px; }
+    .notice-date { font-size: 13px; width:auto; }
 }

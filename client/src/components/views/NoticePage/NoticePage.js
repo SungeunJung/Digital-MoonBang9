@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react'
 import axios from 'axios';
 import { NavLink } from 'react-router-dom';
 import { Link } from 'react-router-dom';
-import { Card, Avatar, Col, Typography, Row, Button, List, Pagination } from 'antd';
+import { Card, Avatar, Col, Typography, Row, Button, List, Pagination, message } from 'antd';
 import { useSelector } from "react-redux";
 import './NoticePage.css';
 const { Title } = Typography
@@ -21,7 +21,6 @@ function NoticePage(props) {
         axios.get('/api/users/getAdmin')
         .then(response=>{
             if (response.data.success) {
-                console.log(response.data.isAdmin)
                 setAdmin(response.data.isAdmin)
             } else {
             console.log('Failed to get Admin')
@@ -31,10 +30,9 @@ function NoticePage(props) {
         axios.get('/api/notice/getNoticesCount') 
         .then(response => {
             if (response.data.success) {
-                console.log("response.data.count:",response.data.count)
                 setCount(response.data.count)
             } else {
-                alert('Couldnt get notice`s count')
+                message.error('공지사항 목록의 갯수를 불러올 수 없습니다.')
             }
         })
  
@@ -51,16 +49,14 @@ function NoticePage(props) {
         axios.post('/api/notice/getNotices', variables)
         .then(response => {
             if (response.data.success) {
-                console.log(response.data.notices)
                 setNotices(response.data.notices)
             } else {
-                alert('Couldnt get notice`s lists')
+                message.error('공지사항 목록을 불러올 수 없습니다.')
             }
         })
     }
 
     const onPageChange = (page) => {
-        console.log('page:', page)
         setCurrent(page)
 
         let skip = Limit * (page - 1);
@@ -99,7 +95,7 @@ function NoticePage(props) {
         <div className="noticePage">
             <Row>
                 <Col className="Notice-halfCol">
-                    <strong><p className="Notice-size"> Notice </p></strong>
+                    <strong><p className="Notice-size">공지사항</p></strong>
                 </Col>
                 <Col align="right" className="Notice-halfCol">
                 { (user.userData && !Admin) ?

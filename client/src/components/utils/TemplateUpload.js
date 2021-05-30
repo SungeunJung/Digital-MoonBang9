@@ -1,6 +1,7 @@
 import React, { useMemo, useState } from 'react'
 import {useDropzone} from 'react-dropzone';
 import axios from 'axios';
+import { message } from 'antd';
 
 const baseStyle = {
     flex: 1,
@@ -48,7 +49,7 @@ function TemplateUpload(props) {
                 setFiles([...Files, response.data.fileName])
                 props.refreshFunction([...Files, response.data.fileName])
             } else {
-                alert('Failed to save the File in Server')
+              message.error('이미지 저장에 실패했습니다.')
             }
         })
     }

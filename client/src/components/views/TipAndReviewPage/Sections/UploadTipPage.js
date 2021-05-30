@@ -31,8 +31,40 @@ function UploadTipPage(props) {
         event.preventDefault();
         setDescription("");
 
-        if(!TitleValue || !description ) {
-            return alert('Fill all the fields first!')
+        let copy_t = TitleValue
+        let blank_t = false
+        if(copy_t.replace(/ /g, '') === '') {
+            blank_t = true
+        }
+
+        let copy_d = description
+        let blank_d = false
+        while(true){
+            if( copy_d.indexOf('<p><br></p>') === 0 ) {
+                if( copy_d.length === 11) {
+                    blank_d = true
+                    break
+                }
+                else {
+                    copy_d = copy_d.substring(11, copy_d.length)
+                }
+            }
+            else if( description.indexOf('<p>') === 0 ) {
+                if(copy_d.replace(/ /g, '') === '<p></p>') {
+                    blank_d = true
+                }
+	            break
+            }
+            else{
+                break
+            }
+        }
+
+        if(!TitleValue || blank_t ) {
+            return message.warning('제목을 입력해주세요.')
+        }
+        else if(!description || blank_d ) {
+            return message.warning('내용을 작성해주세요.')
         }
 
         const variables = {
@@ -43,7 +75,7 @@ function UploadTipPage(props) {
             axios.post('/api/tip/createPost', variables)
             .then(response => {
                 if (response) {
-                    message.success('Post Created!');
+                    message.success('작성되었습니다.');
                     setTimeout(() => {
                         props.history.push("/tip")
                     }, 2000);
@@ -74,6 +106,7 @@ function UploadTipPage(props) {
                     onEditorChange={onEditorChange}
                     onFilesChange={onFilesChange}
                 />
+                {console.log(description)}
                 </div>
                 <div style={{ textAlign: 'center', margin: '2rem', }}>
                     <Button

@@ -41,7 +41,6 @@ router.get("/getReviewsCount", (req, res) => {
 });
 
 router.post("/getPost", (req, res) => {
-    console.log(req.body)
     Review.findOne({ "_id": req.body.postId })
         .populate('writer')
         .exec((err, post) => {

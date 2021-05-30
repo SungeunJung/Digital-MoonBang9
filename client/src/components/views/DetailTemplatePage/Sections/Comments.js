@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { Button, Input } from 'antd';
+import { Button, Input, message } from 'antd';
 import axios from 'axios';
 import { useSelector } from 'react-redux';
 import SingleComment from './SingleComment';
@@ -19,6 +19,10 @@ function Comments(props) {
     const onSubmit = (e) => {
         e.preventDefault();
 
+        if(user.userData && !user.userData.isAuth) {//로그인을 안했으면 로그인을 해달라는 메세지 뜨기
+            return message.warning('로그인이 필요합니다.')
+        }
+        
         const variables = {
             content: Comment,
             writer: user.userData._id,
@@ -31,7 +35,7 @@ function Comments(props) {
                     setComment("")
                     props.refreshFunction(response.data.result)
                 } else {
-                    alert('Failed to save Comment')
+                    message.error('댓글 저장에 실패했습니다.')
                 }
             })
     }

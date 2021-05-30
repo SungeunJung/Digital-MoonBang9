@@ -6,8 +6,7 @@ import { useSelector } from "react-redux";
 import './TipAndReviewPage.css';
 
 const { Option } = Select;
-const { Title } = Typography;
-const desc = ['terrible', 'bad', 'normal', 'good', 'wonderful'];
+const { Title } = Typography; 
 
 function UploadReviewPage(props) {
     const user = useSelector(state => state.user);
@@ -42,7 +41,7 @@ function UploadReviewPage(props) {
                 if(response.data.success) {
                     setTemplates(response.data.templates)
                 } else {
-                    alert('Failed to fetch template data')
+                    message.error('템플릿 정보를 불러올 수 없습니다.')
                 }
             })
         
@@ -51,7 +50,7 @@ function UploadReviewPage(props) {
             if (response.data.success) {
                 setReviews(response.data.reviews)
             } else {
-                alert('Couldnt get review`s lists')
+                message.error('리뷰 목록을 불러올 수 없습니다.')
             }
         })
 
@@ -81,9 +80,45 @@ function UploadReviewPage(props) {
         event.preventDefault();
         setDescription("");
 
-        //if(!TitleValue || !description || !TemplateValue ) {
-        //    return alert('Fill all the fields first!')
-        //}
+
+        let copy_t = TitleValue
+        let blank_t = false
+        if(copy_t.replace(/ /g, '') === '') {
+            blank_t = true
+        }
+
+        let copy_d = description
+        let blank_d = false
+        while(true){
+            if( copy_d.indexOf('<p><br></p>') === 0 ) {
+                if( copy_d.length === 11) {
+                    blank_d = true
+                    break
+                }
+                else {
+                    copy_d = copy_d.substring(11, copy_d.length)
+                }
+            }
+            else if( description.indexOf('<p>') === 0 ) {
+                if(copy_d.replace(/ /g, '') === '<p></p>') {
+                    blank_d = true
+                }
+	            break
+            }
+            else{
+                break
+            }
+        }
+
+        if(!TitleValue || blank_t ) {
+            return message.warning('제목을 입력해주세요.')
+        }
+        else if( !TemplateValue ) {
+            return message.warning('속지 이름을 선택해주세요.')
+        }
+        else if(!description || blank_d ) {
+            return message.warning('내용을 작성해주세요.')
+        }
 
         const variables = {
             title: TitleValue,
@@ -95,7 +130,7 @@ function UploadReviewPage(props) {
             axios.post('/api/review/createPost', variables)
             .then(response => {
                 if (response) {
-                    message.success('Post Created!');
+                    message.success('등록되었습니다.');
                     setTimeout(() => {
                         props.history.push("/review")
                     }, 2000);
@@ -147,7 +182,7 @@ function UploadReviewPage(props) {
                 </div>
                 <div style={{ display:'flex', marginBottom:"2%", alignItems:'center'}}>
                 <span className="title" >평점: </span>&nbsp;&nbsp;&nbsp;&nbsp;
-                <Rate tooltips={desc} onChange={onRateChange} value={RateValue} style={{fontSize:35}} />
+                <Rate onChange={onRateChange} value={RateValue} style={{fontSize:35}} />
                 {RateValue ? <span className="ant-rate-text" style={{ color: '#DAA520' }}></span> : ''}
                 </div>
                 <br/>
