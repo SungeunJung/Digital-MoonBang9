@@ -27,7 +27,6 @@ function DetailNoticePage(props) {
         axios.post('/api/notice/getPost', variable)
             .then(response => {
                 if (response.data.success) {
-                    console.log('<notice 정보>',response.data.post)
                     setPost(response.data.post)
                     window.localStorage.setItem("title_notice", response.data.post.title)
                     window.localStorage.setItem("description_notice", response.data.post.description)

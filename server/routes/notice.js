@@ -41,7 +41,6 @@ router.get("/getNoticesCount", (req, res) => {
 });
 
 router.post("/getPost", (req, res) => {
-    console.log(req.body)
     Notice.findOne({ "_id": req.body.postId })
         .populate('writer')
         .exec((err, post) => {

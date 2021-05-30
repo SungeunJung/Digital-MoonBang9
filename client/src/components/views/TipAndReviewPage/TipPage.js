@@ -31,7 +31,6 @@ function TipPage() {
         axios.get('/api/tip/getTipsCount') 
         .then(response => {
             if (response.data.success) {
-                console.log("response.data.count:",response.data.count)
                 setCount(response.data.count)
             } else {
                 alert('Couldnt get tip`s count')
@@ -51,7 +50,6 @@ function TipPage() {
         axios.post('/api/tip/getTips', variables)
         .then(response => {
             if(response.data.success) {
-                console.log(response.data.tips)
                 setTips(response.data.tips)
             } else {
                 alert('Couldnt get tip`s lists')
@@ -60,7 +58,6 @@ function TipPage() {
     }
 
     const onPageChange = (page) => {
-        console.log('page:', page)
         setCurrent(page)
 
         let skip = Limit * (page - 1);
@@ -74,7 +71,6 @@ function TipPage() {
     }
 
     const renderCards = (Tips && Tips.map((tip, index) => {
-        console.log(tip._id)
         return <Col key={index} lg={8} md={12} xs={24}>
             <NavLink to = {`/tip/post/${tip._id}`}>
             <Card

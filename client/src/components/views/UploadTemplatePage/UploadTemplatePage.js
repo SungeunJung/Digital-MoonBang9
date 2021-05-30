@@ -84,7 +84,6 @@ function UploadTemplatePage(props) {
         setImages(newImages)
     }
     const updateFiles = (newFiles) =>{
-        console.log(newFiles)
         setFiles(newFiles)
     }
     const onSubmit = (event) => {

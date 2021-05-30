@@ -49,7 +49,7 @@ function RegisterPage(props) {
             email: form.getFieldValue('email'),
             auth: state.createdAuthCode
         }
-        console.log('authCode = '+state.createdAuthCode)
+        //console.log('authCode = '+state.createdAuthCode)
         axios.post("/api/users/sendEmail", dataToSubmit) // /api/users/sendEmail
         .then(response => {
             alert("인증코드가 발송되었습니다.")
@@ -57,7 +57,7 @@ function RegisterPage(props) {
     }
 
     const onFinish = (values) => {
-        console.log('Received values of form: ', values);
+        //console.log('Received values of form: ', values);
         setTimeout(() => {
 
             let dataToSubmit = {

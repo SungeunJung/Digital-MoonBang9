@@ -21,7 +21,6 @@ function NoticePage(props) {
         axios.get('/api/users/getAdmin')
         .then(response=>{
             if (response.data.success) {
-                console.log(response.data.isAdmin)
                 setAdmin(response.data.isAdmin)
             } else {
             console.log('Failed to get Admin')
@@ -31,7 +30,6 @@ function NoticePage(props) {
         axios.get('/api/notice/getNoticesCount') 
         .then(response => {
             if (response.data.success) {
-                console.log("response.data.count:",response.data.count)
                 setCount(response.data.count)
             } else {
                 alert('Couldnt get notice`s count')
@@ -51,7 +49,6 @@ function NoticePage(props) {
         axios.post('/api/notice/getNotices', variables)
         .then(response => {
             if (response.data.success) {
-                console.log(response.data.notices)
                 setNotices(response.data.notices)
             } else {
                 alert('Couldnt get notice`s lists')
@@ -60,7 +57,6 @@ function NoticePage(props) {
     }
 
     const onPageChange = (page) => {
-        console.log('page:', page)
         setCurrent(page)
 
         let skip = Limit * (page - 1);

@@ -37,9 +37,7 @@ function UserImageEdit(props) {
         const config = {
             header: {'content-type': 'multipart/form-data'}
         }
-        formData.append("file", files[0])
-        console.log(files[0]);
-        
+        formData.append("file", files[0]);
         
         //save the Image we chose inside the node server
         axios.post('/api/users/uploadUserProfile', formData, config)
@@ -53,8 +51,6 @@ function UserImageEdit(props) {
             }
         })    
     }
-
-  console.log(Image)
   
   return (
     

@@ -44,7 +44,6 @@ function LikePage(props) {
             .then(response => {
                 if(response.data.success) {
                     if(variables.loadMore) {
-                        console.log("loadMore = true")
                         setTemplates([...Templates, ...response.data.templates])
                     } else {
                         setTemplates(response.data.templates)

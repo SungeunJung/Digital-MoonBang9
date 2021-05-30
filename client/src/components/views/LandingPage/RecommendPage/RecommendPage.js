@@ -76,7 +76,6 @@ function RecommendPage(props) {
                         newFilters["category"] = categoryArr
                         newFilters["styles"] = styleArr
     
-                        console.log(likeItems)
                         let body = {
                             filters: newFilters,
                             like: likeItems
