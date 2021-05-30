@@ -9,16 +9,16 @@
 
 .logbtn {
     font-family: cookie-regular;
-    width: 30%;
-   
-    
+    width: 26%;
+    border-radius: 5px; 
 }
 .uploadbtn {
     margin-right:5%;
     font-family: cookie-regular;
-    width: 35%;
-    height: 50px;
-    font-size: large;
+    width: 40%;
+    height: 60px;
+    font-size: 22px;
+    border-radius: 7px;
     
 }
 
@@ -43,7 +43,7 @@
     .logbtn {
         font-family: cookie-regular;
         width: 55%;
-        font-size:8px; 
+        font-size:8px;    
     }
     .uploadbtn {
         margin-right:5%;
@@ -51,7 +51,8 @@
         width: 55%;
         font-size:8px;
         height: 32px;
-        margin-bottom: 5%;           
+        margin-bottom: 5%;
+        border-radius: 5px;            
     }   
   }
   
@@ -63,7 +64,8 @@
         width: 50%;
         font-size:8px;
         height: 22px;
-        margin-bottom: 3%;           
+        margin-bottom: 3%;
+        border-radius: 5px;            
     }
     .ant-btn-primary.logbtn{
         width: 50%;
@@ -83,7 +85,8 @@
         font-family: cookie-regular;
         width: 65px;
         font-size:7px;       
-        margin-bottom: 5%;           
+        margin-bottom: 5%;
+        border-radius: 5px;            
     }   
   }
   

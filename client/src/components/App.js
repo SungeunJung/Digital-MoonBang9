@@ -47,15 +47,9 @@ function App() {
   return (
     <Router>
       <Suspense fallback={(<div>Loading...</div>)}>
-<<<<<<< HEAD
       <NavBar />
 
       <div style={{ paddingTop: '120px'/*, minHeight: 'calc(100vh - 80px)' */}}>
-=======
-      <NavBar /> 
-      
-      <div style={{ paddingTop: '120px', minHeight: 'calc(100vh - 80px)' }}>
->>>>>>> master
 
         {/*
           A <Switch> looks through all its children <Route>
