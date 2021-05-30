@@ -11,6 +11,9 @@
     font-family: cookie-regular;
     width: 26%;
     border-radius: 5px; 
+    justify-content: center;
+    align-items:center;
+    text-align: center;
 }
 .uploadbtn {
     margin-right:5%;
@@ -19,7 +22,9 @@
     height: 60px;
     font-size: 22px;
     border-radius: 7px;
-    
+    justify-content: center;
+    align-items:center;
+    text-align: center;    
 }
 
 @media (max-width: 1199px) {
