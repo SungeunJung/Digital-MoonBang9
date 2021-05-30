@@ -8,9 +8,6 @@
 
 .login-form-button {
     height:40px;
-    display:flex;
-    justify-content:center;
-    text-align:center;
 }
 
 .app {
@@ -38,10 +35,9 @@
         margin-bottom:-70px;
     }
 
-    .ant-btn-primary.login-form-button {
+    .ant-btn-primary .login-form-button {
         height: 40px;
-    }
-    
+    }    
   }
   
   @media (max-width: 415px) {
@@ -50,5 +46,8 @@
         margin-top: -70px;
         margin-bottom:-200px;
     }
+    .login-form-button {
+        margin-left: 0px;
+    }  
   }
   

@@ -203,7 +203,7 @@ function ModifyUserInfoPage(props) {
             </Form.Item>
 
             <Form.Item {...tailFormItemLayout}>
-                <Button type="primary" htmlType="submit" style={{marginRight:'10px'}}>
+                <Button className="modbtn" type="primary" htmlType="submit" style={{marginRight:'10px'}}>
                     확인 
                 </Button>
                 
