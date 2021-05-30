@@ -28,7 +28,6 @@ function ModifyTemplatePage(props) {
     useEffect(() => {
         axios.get(`/api/template/templates_by_id?id=${templateId}&type=single`)
             .then(response => {
-                console.log('<템플릿 정보>', response.data[0])
                 setTemplate(response.data[0])
                 setImages(response.data[0].images)
                           
@@ -133,7 +132,6 @@ function ModifyTemplatePage(props) {
         setStyleValue(event.currentTarget.value)
     }
     const updateImages = (newImages) =>{
-        console.log(newImages)
         setImages(newImages)
     }
     const updateFiles = (newFiles) =>{

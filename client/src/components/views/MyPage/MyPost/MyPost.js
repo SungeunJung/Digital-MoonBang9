@@ -87,7 +87,6 @@ function MyPost(props) {
     
 
     const onPageChange = (page) => {
-        console.log('page:', page)
         setCurrent(page)
 
         let skip = Limit * (page - 1);

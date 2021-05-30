@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react'; 
 import axios from 'axios';
 //import { response } from 'express';
-import { Col, Card, Row, message } from 'antd';
+import { Col, Card, Row, Button, message } from 'antd';
 import { withRouter } from 'react-router-dom';
 import ImageSlider from '../../utils/ImageSlider'
 import SearchFeature from './Sections/SearchFeature'
@@ -161,24 +161,21 @@ function LandingPage(props) {
             <CheckBox list={styles} 
                 handleFilters={filters => handleFilters(filters, "styles")} 
             />  
-            {/* Search */}
-            <table>
-                <tbody>
-                    <tr>
-                        <td className="Landing-search">
-                            <SearchFeature
-                                refreshFunction={updateSearchTerm} //검색어 입력시 자동으로 결과 페이지 보여줌
-                            />
-                        {/* Sort */}
-                        </td>
-                        <td className="Landing-sort">
-                            <SortFeature
-                                sortFunction = {showSortedResults} 
-                            />
-                        </td>
-                    </tr>
-                </tbody>
-            </table>
+            
+            <div style={{ margin:'35px 0 0 0', display:'flex', justifyContent:'center'}}>
+                <div className="search-box">
+                    <div className="Landing-search">
+                        <SearchFeature
+                            refreshFunction={updateSearchTerm} //검색어 입력시 자동으로 결과 페이지 보여줌
+                        />
+                    </div>
+                    <div className="Landing-sort">
+                        <SortFeature
+                            sortFunction = {showSortedResults} 
+                        />
+                    </div>
+                </div>
+            </div>
             <br/>
             {/* Cards */}
             {Templates.length === 0 ?
@@ -194,7 +191,7 @@ function LandingPage(props) {
             <br /><br />
             {PostSize >= Limit &&
                 <div className="Landing-loadMore">
-                    <button onClick={onLoadMore}>Load More</button>
+                    <Button onClick={onLoadMore}>더 보기</Button>
                 </div>
             }
             

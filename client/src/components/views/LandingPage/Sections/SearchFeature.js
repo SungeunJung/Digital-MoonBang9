@@ -36,7 +36,7 @@ function SearchFeature(props) {
                 allowClear
                 enterButton
                 onSearch={onSearch}
-                placeholder="Search By Typing..."
+                placeholder="검색어를 입력하세요"
             />
         </div>
     )

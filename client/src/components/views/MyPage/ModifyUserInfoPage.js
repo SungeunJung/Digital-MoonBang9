@@ -74,7 +74,6 @@ function ModifyUserInfoPage(props) {
         
         axios.post("/api/users/duplicateCheck", dataToSubmit) 
         .then(response => {
-            console.log(response.data.success)
             if(response.data.success) {
                 message.success('사용 가능한 닉네임입니다.')
             } else {         
@@ -85,8 +84,6 @@ function ModifyUserInfoPage(props) {
     }
 
     const onFinish = (values) => {
-        console.log('Received values of form: ', values);
-        
         setTimeout(() => {
             let dataToSubmit = {                
                 password: values.password,                
@@ -106,7 +103,6 @@ function ModifyUserInfoPage(props) {
     };
     
     const updateImage = (newImage) =>{
-        console.log(newImage)
         setImage(newImage)
     }
     

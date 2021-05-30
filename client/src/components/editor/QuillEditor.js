@@ -255,7 +255,7 @@ class QuillEditor extends React.Component {
 
         if (e.currentTarget && e.currentTarget.files && e.currentTarget.files.length > 0) {
             const file = e.currentTarget.files[0];
-            console.log(file)
+            //console.log(file)
             let formData = new FormData();
             const config = {
                 header: { 'content-type': 'multipart/form-data' }
@@ -332,7 +332,7 @@ class QuillEditor extends React.Component {
 
         if (e.currentTarget && e.currentTarget.files && e.currentTarget.files.length > 0) {
             const file = e.currentTarget.files[0];
-            console.log(file);
+            //console.log(file);
 
             let formData = new FormData();
             const config = {

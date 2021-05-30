@@ -58,7 +58,6 @@ function TipPage() {
     }
 
     const onPageChange = (page) => {
-        console.log('page:', page)
         setCurrent(page)
 
         let skip = Limit * (page - 1);
@@ -103,7 +102,7 @@ function TipPage() {
 
     return (
         <div className="tipPage">       
-            <Row>
+            <Row style={{marginBottom:'5%'}}>
                 <Col className="Tip-halfCol-1">
                     <strong>
                         <Link to="/tip" className="Tip-headerStyleOn">Tip</Link> 

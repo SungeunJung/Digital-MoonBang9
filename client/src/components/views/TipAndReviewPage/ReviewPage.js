@@ -44,7 +44,6 @@ function ReviewPage() {
         axios.post('/api/review/getReviews', variables)
             .then(response => {
                 if (response.data.success) {
-                    console.log(response.data.reviews)
                     setReviews(response.data.reviews)
                 } else {
                     message.error('리뷰 목록을 불러올 수 없습니다.')
@@ -53,12 +52,9 @@ function ReviewPage() {
     }
 
     const onPageChange = (page) => {
-        console.log('page:', page)
         setCurrent(page)
         
         let skip = Limit * (page - 1);
-        console.log('skip:', skip)
-        console.log('Limit:', Limit)
         const variables = {
             skip: skip,
             limit: Limit,
@@ -90,8 +86,7 @@ function ReviewPage() {
                 />
                 <div >
                     <Rate value={review.rate} className="Review-rate" disabled />
-                    {review.rate ? <span className="ant-rate-text" style={{ color: "#DAA520" }}>
-                        {desc[review.rate - 1]}</span> : ''}
+                    {review.rate ? <span className="ant-rate-text" style={{ color: "#DAA520" }}></span> : ''}
                 </div>
                 <div style={{ height: 150, overflowY: 'scroll', marginTop: 10 }}>
                     <div dangerouslySetInnerHTML={{ __html: review.description }} />

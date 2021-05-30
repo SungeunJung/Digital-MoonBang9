@@ -21,7 +21,6 @@ function DetailTemplatePage(props) {
         axios.get(`/api/template/templates_by_id?id=${templateId}&type=single`)
             .then(response => {
                 //window.localStorage.clear()
-                console.log('<Template 정보> ',response.data[0])
                 setTemplate(response.data[0])
                
                 window.localStorage.setItem("link", response.data[0].uploadedUrl)
@@ -45,9 +44,7 @@ function DetailTemplatePage(props) {
         axios.post('/api/users/addHistory', templateVariable)
             .then(response => {
                 if (response.data.success) {
-                    console.log(response.data.count)
                     if(response.data.count>20) {
-                        console.log('here')
                         axios.post('/api/users/deleteHistory')
                         .then(response => {
                             if (response.data.success) {

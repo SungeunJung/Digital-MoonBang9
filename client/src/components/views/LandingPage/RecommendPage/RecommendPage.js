@@ -10,6 +10,7 @@ const { Meta } = Card;
 
 let categoryCountArr = [0, 0, 0, 0, 0, 0]
 let styleCountArr = [0, 0, 0, 0, 0, 0, 0, 0]
+let likeItems = [];
 
 function RecommendPage(props) {
     const user = useSelector(state => state.user);
@@ -27,7 +28,7 @@ function RecommendPage(props) {
                 }
             })
 
-        let likeItems = [];
+        likeItems = [];
         //리덕스 User state안에 cart 안에 상품이 들어있는지 확인 
         if (props.user.userData) {
             if(props.user.userData.nickname) {
@@ -75,10 +76,11 @@ function RecommendPage(props) {
                         newFilters["category"] = categoryArr
                         newFilters["styles"] = styleArr
     
-                        let variables = {
+                        let body = {
                             filters: newFilters,
+                            like: likeItems
                         }
-                        getRecommendTemplates(variables)
+                        getRecommendTemplates(body)
                     }
                 } else {
                     message.error('템플릿 정보를 가져올 수 없습니다.')

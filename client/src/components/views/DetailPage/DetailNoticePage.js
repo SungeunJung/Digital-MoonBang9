@@ -1,10 +1,9 @@
 import React, { useEffect, useState } from 'react'
 import axios from 'axios';
-import { Col, Typography, Row, Tooltip, message, Popconfirm } from 'antd';
+import { Col, Row, Tooltip, message, Popconfirm } from 'antd';
 import { EditOutlined, DeleteOutlined } from '@ant-design/icons';
 import { useSelector } from "react-redux";
 import { Link } from 'react-router-dom';
-const { Title } = Typography
 
 function DetailNoticePage(props) {
 
@@ -28,7 +27,6 @@ function DetailNoticePage(props) {
         axios.post('/api/notice/getPost', variable)
             .then(response => {
                 if (response.data.success) {
-                    console.log('<notice 정보>',response.data.post)
                     setPost(response.data.post)
                     window.localStorage.setItem("title_notice", response.data.post.title)
                     window.localStorage.setItem("description_notice", response.data.post.description)
@@ -90,7 +88,14 @@ function DetailNoticePage(props) {
                         </Popconfirm>
                     </Col>}
                 </Row>
-                <div className="notice-date"> {post.createdAt.split('T')[0]} </div>
+                <Row gutter={16} style={{marginTop: '16px', marginBottom:'5px'}}>
+                    <Col className="summary-col"> 
+                        <div style={{ display: 'flex' }}>{post.summary} </div>
+                    </Col>
+                    <Col className="notice-date"> 
+                        <div style={{ display: 'flex', justifyContent: 'flex-end', color:'#c9c9c9'}}>{post.createdAt.split('T')[0]}</div> 
+                    </Col>
+                </Row>
                 <hr/>
                 <br/>
                 <div className="detail-content" dangerouslySetInnerHTML={{ __html: post.description }} />

@@ -11,7 +11,6 @@ const { uploadUserProfile } = require("../S3upload");
 
 //인증코드 이메일로 보내기
 router.post('/sendEmail', (req, res) => {
-    //console.log(req.body)
     sendEmail(req.body.email, req.body.name, req.body.auth)
     return res.status(200).json({
       success: true
@@ -246,7 +245,6 @@ router.post("/addHistory", auth, (req, res) => {
                      },
                      { new: true },
                      (err, userInfo) => {
-                         //console.log(userInfo.history)
                          if (err) return res.status(400).json({ success: false, err })
                          res.status(200).send({ success: true, count:userInfo.history.length })
                      }

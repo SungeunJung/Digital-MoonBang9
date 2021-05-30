@@ -27,13 +27,13 @@ function CheckBox(props) {
                 onChange={()=>handleToggle(value._id)}
                 checked={Checked.indexOf(value._id) === -1 ? false : true}
             />
-            <span>{value.name}&nbsp;&nbsp;&nbsp;&nbsp;</span></div>
+            <span style={{paddingLeft:'5px', marginRight:'20px'}}>{value.name}</span></div>
         </React.Fragment>
     ))
 
     return (
-        <div>
-            <Collapse defaultActiveKey={['0']}>
+        <div style={{ display:'flex',justifyContent:'center'}}>
+            <Collapse defaultActiveKey={['0']} className="style-checkbox">
                 <Panel header="스타일" key="1">
                     {renderCheckboxLists()}
                 </Panel>

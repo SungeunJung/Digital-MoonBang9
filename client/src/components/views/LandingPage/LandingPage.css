@@ -1,17 +1,16 @@
 .landingPage {
-    width: 75%; 
-    margin: 3rem auto;
+    width: 70%; 
+    margin: 5rem auto;
     font-family: 'cookie-regular';
 }
-.Landing-pageheader { text-align: center; }
+.Landing-pageheader { text-align: center; margin-bottom: 10px; }
 .Landing-breadcrump-1 { font-size: 27px; }
 .Landing-breadcrump-2 { font-size: 22px; }
 .Landing-search {
     font-family: 'cookie-regular';
-    padding-left: 0px;
-    padding-right: 0px;
-    padding-bottom: 0px;
+    padding: 0;
     border: none;
+    display: inline-block;
 }
 .ant-select-selector { height: 48px; }
 .Landing-searchFeature-1 { width: 88px; }
@@ -20,9 +19,11 @@
 .Landing-sort {
     text-align: right;
     font-family: 'cookie-regular';
-    padding-right: 0px;
-    padding-bottom: 0px;
+    padding: 0;
+    padding-left: 8px;
     border: none;
+    display: inline-block;
+    float: right;
 }
 .Landing-sortFeature { width: 100px; }
 .Landing-noCards {
@@ -36,20 +37,34 @@
     justify-content: center;
 }
 
+.style-checkbox { width: 80%; }
+.search-box { width: 100%; }
+
 @media (max-width: 1199px) {
     /*테블릿 가로*/
     .landingPage {
         width: 95%;
         margin: 2.5rem auto;
-        padding: 2rem 4rem;
+        padding: 0 4rem;
     }
 }    
 
 @media (max-width: 991px) {
     /*테블릿 세로*/
+    .landingPage {
+        width: 95%;
+        margin: 2.5rem auto;
+        padding: 3rem 4rem 0 4rem;
+    }
     .ant-btn.ant-btn-primary.ant-input-search-button {
         font-size: small;
     }
+    .Landing-searchFeature-1 { width: 30%; float: left; }
+    .Landing-searchFeature-2 { width: 70%; float: left; }
+    .Landing-sortFeature { width: 90px; }
+    .Landing-sort { display: inline-block; }
+    .style-checkbox { width: 100%; }
+    .search-box { width: 100%; }
 }   
 
 @media (max-width: 767px) {
@@ -63,12 +78,18 @@
         width: auto;
         height: 32px;
     }
+    .Landing-searchFeature-1 { width: 30%; float: left; }
+    .Landing-searchFeature-2 { width: 70%; float: left; }
+    .Landing-sortFeature { width: 90px; }
+    .Landing-sort { display: inline-block; }
+    .style-checkbox { width: 100%; }
+    .search-box { width: 100%; }
 }
 
 @media (max-width: 415px) {
     /*모바일 세로*/
     .landingPage {
-        width: 95%;
+        width: 85%;
         padding-left: 10px;
         padding-right: 10px;
     }
@@ -90,5 +111,9 @@
     .ant-col Landing-search {
         margin: 1.4rem auto 0.9rem 0;
     }
+
+    .Landing-sort { display: block; }
+    .style-checkbox { width: 100%; }
+    .search-box { width: 100%; }
 }
 

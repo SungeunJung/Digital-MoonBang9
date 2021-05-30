@@ -16,12 +16,10 @@ function UploadNoticePage(props) {
 
     const onTitleChange = (event) => {
         setTitleValue(event.currentTarget.value)
-        console.log(TitleValue)
     }
 
     const onSummaryChange = (event) => {
         setSummaryValue(event.currentTarget.value)
-        console.log(SummaryValue)
     }
 
     const onEditorChange = (value) => {

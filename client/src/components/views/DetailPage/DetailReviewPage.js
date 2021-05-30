@@ -21,7 +21,6 @@ function DetailReviewPage(props) {
         axios.post('/api/review/getPost', variable)
             .then(response => {
                 if (response.data.success) {
-                    console.log('<review 정보>', response.data.post)
                     setPost(response.data.post)
                     window.localStorage.setItem("title_review", response.data.post.title)
                     window.localStorage.setItem("template_review", response.data.post.template)
@@ -34,8 +33,6 @@ function DetailReviewPage(props) {
     }, [])
 
     const confirm = (e) => {
-        console.log(e);
-        
         const body = {
             reviewID: postId
         }
@@ -54,7 +51,6 @@ function DetailReviewPage(props) {
       }
 
     const cancel = (e) => {
-        console.log(e);
         message.error('취소되었습니다');
     }
 

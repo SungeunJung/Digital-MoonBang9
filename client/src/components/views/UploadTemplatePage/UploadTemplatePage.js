@@ -84,7 +84,6 @@ function UploadTemplatePage(props) {
         setImages(newImages)
     }
     const updateFiles = (newFiles) =>{
-        console.log(newFiles)
         setFiles(newFiles)
     }
     const onSubmit = (event) => {
@@ -149,9 +148,10 @@ function UploadTemplatePage(props) {
     }
 
     return (
-        <div className="uploadPage">
+        <div className="tipAndReview">
+            <div className="form-body">
             <div style={{ textAlign:'center', marginBottom:'3rem' }}>
-                <Title level={2}>속지 등록하기</Title>
+                <Title level={2}><span className="tipAndReview-header">속지 등록하기</span></Title>
             </div>
             <Form onSubmit={onSubmit} >
                 {/*DropZone*/}
@@ -203,7 +203,6 @@ function UploadTemplatePage(props) {
                 }
                 <br/>
                 <br/>
-                <br/>
                 <Row gutter={[20, 20]}>
                     <Col span={3} lg={8} xs={24}>
                         <span style={{ marginRight: '15px' }}>                  
@@ -236,7 +235,7 @@ function UploadTemplatePage(props) {
                 </Row>
                 <br/>
                 <br/>
-                <div style={{textAlign:'center', marginTop:'5%'}}>
+                <div style={{textAlign:'center', marginTop:'2%', marginBottom:'30px'}}>
                 <Button
                     onClick={onSubmit}
                 >
@@ -244,6 +243,7 @@ function UploadTemplatePage(props) {
                 </Button>
                 </div>
             </Form>
+        </div>
         </div>
     )
 }
