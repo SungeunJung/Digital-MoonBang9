@@ -39,6 +39,9 @@
 
 .style-checkbox { width: 80%; }
 .search-box { width: 100%; }
+.ant-input-search .ant-input-group .ant-input-affix-wrapper:not(:last-child) {
+    height: auto;
+}
 
 @media (max-width: 1199px) {
     /*테블릿 가로*/
