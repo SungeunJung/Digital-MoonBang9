@@ -20,7 +20,7 @@
     margin-top: 50px;
 }
 a.nav_link div{ 
-    margin: 0px 2px;
+    margin: 0px 3px;
 }
 a.nav_link:hover div{
     background-color: rgb(245, 251, 255);

@@ -34,7 +34,7 @@
     border-radius: 10px;
     color: #40a9ff;
 }
-.Mypage-col { padding: 10px; }
+.Mypage-col { padding: 0px 10px; }
 .Mypage-link { font-size: 24px; }
 
 @media (max-width: 1199px) {

@@ -22,7 +22,7 @@
     padding: 0;
     padding-left: 8px;
     border: none;
-    display: inline-block;
+    /*display: inline-block;*/
     float: right;
 }
 .Landing-sortFeature { width: 100px; }

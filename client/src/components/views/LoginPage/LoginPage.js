@@ -8,7 +8,7 @@ import './LoginPage.css';
 
 const { Title } = Typography;
 
-function LoginPage(props) {
+function LoginPage(props) { 
     const dispatch = useDispatch()
     const rememberMeChecked = localStorage.getItem("rememberMe") ? true : false;
     const [rememberMe, setRememberMe] = useState(rememberMeChecked)

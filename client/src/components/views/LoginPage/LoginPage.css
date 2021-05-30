@@ -14,15 +14,17 @@
 }
 
 .app {
+    /*width: 100%;
+    margin: 0rem auto;*/
     margin-top: -70px;
-    margin-bottom:-230px;    
+    margin-bottom:-160px;    
 }
 
 @media (max-width: 1199px) {
     /*테블릿 가로*/
     .app {
         margin-top: -120px;
-        margin-bottom:-190px;        
+        margin-bottom:-190px;      
     }
   }
   
