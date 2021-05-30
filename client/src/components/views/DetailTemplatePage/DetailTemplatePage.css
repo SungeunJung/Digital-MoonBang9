@@ -54,32 +54,27 @@
     height: 35px;
     border-radius: 5px;
 }
+.template-info-buttons {
+    display: flex; 
+    justify-content:space-between;
+}
 
 .icon-edit { font-size: 25px; }
 .icon-delete { font-size: 24px; }
-.download { margin-left: 25%; width: 20%; }
-.link { width: 32%; }
-.like { width: 10%; }
-.share { width: 10%; }
+.download { margin-left: 150px; }
+.link { margin-left: 5px;}
+.like { margin-right: 15px;  }
+.share { margin-left: 5px; }
 
 @media (max-width: 1199px) {
     /*테블릿 가로*/
-    .download {  margin-left: 0; width: 30%; }
-    .link { width: 38%; }
-    .like { width: 14%; }
-    .share { width: 13%; }
+    .download { margin-left: 0; }
 }
 
 @media (max-width: 991px) {
     /*테블릿 세로*/
     .comment { margin-top: 0; }
-    .download {
-        margin-left: 25%;
-        width: 20%;
-    }
-    .link { width: 30%; }
-    .like { width: 9%; }
-    .share { width: 9%; }
+    .download { margin-left: 150px; }
 }
 
 @media (max-width: 767px) {
@@ -106,10 +101,6 @@
         border-radius: 5px;
     }
     .comment { margin-top: 0; }
-    .download { margin-left: 0%; width: 20%; }
-    .link { width: 54%; }
-    .like { width: 10%; }
-    .share { width: 10%; }
 }
 
 @media (max-width: 415px) {
@@ -136,9 +127,12 @@
         border-radius: 5px;
     }
     .comment { margin-top: 0; }
-    .download { margin-left: 11%; width: 37%; }
-    .link { width: 30%; }
-    .like { margin-left: 55%; width:20%; }
-    .share { width: 18%; }
+    .template-info-buttons {
+        display: block; 
+    }
+    .download { margin-left: 0;float: left;  }
+    .link { margin-left: 5px;float: left; }
+    .like { float: right; margin-top: 25px; }
+    .share {  }
 }
 

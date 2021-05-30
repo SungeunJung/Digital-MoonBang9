@@ -178,46 +178,45 @@ function TemplateInfo(props) {
                 </div>
             <br />
             <br />
-            <Row>
+               <div className="template-info-buttons">
             {(user.userData && !user.userData.isAuth) ?
-                <Col className='download'>
-                    <Button type="primary" shape="round" icon={<DownloadOutlined />} size={'large'} 
+                <div className="download-link">
+                    <Button className='download' type="primary" shape="round" icon={<DownloadOutlined />} size={'large'} 
                             disabled={!LinkDisableAction} onClick={onFileDownloadAlertHandler}>
                         다운로드
                     </Button>
-                </Col> 
+                    <Button className='link' type="primary" shape="round" icon={<ExportOutlined />} size={'large'} 
+                        disabled={LinkDisableAction} onClick={onLinkHandler}>
+                        <span>링크 이동</span>
+                </Button>
+                </div> 
                 :
-                <Col className='download'>
+                <div>
                 <a href={FilePath} download>
-                    <Button type="primary" shape="round" icon={<DownloadOutlined />} size={'large'} 
+                    <Button className='download' type="primary" shape="round" icon={<DownloadOutlined />} size={'large'} 
                             disabled={!LinkDisableAction} onClick={onFileDownloadHandler}>
                         <span>다운로드</span>
                     </Button>
-                </a>
-                </Col>
-            }&nbsp;&nbsp;
-            <Col className='link'>
-                <Button type="primary" shape="round" icon={<ExportOutlined />} size={'large'} 
+                    <Button className='link' type="primary" shape="round" icon={<ExportOutlined />} size={'large'} 
                         disabled={LinkDisableAction} onClick={onLinkHandler}>
                         <span>링크 이동</span>
-                </Button>&nbsp;&nbsp;
-            </Col>
-            <Col className='like'>
-                <Tooltip title="찜하기">
-                    {LikeAction === 'liked' ? 
-                    //HeartFilled
-                    <Button style={{borderColor:"#ff85c0", backgroundColor:'#fffbfb'}} onClick={onLikeHandler}><Statistic valueStyle={{fontSize:'18px'}} value={LikeCounts} prefix={<HeartTwoTone twoToneColor="#eb2f96" style={{ fontSize: '24px', color: '#f00' }} />}/></Button>
-                    : 
-                    //HeartOutlined
-                    <Button onClick={onLikeHandler}><Statistic valueStyle={{fontSize:'18px'}} value={LikeCounts} prefix = {<HeartTwoTone style={{ fontSize: '24px', color: '#f00' }} />}/></Button>
-                    }
-                </Tooltip>
-            </Col>
-            &nbsp;
-            <Col className='share'>
-                <KakaoLinkShare detail={Template} />
-            </Col>
-            </Row>
+                `   </Button>
+                </a>
+                </div>
+            }
+                <div className='like'>
+                    <Tooltip title="찜하기">
+                        {LikeAction === 'liked' ? 
+                        //HeartFilled
+                        <Button style={{borderColor:"#ff85c0", backgroundColor:'#fffbfb'}} onClick={onLikeHandler}><Statistic valueStyle={{fontSize:'16px'}} value={LikeCounts} prefix={<HeartTwoTone twoToneColor="#eb2f96" style={{ fontSize: '24px', color: '#f00' }} />}/></Button>
+                        : 
+                        //HeartOutlined
+                        <Button onClick={onLikeHandler}><Statistic valueStyle={{fontSize:'16px'}} value={LikeCounts} prefix = {<HeartTwoTone style={{ fontSize: '22px', color: '#f00' }} />}/></Button>
+                        }
+                    </Tooltip>
+                    <span className='share'><KakaoLinkShare detail={Template} /></span>
+                </div>
+            </div>
         </div>
     )
 }
