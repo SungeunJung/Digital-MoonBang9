@@ -179,7 +179,6 @@ router.post("/getBestTemplates", (req, res) => {
 
 router.post("/getRecommendTemplates", auth, (req, res) => {
     let category = {}, style={}, find = {}
-
     //console.log(req.body.filters)
     for(let key in req.body.filters) {
         if(req.body.filters[key].length > 0) {
@@ -193,8 +192,12 @@ router.post("/getRecommendTemplates", auth, (req, res) => {
     }
     find['$or'] = [category,style] //나중에 or->and로 변경
 
+    console.log(req.body.like)
     Template.find(find)
+        .find({ writer: {$ne: req.user._id} })
+        //.find({ _id : { $ne : req.body.like} })
         .populate("writer")
+        .limit(12)
         .exec((err, templates) => {
             if(err) {return res.status(400).json({ success: false, err })}
             res.status(200).json({ success: true, templates })

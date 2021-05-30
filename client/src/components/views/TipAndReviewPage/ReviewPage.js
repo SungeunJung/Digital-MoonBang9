@@ -92,8 +92,7 @@ function ReviewPage() {
                 />
                 <div >
                     <Rate value={review.rate} className="Review-rate" disabled />
-                    {review.rate ? <span className="ant-rate-text" style={{ color: "#DAA520" }}>
-                        {desc[review.rate - 1]}</span> : ''}
+                    {review.rate ? <span className="ant-rate-text" style={{ color: "#DAA520" }}></span> : ''}
                 </div>
                 <div style={{ height: 150, overflowY: 'scroll', marginTop: 10 }}>
                     <div dangerouslySetInnerHTML={{ __html: review.description }} />

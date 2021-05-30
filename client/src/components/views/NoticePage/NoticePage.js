@@ -99,7 +99,7 @@ function NoticePage(props) {
         <div className="noticePage">
             <Row>
                 <Col className="Notice-halfCol">
-                    <strong><p className="Notice-size"> Notice </p></strong>
+                    <strong><p className="Notice-size">공지사항</p></strong>
                 </Col>
                 <Col align="right" className="Notice-halfCol">
                 { (user.userData && !Admin) ?
