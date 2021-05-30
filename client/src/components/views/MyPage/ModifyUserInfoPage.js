@@ -4,6 +4,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { modifyUser } from '../../../_actions/user_action';
 import UserImageEdit from '../../utils/UserImageEdit';
 import axios from 'axios';
+import './ModifyUserInfoPage.css';
 
 const { Title } = Typography;
 
@@ -16,9 +17,8 @@ const formItemLayout = {
       xs: { span: 24 },
       sm: { span: 16 },
     },
-};
-
-const tailFormItemLayout = {
+  };
+  const tailFormItemLayout = {
     wrapperCol: {
       xs: {
         span: 24,
@@ -29,7 +29,7 @@ const tailFormItemLayout = {
         offset: 8,
       },
     },
-};
+  };
 
 function ModifyUserInfoPage(props) {
 
@@ -111,8 +111,8 @@ function ModifyUserInfoPage(props) {
     }
     
     return (
-        <div className="app" style={{ width: '80%', padding: '3rem 4rem', margin:'auto' }}>
-            <div style={{ textAlign:'center', marginBottom:'2rem' }}>
+        <div className="appMod" style={{ fontFamily: "cookie-regular"}}>
+            <div style={{ textAlign:'center', marginBottom:'20px' }}>
                 <Title level={2}>회원정보 수정</Title>
             </div>
             
@@ -124,7 +124,8 @@ function ModifyUserInfoPage(props) {
             
 
             <Form
-                style={{ minWidth: '375px', maxWidth: '475px' }}
+                className="modForm"
+                style={{ minWidth: '320px'}}
                 {...formItemLayout}
                 form={form}
                 name="modifyinfo"
@@ -137,23 +138,22 @@ function ModifyUserInfoPage(props) {
                 scrollToFirstError
             >
 
-            <Form.Item required label="별명" style={{ marginBottom:"0px" }}>
+            <Form.Item required label="닉네임" style={{ marginBottom:"0px" }}>
                     <Row gutter={12}>
                         <Col span={14}>
                             <Form.Item
                                 name="nickname"
-                                tooltip="What do you want others to call you?"
                                 style = {{ minwidth : "150px" }}
                                 rules={[
                                     {
                                         required: false,
-                                        message: 'Please input your nickname!',
+                                        message: '닉네임이 입력되지 않았습니다.',
                                         whitespace: true,
                                     }
                                 ]}
                             >
                                 <Input 
-                                    placeholder='Nickname'
+                                    placeholder='입력해주세요.'
                                     type="text"
                                 />
                             </Form.Item>
@@ -170,13 +170,13 @@ function ModifyUserInfoPage(props) {
                 rules={[
                 {
                     required: false,
-                    message: 'Please input your new password!',
+                    message: '비밀번호가 입력되지 않았습니다.',
                 },
                 ]}
                 hasFeedback
             >
                 <Input.Password 
-                    placeholder="Enter your new password"
+                    placeholder="비밀번호를 입력해주세요."
                 />
             </Form.Item>
 
@@ -188,7 +188,7 @@ function ModifyUserInfoPage(props) {
                 rules={[
                 {
                     required: false,
-                    message: 'Please confirm your password!',
+                    message: '비밀번호를 확인해주세요.',
                 },
                 ({ getFieldValue }) => ({
                     validator(_, value) {
@@ -196,13 +196,13 @@ function ModifyUserInfoPage(props) {
                         return Promise.resolve();
                     }
 
-                    return Promise.reject(new Error('The two passwords that you entered do not match!'));
+                    return Promise.reject(new Error('비밀번호가 일치하지 않습니다.'));
                     },
                 }),
                 ]}
             >
                 <Input.Password 
-                    placeholder="Confirm your password"
+                    placeholder="한 번 더 입력해주세요."
                 />
             </Form.Item>
 

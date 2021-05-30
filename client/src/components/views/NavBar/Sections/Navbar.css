@@ -20,6 +20,7 @@
   overflow: hidden;
   box-shadow: 0 0 30px #f3f1f1;
   background-color: white;
+  font-family: cookie-regular;
 }
 
 .menu__container .ant-menu-item {

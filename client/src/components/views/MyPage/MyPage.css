@@ -3,13 +3,13 @@
 }
 */
 .myPage {
-    width: 75%;
-    margin: 3rem auto;
+    width: 50%;
+    margin: 5rem auto;
     font-family: 'cookie-regular';
 }
 .Mypage-pageheader {
     text-align: center;
-    font-size: 27px;
+    font-size: 30px;
     margin-bottom: 10px;
 }
 .Mypage-avatar {
@@ -25,15 +25,17 @@
     margin-top: 20px;
     font-size: 20px;
     border-radius: 10px;
-    background-color: #8e8f92;
+    background-color: #40a9ff;
+    color: white;
 }
 .ant-btn.ant-btn-default.ant-btn-block.Mypage-button {
     height: 110px; 
     margin-top: 20px;
     border-radius: 10px;
+    color: #40a9ff;
 }
 .Mypage-col { padding: 10px; }
-.Mypage-link { font-size: 20px; }
+.Mypage-link { font-size: 24px; }
 
 @media (max-width: 1199px) {
     /*테블릿 가로*/

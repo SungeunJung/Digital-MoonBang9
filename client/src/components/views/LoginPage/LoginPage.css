@@ -1,0 +1,54 @@
+.ant-checkbox-wrapper span {
+    font-size: 14px;
+}
+
+.ant-input-affix-wrapper {
+    height:40px;
+}
+
+.login-form-button {
+    height:40px;
+    display:flex;
+    justify-content:center;
+    text-align:center;
+}
+
+.app {
+    margin-top: -70px;
+    margin-bottom:-230px;    
+}
+
+@media (max-width: 1199px) {
+    /*테블릿 가로*/
+    .app {
+        margin-top: -120px;
+        margin-bottom:-190px;        
+    }
+  }
+  
+  @media (max-width: 991px) {
+    /*테블릿 세로*/
+    
+  }
+  
+  @media (max-width: 767px) {
+    /*모바일 가로*/
+    .app {
+        margin-top: 10px;
+        margin-bottom:-70px;
+    }
+
+    .ant-btn-primary.login-form-button {
+        height: 40px;
+    }
+    
+  }
+  
+  @media (max-width: 415px) {
+    /*모바일 세로*/
+    .app {
+        margin-top: -70px;
+        margin-bottom:-200px;
+    }
+  }
+  

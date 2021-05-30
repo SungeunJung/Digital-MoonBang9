@@ -4,6 +4,7 @@ import { loginUser } from '../../../_actions/user_action';
 import { withRouter, Link } from 'react-router-dom';
 import { Form, Input, Button, Checkbox, Typography } from 'antd';
 import { UserOutlined, LockOutlined } from '@ant-design/icons';
+import './LoginPage.css';
 
 const { Title } = Typography;
 
@@ -52,12 +53,12 @@ function LoginPage(props) {
   }
 
   return (
-    <div className="app" style={{marginBottom:"200px"}}>
+    <div className="app" style={{fontFamily: "cookie-regular"}}>
       <Title level={2}>로그인</Title>
       <Form
         name="normal_login"
         className="login-form"
-        style={{ minWidth: '325px', marginTop: '30px' }}
+        style={{ minWidth: '325px', marginTop: '30px'}}
         initialValues={{
             email: initialEmail,
             password: '',
@@ -104,8 +105,7 @@ function LoginPage(props) {
             </div>
         </Form.Item>
         </Form>
-    </div>
-    
+    </div>    
   )
 }
 

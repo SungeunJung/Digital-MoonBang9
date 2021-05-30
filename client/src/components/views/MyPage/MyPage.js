@@ -43,7 +43,7 @@ function MyPage(props) {
            
                 <Row className="Mypage-content">     
                     <Col lg={8} md={16} xs={24} className="Mypage-col">
-                        <Avatar icon={<UserOutlined />} size={225}
+                        <Avatar icon={<UserOutlined />} size={200}
                                 src={process.env.REACT_APP_S3_URL+`userProfile/${Image}`} 
                                 className="Mypage-avatar"
                                 />
