@@ -1,7 +1,7 @@
 import axios from 'axios' 
 //import { response } from 'express'
 import React, { useEffect, useState } from 'react'
-import { Row, Col } from 'antd'
+import { Row, Col, message } from 'antd'
 import TemplateImage from './Sections/TemplateImage'
 import TemplateInfo from './Sections/TemplateInfo'
 import Comments from './Sections/Comments'
@@ -39,7 +39,7 @@ function DetailTemplatePage(props) {
                 if (response.data.success) {
                     setCommentLists(response.data.comments)
                 } else {
-                    alert('Failed to get video Info')
+                    message.error('비디오 정보를 불러올 수 없습니다.')
                 }
             })
         axios.post('/api/users/addHistory', templateVariable)

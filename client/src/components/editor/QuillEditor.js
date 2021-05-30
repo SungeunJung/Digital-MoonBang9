@@ -3,6 +3,7 @@ import ReactQuill, { Quill } from 'react-quill';
 import "react-quill/dist/quill.snow.css";
 import { FolderAddOutlined, PictureOutlined, PlaySquareOutlined } from '@ant-design/icons';
 import axios from 'axios';
+import { message } from 'antd';
 const __ISMSIE__ = navigator.userAgent.match(/Trident/i) ? true : false;
 
 // Quill.register('modules/clipboard', PlainClipboard, true);
@@ -282,7 +283,7 @@ class QuillEditor extends React.Component {
                             }, () => { this.props.onFilesChange(this.state.files) });
                         }
                     } else {
-                        return alert('failed to upload file')
+                        message.error('파일 업로드에 실패했습니다.')
                     }
                 })
         }
@@ -319,7 +320,7 @@ class QuillEditor extends React.Component {
                             }, () => { this.props.onFilesChange(this.state.files) });
                         }
                     } else {
-                        return alert('failed to upload file')
+                        message.error('파일 업로드에 실패했습니다.')
                     }
                 })
         }

@@ -1,7 +1,7 @@
 import React, { useState, useEffect }  from 'react' 
 import { NavLink } from 'react-router-dom';
 import { Link } from 'react-router-dom';
-import { Col, Row, Button, Card, Avatar, Typography, Rate, Pagination } from 'antd';
+import { Col, Row, Button, Card, Avatar, Typography, Rate, Pagination, message } from 'antd';
 import axios from 'axios';
 import { UserOutlined } from '@ant-design/icons';
 import { useSelector } from "react-redux";
@@ -25,10 +25,9 @@ function ReviewPage() {
         axios.get('/api/review/getReviewsCount') 
             .then(response => {
                 if (response.data.success) {
-                    console.log("response.data.count:",response.data.count)
                     setCount(response.data.count)
                 } else {
-                    alert('Couldnt get review`s count')
+                    console.log('Couldnt get review`s count')
                 }
             })
 
@@ -48,7 +47,7 @@ function ReviewPage() {
                     console.log(response.data.reviews)
                     setReviews(response.data.reviews)
                 } else {
-                    alert('Couldnt get review`s lists')
+                    message.error('리뷰 목록을 불러올 수 없습니다.')
                 }
             })
     }
@@ -70,7 +69,6 @@ function ReviewPage() {
 
 
     const renderCards = (Reviews && Reviews.map((review, index) => {
-        console.log(review._id)
         return <Col key={index} lg={8} md={12} xs={24}>
             <NavLink to = {`/review/post/${review._id}`}>
             <Card

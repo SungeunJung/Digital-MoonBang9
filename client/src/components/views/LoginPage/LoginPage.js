@@ -2,7 +2,7 @@ import React, { useState } from 'react'
 import { useDispatch } from 'react-redux';
 import { loginUser } from '../../../_actions/user_action';
 import { withRouter, Link } from 'react-router-dom';
-import { Form, Input, Button, Checkbox, Typography } from 'antd';
+import { Form, Input, Button, Checkbox, Typography, message } from 'antd';
 import { UserOutlined, LockOutlined } from '@ant-design/icons';
 
 const { Title } = Typography;
@@ -38,12 +38,12 @@ function LoginPage(props) {
                     props.history.push("/");
                 } else {
                     setFormErrorMessage('Check out your Account or Password again')
-                    alert("아이디와 비밀번호를 다시 한 번 확인해주세요.")
+                    message.warning('아이디와 비밀번호를 다시 한 번 확인해주세요.')
                 }
             })
             .catch(err => {
                 setFormErrorMessage('Check out your Account or Password again')
-                alert("아이디와 비밀번호를 다시 한 번 확인해주세요.")
+                message.warning('아이디와 비밀번호를 다시 한 번 확인해주세요.')
                 setTimeout(() => {
                     setFormErrorMessage("")
                 }, 3000);

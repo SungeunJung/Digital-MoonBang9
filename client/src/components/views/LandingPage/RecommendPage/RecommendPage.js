@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react'; 
-import { Typography, Col, Card, Row } from 'antd';
+import { Typography, Col, Card, Row, message } from 'antd';
 import ImageSlider from '../../../utils/ImageSlider';
 import { useSelector } from 'react-redux';
 import axios from 'axios';
@@ -23,7 +23,7 @@ function RecommendPage(props) {
                 if(response.data.success) {
                     setTemplates(response.data.templates)
                 } else {
-                    alert('Failed to fetch template data')
+                    message.error('템플릿 정보를 가져올 수 없습니다.')
                 }
             })
 
@@ -81,7 +81,7 @@ function RecommendPage(props) {
                         getRecommendTemplates(variables)
                     }
                 } else {
-                    alert('Failed to fetch template data')
+                    message.error('템플릿 정보를 가져올 수 없습니다.')
                 }
             })
     }
@@ -92,7 +92,7 @@ function RecommendPage(props) {
                 if(response.data.success) {
                     setRecommendTemplates(response.data.templates)
                 } else {
-                    alert('Failed to fetch template data')
+                    message.error('템플릿 정보를 가져올 수 없습니다.')
                 }
             })
     }

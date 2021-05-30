@@ -1,5 +1,5 @@
 import React, {useState,useEffect} from 'react';
-import { Typography, Col, Row, Form, Input, Button } from 'antd';
+import { Typography, Col, Row, Form, Input, Button, message } from 'antd';
 import { useDispatch, useSelector } from 'react-redux';
 import { modifyUser } from '../../../_actions/user_action';
 import UserImageEdit from '../../utils/UserImageEdit';
@@ -66,8 +66,8 @@ function ModifyUserInfoPage(props) {
     }
 
     const onDuplicateCheckHandler = (values) => {
-        if(!form.getFieldValue('nickname')) return alert("닉네임을 입력해주세요.")
-        
+        if(!form.getFieldValue('nickname')) 
+            return message.warning('닉네임을 입력해주세요.')
         let dataToSubmit = {
             nickname: form.getFieldValue('nickname')
         }
@@ -76,9 +76,9 @@ function ModifyUserInfoPage(props) {
         .then(response => {
             console.log(response.data.success)
             if(response.data.success) {
-                alert('사용 가능한 닉네임입니다');
-            } else {                
-                alert('이미 사용중인 닉네임입니다')
+                message.success('사용 가능한 닉네임입니다.')
+            } else {         
+                message.warning('')       
                 form.resetFields();
             }
         })
@@ -96,10 +96,10 @@ function ModifyUserInfoPage(props) {
             //DB 저장용
             dispatch(modifyUser(dataToSubmit)).then(response => {
               if (response.payload.success) {
-                alert("수정을 완료했습니다.");
+                message.success('수정을 완료했습니다.')
                 props.history.push("/mypage");
               } else {
-                alert(response.payload.err.errmsg)
+                  message.error(response.payload.err.errmsg)
               }
             })
           }, 500);

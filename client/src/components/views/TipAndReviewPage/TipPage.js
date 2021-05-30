@@ -1,7 +1,7 @@
 import React, { useState, useEffect }  from 'react' 
 import { NavLink } from 'react-router-dom';
 import { Link } from 'react-router-dom';
-import { Col, Row, Button, Card, Avatar, Typography, Pagination } from 'antd';
+import { Col, Row, Button, Card, Avatar, Typography, Pagination, message } from 'antd';
 import axios from 'axios';
 import { UserOutlined } from '@ant-design/icons';
 import { useSelector } from "react-redux";
@@ -31,10 +31,9 @@ function TipPage() {
         axios.get('/api/tip/getTipsCount') 
         .then(response => {
             if (response.data.success) {
-                console.log("response.data.count:",response.data.count)
                 setCount(response.data.count)
             } else {
-                alert('Couldnt get tip`s count')
+                console.log('Couldnt get tip`s count')
             }
         })
 
@@ -51,10 +50,9 @@ function TipPage() {
         axios.post('/api/tip/getTips', variables)
         .then(response => {
             if(response.data.success) {
-                console.log(response.data.tips)
                 setTips(response.data.tips)
             } else {
-                alert('Couldnt get tip`s lists')
+                message.error('팁 게시물 목록을 불러올 수 없습니다.')
             }
         })
     }
@@ -74,7 +72,6 @@ function TipPage() {
     }
 
     const renderCards = (Tips && Tips.map((tip, index) => {
-        console.log(tip._id)
         return <Col key={index} lg={8} md={12} xs={24}>
             <NavLink to = {`/tip/post/${tip._id}`}>
             <Card

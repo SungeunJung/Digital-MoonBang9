@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react'; 
 import axios from 'axios';
 //import { response } from 'express';
-import { Col, Card, Row } from 'antd';
+import { Col, Card, Row, message } from 'antd';
 import { withRouter } from 'react-router-dom';
 import ImageSlider from '../../utils/ImageSlider'
 import SearchFeature from './Sections/SearchFeature'
@@ -49,7 +49,7 @@ function LandingPage(props) {
                     }
                     setPostSize(response.data.postSize) 
                 } else {
-                    alert('Failed to fetch template data')
+                    message.error('템플릿 정보를 가져올 수 없습니다.')
                 }
             })
     }

@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react'
-import { Comment, Avatar, Button, Input, Col, Row, Popconfirm, message } from 'antd';
+import { Comment, Avatar, Button, Input, Popconfirm, message } from 'antd';
 import Axios from 'axios';
 import { useSelector } from 'react-redux';
 import { useLocation } from 'react-router-dom';
@@ -25,6 +25,10 @@ function SingleComment(props) {
     const onSubmit = (e) => {
         e.preventDefault();
 
+        if(user.userData && !user.userData.isAuth) {//로그인을 안했으면 로그인을 해달라는 메세지 뜨기
+            return message.warning('로그인이 필요합니다.')
+        }
+
         const variables = {
             writer: user.userData._id,
             postId: props.postId,
@@ -39,7 +43,7 @@ function SingleComment(props) {
                     setOpenReply(!OpenReply)
                     props.refreshFunction(response.data.result)
                 } else {
-                    alert('Failed to save Comment')
+                    message.error('댓글 저장에 실패했습니다.')
                 }
             })
     }
@@ -57,12 +61,12 @@ function SingleComment(props) {
         Axios.post('/api/comment/deleteComment', body)
             .then(response => {
                 if (response.data.success) {
-                    message.success('댓글이 삭제되었습니다.');
+                    message.success('삭제되었습니다.');
                     setTimeout(() => {
                         window.location.reload();
                     }, 150);
                 } else {
-                    alert('Failed to delete Comment')
+                    message.error('댓글 저장에 실패했습니다.')
                 }
             })
       }
@@ -108,7 +112,7 @@ function SingleComment(props) {
                     </Popconfirm>
                     &nbsp;&nbsp;&nbsp;&nbsp;
                     </td> :
-                    <td>
+                    <td style={{ border:'none'}}>
                     <br/>
                     <span></span>
                     &nbsp;&nbsp;&nbsp;&nbsp;

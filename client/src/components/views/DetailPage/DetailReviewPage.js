@@ -28,7 +28,7 @@ function DetailReviewPage(props) {
                     window.localStorage.setItem("description_review", response.data.post.description)
                     window.localStorage.setItem("rate_review", response.data.post.rate)
                 } else {
-                    alert('Couldnt get post')
+                    message.error('게시물을 불러올 수 없습니다.')
                 }
             })
     }, [])
@@ -43,12 +43,12 @@ function DetailReviewPage(props) {
         axios.post('/api/review/deleteReview', body)
             .then(response => {
                 if (response.data.success) {
-                    message.success('리뷰 게시물이 삭제되었습니다.')
+                    message.success('삭제되었습니다.')
                     setTimeout(() => {
                         window.location.href="/review"
                     }, 150);
                 } else {
-                    alert('Failed to delete Review')
+                    message.error('삭제에 실패했습니다.')
                 }
             })
       }

@@ -36,8 +36,47 @@ function UploadNoticePage(props) {
         event.preventDefault();
         setDescription("");
 
-        if(!TitleValue || !description || !SummaryValue ) {
-            return alert('Fill all the fields first!')
+        let copy_t = TitleValue
+        let blank_t = false
+        if(copy_t.replace(/ /g, '') === '') {
+            blank_t = true
+        }
+        let copy_s = SummaryValue
+        let blank_s = false
+        if(copy_s.replace(/ /g, '') === '') {
+            blank_s = true
+        }
+        let copy_d = description
+        let blank_d = false
+        while(true){
+            if( copy_d.indexOf('<p><br></p>') === 0 ) {
+                if( copy_d.length === 11) {
+                    blank_d = true
+                    break
+                }
+                else {
+                    copy_d = copy_d.substring(11, copy_d.length)
+                }
+            }
+            else if( description.indexOf('<p>') === 0 ) {
+                if(copy_d.replace(/ /g, '') === '<p></p>') {
+                    blank_d = true
+                }
+	            break
+            }
+            else{
+                break
+            }
+        }
+
+        if(!TitleValue || blank_t) {
+            return message.warning('제목을 입력해주세요.')
+        }
+        else if(!SummaryValue || blank_s) {
+            return message.warning('요약 내용을 작성해주세요.')
+        }
+        else if(!description || blank_d) {
+            return message.warning('내용을 작성해주세요.')
         }
 
         const variables = {

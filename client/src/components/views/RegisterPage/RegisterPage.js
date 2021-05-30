@@ -3,7 +3,7 @@ import { useDispatch } from 'react-redux';
 import { registerUser } from '../../../_actions/user_action';
 import { withRouter } from 'react-router-dom';
 import axios from 'axios';
-import { Form, Input, Button, Row, Col, Typography } from 'antd';
+import { Form, Input, Button, Row, Col, Typography, message } from 'antd';
 
 const { Title } = Typography;
 
@@ -42,8 +42,8 @@ function RegisterPage(props) {
     const onSendMailHandler = (values) => {
         state.createdAuthCode = Math.random().toString(36).substr(2,6);
 
-        if(!form.getFieldValue('email')) return alert("이메일을 입력해주세요.")
-
+        if(!form.getFieldValue('email')) 
+            return message.warning('이메일을 입력해주세요.')
         let dataToSubmit = {
             email: form.getFieldValue('email'),
             auth: state.createdAuthCode
@@ -51,7 +51,7 @@ function RegisterPage(props) {
         console.log('authCode = '+state.createdAuthCode)
         axios.post("/api/users/sendEmail", dataToSubmit) // /api/users/sendEmail
         .then(response => {
-            alert("인증코드가 발송되었습니다.")
+            message.success('인증코드가 발송되었습니다.')
         })
     }
 
@@ -70,7 +70,7 @@ function RegisterPage(props) {
               if (response.payload.success) {
                 props.history.push("/login");
               } else {
-                alert(response.payload.err.errmsg)
+                message.error(response.payload.err.errmsg)
               }
             })
   

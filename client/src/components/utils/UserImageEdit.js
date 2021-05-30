@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import DropZone from 'react-dropzone';
 import axios from 'axios';
-import { Avatar } from 'antd';
+import { Avatar, message } from 'antd';
 import { UserOutlined } from '@ant-design/icons';
 import { useSelector } from 'react-redux';
 
@@ -49,7 +49,7 @@ function UserImageEdit(props) {
                 setImage([response.data.image])                
                 props.refreshFunction([response.data.image])
             } else {
-                alert('Failed to save the Image in Server')
+              message.error('이미지 저장에 실패했습니다.')
             }
         })    
     }

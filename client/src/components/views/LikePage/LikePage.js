@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react'; 
 import axios from 'axios';
-import { Col, Card, Row, Typography } from 'antd';
+import { Col, Card, Row, Typography, message } from 'antd';
 import ImageSlider from '../../utils/ImageSlider';
 import { get } from 'mongoose/lib/promise_provider';
 import './LikePage.css'
@@ -51,7 +51,7 @@ function LikePage(props) {
                     }
                     setPostSize(response.data.postSize)
                 } else {
-                    alert('Failed to fetch template data')
+                    message.error('템플릿 정보를 가져올 수 없습니다.')
                 }
             })
     }

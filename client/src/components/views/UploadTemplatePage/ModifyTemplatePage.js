@@ -142,8 +142,36 @@ function ModifyTemplatePage(props) {
     const onSubmit = (event) => {
         event.preventDefault()
 
-        if(!TitleValue || !DesignerValue || !DescriptionValue || Images.length == 0) {
-            return alert('Fill all the fields first!')
+        let copy_t = TitleValue
+        let blank_t = false
+        if(copy_t.replace(/ /g, '') === '') {
+            blank_t = true
+        }
+        let copy_ds = DesignerValue
+        let blank_ds = false
+        if(copy_ds.replace(/ /g, '') === '') {
+            blank_ds = true
+        }
+        let copy_d = DescriptionValue
+        let blank_d = false
+        if(copy_d.replace(/ /g, '').replace(/\n/g, '') === '') {
+            blank_d = true
+        }
+        
+        if(Images.length == 0) {
+            return message.warning('이미지를 등록해주세요.')
+        }
+        else if(!TitleValue || blank_t) {
+            return message.warning('제목을 입력해주세요.')
+        }
+        else if(!DesignerValue || blank_ds) {
+            return message.warning('디자이너를 입력해주세요.')
+        }
+        else if(!DescriptionValue || blank_d) {
+            return message.warning('설명을 작성해주세요.')
+        }
+        else if(!(Files && LinkValue)) {
+            return message.warning('파일 또는 링크를 등록해주세요.')
         }
         
         const body = {
@@ -162,12 +190,12 @@ function ModifyTemplatePage(props) {
         axios.post('/api/template/editTemplate', body)
             .then(response => {
                 if(response.data.success) {
-                    message.success('Template Successfully Edited.')
+                    message.success('수정되었습니다.')
                     setTimeout(() => {
                         window.location.href=`/template/${templateId}`
                     }, 150);
                 } else {
-                    message.error('Failed to edit Template');
+                    message.error('수정에 실패했습니다.');
                 }
             })
     }

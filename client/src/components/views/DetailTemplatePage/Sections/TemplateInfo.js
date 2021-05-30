@@ -1,5 +1,5 @@
 import React, { useState,useEffect } from 'react';
-import { Typography, Tooltip, Descriptions, Button, Row, Col, Popconfirm, message, Tag, Statistic, Divider } from 'antd';
+import { Typography, Tooltip, message, Button, Row, Col, Popconfirm, Tag, Statistic, Divider } from 'antd';
 import { styles } from '../../LandingPage/Sections/Datas';
 import { HeartTwoTone, ExportOutlined, DownloadOutlined, EditOutlined, DeleteOutlined } from '@ant-design/icons';
 import { useDispatch } from 'react-redux';
@@ -61,14 +61,14 @@ function TemplateInfo(props) {
     
     const onLikeHandler = () => {
         if(user.userData && !user.userData.isAuth) {//로그인을 안했으면 로그인을 해달라는 메세지 뜨기
-            return alert('로그인이 필요합니다.');
+            return message.warning('로그인이 필요합니다.')
         }
         else {
             dispatch(addToLike(props.detail._id))
 
             if (LikeAction === 'liked') {
                 setLikeAction(null)
-                alert('찜하기를 취소했습니다.')
+                message.success('찜하기를 취소했습니다.')
                 let body = {
                     templateId: props.detail._id,
                     like : LikeCounts-1
@@ -78,7 +78,7 @@ function TemplateInfo(props) {
             }
             else {
                 setLikeAction('liked')
-                alert('이 탬플릿을 찜했습니다.')
+                message.success('이 탬플릿을 찜했습니다.')
                 let body = {
                     templateId: props.detail._id,
                     like : LikeCounts+1
@@ -90,7 +90,7 @@ function TemplateInfo(props) {
     }
 
     const onFileDownloadAlertHandler = () => {
-        alert('로그인이 필요합니다.')
+        return message.warning('로그인이 필요합니다.')
     }
 
     const onFileDownloadHandler = () => {
@@ -104,7 +104,7 @@ function TemplateInfo(props) {
 
     const onLinkHandler = () => {
         if(user.userData && !user.userData.isAuth) {
-            return alert('로그인이 필요합니다.');
+            return message.warning('로그인이 필요합니다.')
         }
         else {    
             window.open(props.detail.uploadedUrl, "_blank")
@@ -120,12 +120,12 @@ function TemplateInfo(props) {
         Axios.post('/api/template/deleteTemplate', body)
             .then(response => {
                 if (response.data.success) {
-                    message.success('템플릿이 삭제되었습니다.');
+                    message.success('삭제되었습니다.');
                     setTimeout(() => {
                         window.location.href="/"
                     }, 150);
                 } else {
-                    alert('Failed to delete Template')
+                    message.error('삭제에 실패했습니다.')
                 }
             })
       }

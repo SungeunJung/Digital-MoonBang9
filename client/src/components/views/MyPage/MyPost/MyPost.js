@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react'; 
-import { Typography, List, Avatar, Tabs, Pagination } from 'antd';
+import { Typography, List, Avatar, Tabs, Pagination, message } from 'antd';
 import { UserOutlined } from '@ant-design/icons';
 import { NavLink } from 'react-router-dom';
 import axios from 'axios';
@@ -46,7 +46,7 @@ function MyPost(props) {
                             setCountArr(countArr)
                             setCount(countArr[0])
                         } else {
-                            alert('Failed to fetch template data')
+                            message.error('템플릿 정보를 가져올 수 없습니다.')
                         }
                     })
                 axios.post('/api/tip/getMyPostCount', body)
@@ -55,7 +55,7 @@ function MyPost(props) {
                             countArr[1] = response.data.count;
                             setCountArr(countArr)
                         } else {
-                            alert('Failed to fetch template data')
+                            message.error('템플릿 정보를 가져올 수 없습니다.')
                         }
                     })
                 axios.post('/api/review/getMyPostCount', body)
@@ -64,7 +64,7 @@ function MyPost(props) {
                             countArr[2] = response.data.count;
                             setCountArr(countArr)
                         } else {
-                            alert('Failed to fetch template data')
+                            message.error('템플릿 정보를 가져올 수 없습니다.')
                         }
                     })
     
@@ -107,7 +107,7 @@ function MyPost(props) {
                     if(response.data.success) {
                         setTemplates(response.data.templates)
                     } else {
-                        alert('Failed to fetch template data')
+                        message.error('템플릿 정보를 가져올 수 없습니다.')
                     }
                 })
             axios.post('/api/tip/getMyPost', variables)
@@ -115,7 +115,7 @@ function MyPost(props) {
                     if(response.data.success) {
                         setTips(response.data.tips)
                     } else {
-                        alert('Failed to fetch template data')
+                        message.error('템플릿 정보를 가져올 수 없습니다.')
                     }
                 })
             axios.post('/api/review/getMyPost', variables)
@@ -123,7 +123,7 @@ function MyPost(props) {
                     if(response.data.success) {
                         setReviews(response.data.reviews)
                     } else {
-                        alert('Failed to fetch template data')
+                        message.error('템플릿 정보를 가져올 수 없습니다.')
                     }
                 })
     }
@@ -173,10 +173,10 @@ function MyPost(props) {
                             <List.Item>
                                 <List.Item.Meta
                                     avatar={<Avatar icon={<UserOutlined />} src={process.env.REACT_APP_S3_URL+`userProfile/${Image}`} style={{ alignItems:'center',backgroundColor:'#a5cbf0'}}/>}
-                                    title={<div className="Mypost-font-title" >{item.title}</div>}
-                                    description={<div className="Mypost-font-description" dangerouslySetInnerHTML={{ __html: item.description }} />}
+                                    title={item.title}
+                                    description={<div dangerouslySetInnerHTML={{ __html: item.description }} />}
                                 />
-                                <div><div className="Mypost-font-date">{item.createdAt.split('T')[0]}</div></div>
+                                <div><span>{item.createdAt.split('T')[0]}</span></div>
                             </List.Item>
                             </div>
                         </NavLink>
@@ -196,12 +196,12 @@ function MyPost(props) {
     }
 
     return (
-        
         <div className="mypost">
             <Title>
                 <div className="Mypost-pageheader-1">마이페이지</div>
                 <div className="Mypost-pageheader-2">작성한 글 목록</div>
             </Title>
+
             <Tabs defaultActiveKey="1" type='card' size='large' onChange={tabChange}>
                 <TabPane tab="속지" key="1">
                     {PostList(Templates, '/template/')}

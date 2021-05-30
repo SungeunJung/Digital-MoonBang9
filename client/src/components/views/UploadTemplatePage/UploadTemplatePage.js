@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Typography, Button, Form, Radio, Space, Input, Row, Col } from 'antd';
+import { Typography, Button, Form, Radio, Space, Input, Row, Col, message } from 'antd';
 import FileUpload from '../../utils/FileUpload';
 import TemplateUpload from'../../utils/TemplateUpload';
 import axios from 'axios';
@@ -90,9 +90,37 @@ function UploadTemplatePage(props) {
     const onSubmit = (event) => {
         event.preventDefault()
 
-        if(!TitleValue || !DesignerValue || !DescriptionValue || Images.length == 0
-            || !(Files && LinkValue)) {
-            return alert('Fill all the fields first!')
+        let copy_t = TitleValue
+        let blank_t = false
+        if(copy_t.replace(/ /g, '') === '') {
+            blank_t = true
+        }
+        let copy_ds = DesignerValue
+        let blank_ds = false
+        if(copy_ds.replace(/ /g, '') === '') {
+            blank_ds = true
+        }
+        let copy_d = DescriptionValue
+        let blank_d = false
+        if(copy_d.replace(/ /g, '').replace(/\n/g, '') === '') {
+            blank_d = true
+        }
+        
+
+        if(Images.length == 0) {
+            return message.warning('이미지를 등록해주세요.')
+        }
+        else if(!TitleValue || blank_t) {
+            return message.warning('제목을 입력해주세요.')
+        }
+        else if(!DesignerValue || blank_ds) {
+            return message.warning('디자이너를 입력해주세요.')
+        }
+        else if(!DescriptionValue || blank_d) {
+            return message.warning('설명을 작성해주세요.')
+        }
+        else if(Files.length == 0 && !LinkValue) {
+            return message.warning('파일 또는 링크를 등록해주세요.')
         }
 
         const variables = {
@@ -112,10 +140,10 @@ function UploadTemplatePage(props) {
         axios.post('/api/template/uploadTemplate', variables)
             .then(response => {
                 if(response.data.success) {
-                    alert('Template Successfully Uploaded')
+                    message.success('템플릿이 등록되었습니다.')
                     props.history.push('/')
                 } else {
-                    alert('Failed to upload Template')
+                    message.error('템플릿 업로드에 실패했습니다.')
                 }
             })
     }
@@ -125,7 +153,6 @@ function UploadTemplatePage(props) {
             <div style={{ textAlign:'center', marginBottom:'3rem' }}>
                 <Title level={2}>속지 등록하기</Title>
             </div>
-
             <Form onSubmit={onSubmit} >
                 {/*DropZone*/}
                 <FileUpload refreshFunction={updateImages}/>
@@ -154,6 +181,7 @@ function UploadTemplatePage(props) {
                     style={{marginTop:'8px'}}
                 />
                 </div>
+                {console.log(DescriptionValue)}
                 <br/>
                 <br/>
                 <Radio.Group onChange={onUploadRadioChange} value={RadioValue}>
