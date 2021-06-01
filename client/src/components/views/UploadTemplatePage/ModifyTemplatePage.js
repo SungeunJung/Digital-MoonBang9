@@ -168,9 +168,6 @@ function ModifyTemplatePage(props) {
         else if(!DescriptionValue || blank_d) {
             return message.warning('설명을 작성해주세요.')
         }
-        else if(!(Files && LinkValue)) {
-            return message.warning('파일 또는 링크를 등록해주세요.')
-        }
         
         const body = {
             templateId: templateId,
@@ -289,7 +286,7 @@ function ModifyTemplatePage(props) {
                 <br />
                 <br />
                 <label>Style </label>
-                <select value={Number(window.localStorage.getItem("style"))} onChange={onStyleSelectChange}>
+                <select defaultValue={Number(window.localStorage.getItem("style"))} onChange={onStyleSelectChange}>
                     {Styles.map(item => (
                         <option key={item.key} value={item.key}>{item.value}</option>
                     ))}
