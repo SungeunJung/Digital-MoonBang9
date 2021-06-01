@@ -77,7 +77,7 @@ function ModifyTipPage(props) {
             axios.post('/api/tip/editPost', body)
             .then(response => {
                 if (response) {
-                    message.success('Tip Successfully Edited!');
+                    message.success('수정되었습니다.');
                     setTimeout(() => {
                         window.location.href=`/tip/post/${postId}`
                     }, 2000);

@@ -148,7 +148,7 @@ function UploadTemplatePage(props) {
     }
 
     return (
-        <div className="tipAndReview">
+        <div className="tipAndReview"> 
             <div className="form-body">
             <div style={{ textAlign:'center', marginBottom:'3rem' }}>
                 <Title level={2}><span className="tipAndReview-header">속지 등록하기</span></Title>
@@ -181,7 +181,6 @@ function UploadTemplatePage(props) {
                     style={{marginTop:'8px'}}
                 />
                 </div>
-                {console.log(DescriptionValue)}
                 <br/>
                 <br/>
                 <Radio.Group onChange={onUploadRadioChange} value={RadioValue}>

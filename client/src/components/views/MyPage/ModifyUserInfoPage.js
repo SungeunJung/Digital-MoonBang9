@@ -77,7 +77,7 @@ function ModifyUserInfoPage(props) {
             if(response.data.success) {
                 message.success('사용 가능한 닉네임입니다.')
             } else {         
-                message.warning('')       
+                message.warning('중복된 닉네임입니다.')       
                 form.resetFields();
             }
         })

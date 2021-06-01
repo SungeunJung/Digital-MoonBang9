@@ -92,7 +92,7 @@ function ModifyNoticePage(props) {
         axios.post('/api/notice/editPost', body)
         .then(response => {
             if (response) {
-                message.success('Notice Successfully Edited!');
+                message.success('수정되었습니다.');
                 setTimeout(() => {
                     window.location.href=`/notice/post/${postId}`
                 }, 2000);
@@ -135,11 +135,8 @@ function ModifyNoticePage(props) {
                 />
                 </div>
                 <div style={{ textAlign: 'center', margin: '2rem', }}>
-                    <Button
-                            size="large"
-                            onClick={onSubmit}
-                        >
-                            저장
+                    <Button size="large" onClick={onSubmit}>
+                        저장
                     </Button>
                     &nbsp;&nbsp;
                     <Button size="large" onClick={onCancel}>
