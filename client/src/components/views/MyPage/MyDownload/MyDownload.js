@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'; 
-import { Col, Card, Row, Typography, message } from 'antd';
+import { Col, Card, Row, Typography, message, Button } from 'antd';
 import ImageSlider from '../../../utils/ImageSlider'
 import axios from 'axios';
 import './MyDownload.css'
@@ -109,7 +109,7 @@ function MyDownload(props) {
             <br /><br />
             {PostSize >= Limit &&
                 <div className="Mydownload-loardMore">
-                    <button onClick={onLoadMore}>Load More</button>
+                    <Button onClick={onLoadMore}>더 보기</Button>
                 </div>
             }
             
