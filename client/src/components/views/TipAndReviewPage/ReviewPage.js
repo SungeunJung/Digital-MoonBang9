@@ -67,6 +67,8 @@ function ReviewPage() {
     const renderCards = (Reviews && Reviews.map((review, index) => {
         return <Col key={index} lg={8} md={12} xs={24}>
             <NavLink to = {`/review/post/${review._id}`}>
+                <br/>
+                <br/>
             <Card
                 hoverable
                 className="Review-card"

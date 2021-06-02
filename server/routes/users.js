@@ -204,7 +204,7 @@ router.post("/addDownload", auth, (req, res) => {
                     { _id: req.user._id },
                     {
                         $push: {
-                            history: {
+                            download: {
                                id: req.body.templateId,
                                date: Date.now()
                             }

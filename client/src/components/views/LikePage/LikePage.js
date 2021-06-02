@@ -43,6 +43,8 @@ function LikePage(props) {
         axios.post('/api/template/getLikeTemplates', variables)
             .then(response => {
                 if(response.data.success) {
+                    console.log(response.data.templates)
+                    console.log(variables)
                     if(variables.loadMore) {
                         setTemplates([...Templates, ...response.data.templates])
                     } else {

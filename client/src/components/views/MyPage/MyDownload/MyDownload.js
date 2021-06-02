@@ -41,6 +41,8 @@ function MyDownload(props) {
         axios.post('/api/template/getMyPageTemplates', variables)
             .then(response => {
                 if(response.data.success) {
+                    console.log(response.data.templates)
+                    console.log(variables)
                     if(variables.loadMore) {
                         setTemplates([...Templates, ...response.data.templates])
                     } else {

@@ -73,6 +73,8 @@ function TipPage() {
     const renderCards = (Tips && Tips.map((tip, index) => {
         return <Col key={index} lg={8} md={12} xs={24}>
             <NavLink to = {`/tip/post/${tip._id}`}>
+                <br/>
+                <br/>
             <Card
                 type="inner"
                 
