@@ -83,7 +83,7 @@ function ReviewPage() {
                     <Avatar style={{ backgroundColor: '#87d068' }} icon={<UserOutlined />} />
                     }
                     
-                    title={review.writer.name}
+                    title={review.writer.nickname}
                     description={review.template}
                 />
                 <div >
