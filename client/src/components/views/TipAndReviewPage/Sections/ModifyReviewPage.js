@@ -84,7 +84,7 @@ function ModifyReviewPage(props) {
             axios.post('/api/review/editPost', body)
             .then(response => {
                 if (response) {
-                    message.success('Review Successfully Edited!');
+                    message.success('수정되었습니다.');
                     setTimeout(() => {
                         window.location.href=`/review/post/${postId}`
                     }, 2000);

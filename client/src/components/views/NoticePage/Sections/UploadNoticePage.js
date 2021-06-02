@@ -87,7 +87,7 @@ function UploadNoticePage(props) {
         axios.post('/api/notice/createPost', variables)
         .then(response => {
             if (response) {
-                message.success('Post Created!');
+                message.success('등록되었습니다.');
                 setTimeout(() => {
                     props.history.push("/notice")
                 }, 2000);

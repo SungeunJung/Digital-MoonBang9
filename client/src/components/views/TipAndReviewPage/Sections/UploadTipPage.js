@@ -75,7 +75,7 @@ function UploadTipPage(props) {
             axios.post('/api/tip/createPost', variables)
             .then(response => {
                 if (response) {
-                    message.success('작성되었습니다.');
+                    message.success('등록되었습니다.');
                     setTimeout(() => {
                         props.history.push("/tip")
                     }, 2000);

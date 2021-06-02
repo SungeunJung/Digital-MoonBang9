@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react'
-import { Typography, Button, Form, Radio, Space, Input, message } from 'antd';
+import { Typography, Button, Form, Radio, Space, Input, message, Row, Col } from 'antd';
 import EditFileUpload from '../../utils/EditFileUpload';
 import TemplateUpload from'../../utils/TemplateUpload';
 import axios from 'axios';
@@ -168,9 +168,6 @@ function ModifyTemplatePage(props) {
         else if(!DescriptionValue || blank_d) {
             return message.warning('설명을 작성해주세요.')
         }
-        else if(!(Files && LinkValue)) {
-            return message.warning('파일 또는 링크를 등록해주세요.')
-        }
         
         const body = {
             templateId: templateId,
@@ -203,33 +200,37 @@ function ModifyTemplatePage(props) {
     }
 
     return (
-        <div style={{ maxWidth:'700px', margin:'2rem auto' }}>
-            <div style={{ textAlign:'center', marginBottom:'2rem' }}>
-                <Title level={2}>Edit Template</Title>
+        <div className="tipAndReview">
+            <div className="form-body">
+            <div style={{ textAlign:'center', marginBottom:'3rem' }}>
+                <Title level={2}><span className="tipAndReview-header">속지 등록하기</span></Title>
             </div>
-
             <Form onSubmit={onSubmit} >
                 {/*DropZone*/}
                 <EditFileUpload refreshFunction={updateImages} detail={Template}/>
                 <br/>
                 <br/>
-                <label>Title</label>
+                <label><span>제목</span></label>
                 <Input
                     defaultValue={window.localStorage.getItem("title")}
+                    onChange={onTitleChange}
+                    style={{marginTop:'8px'}}
                 />
                 <br/>
                 <br/>
-                <label>Designer</label>
+                <label><span>디자이너</span></label>
                 <Input
                     defaultValue={window.localStorage.getItem("designer")}
                     onChange={onDesignerChange}
+                    style={{marginTop:'8px'}}
                 />
                 <div>
                 <br/>
-                <label>Description</label>
+                <label><span>설명</span></label>
                 <TextArea
                     defaultValue={window.localStorage.getItem("description")}
                     onChange={onDescriptionChange}
+                    style={{marginTop:'8px'}}
                 />
                 </div>
                 <br/>
@@ -270,43 +271,49 @@ function ModifyTemplatePage(props) {
                 <span style={{color : "lightgray"}}>(수정하지 않으면 현재 저장된 파일(링크) 그대로 저장됩니다.)</span>
                 <br/>
                 <br/>
-                <span style={{ marginRight: '15px' }}>
-                <label>Category </label>
-                <select defaultValue={Number(window.localStorage.getItem("category"))} onChange={onCategorySelectChange}>
-                    {Categories.map(item => (
-                        <option key={item.key} value={item.key}>{item.value}</option>
-                    ))}
-                </select>
-                </span>
-                <span style={{ marginRight: '15px' }}>
-                <label> Detail </label>
-                <select value={DetailValue} onChange={onDetailSelectChange}>
-                    {Detail.map(item => (
-                        <option key={item.key} value={item.key}>{item.value}</option>
-                    ))}
-                </select>
-                </span>
-                <br />
-                <br />
-                <label>Style </label>
-                <select value={Number(window.localStorage.getItem("style"))} onChange={onStyleSelectChange}>
-                    {Styles.map(item => (
-                        <option key={item.key} value={item.key}>{item.value}</option>
-                    ))}
-                </select>
+                <Row gutter={[20, 20]}>
+                    <Col span={3} lg={8} xs={24}>
+                        <span style={{ marginRight: '15px' }}>                  
+                        <label><span>카테고리</span></label> &nbsp;
+                        <select defaultValue={Number(window.localStorage.getItem("category"))} onChange={onCategorySelectChange}>
+                            {Categories.map(item => (
+                                <option key={item.key} value={item.key}>{item.value}</option>
+                            ))}
+                        </select>
+                        </span>
+                    </Col>
+                    <Col span={3} lg={8} xs={24}>
+                        <span style={{ marginRight: '15px' }}>
+                        <label><span>세부 카테고리</span></label> &nbsp;
+                        <select value={DetailValue} onChange={onDetailSelectChange}>
+                            {Detail.map(item => (
+                                <option key={item.key} value={item.key}>{item.value}</option>
+                            ))}
+                        </select>
+                        </span>
+                    </Col>
+                    <Col span={3} lg={8} xs={24}>
+                        <label><span>스타일</span></label> &nbsp;
+                        <select defaultValue={Number(window.localStorage.getItem("style"))} onChange={onStyleSelectChange}>
+                            {Styles.map(item => (
+                                <option key={item.key} value={item.key}>{item.value}</option>
+                            ))}
+                        </select>
+                    </Col>
+                </Row>
                 <br/>
                 <br/>
-                <div style={{ textAlign: 'center', margin: '2rem', }}>
-                    <Button onClick={onCancel}>
-                        취소하기
+                <div style={{textAlign:'center', marginTop:'2%', marginBottom:'30px'}}>
+                    <Button onClick={onSubmit}>
+                        저장
                     </Button>
                     &nbsp;&nbsp;
-                    <Button
-                        onClick={onSubmit}>
-                        수정하기
+                    <Button onClick={onCancel}>
+                        취소
                     </Button>
                 </div>
             </Form>
+        </div>
         </div>
         
     )

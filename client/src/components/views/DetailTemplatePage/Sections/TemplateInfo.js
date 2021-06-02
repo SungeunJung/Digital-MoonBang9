@@ -200,7 +200,7 @@ function TemplateInfo(props) {
                     <Button className='link' type="primary" shape="round" icon={<ExportOutlined />} size={'large'} 
                         disabled={LinkDisableAction} onClick={onLinkHandler}>
                         <span>링크 이동</span>
-                `   </Button>
+                   </Button>
                 </a>
                 </div>
             }
