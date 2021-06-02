@@ -46,10 +46,10 @@ router.post("/getTemplates", (req, res) => {
     if(req.body.searchField!="total") {
         field[req.body.searchField] = {'$regex':term};
     }
-    if(req.body.sortBy=="createdAt") {
-        sortBy[req.body.sortBy] = -1
-    } else {
+    if(req.body.sortBy=="title" || req.body.sortBy=="nickname") {
         sortBy[req.body.sortBy] = 1
+    } else {
+        sortBy[req.body.sortBy] = -1
     }
     let category = req.body.category ? req.body.category.split("")[1] : null;
     let detail = req.body.category ? req.body.category.split("")[2]? req.body.category.split("")[2]:null : null;
@@ -243,6 +243,18 @@ router.post("/getMyPageTemplates", auth, (req, res) => {
 router.post("/increaseDownload", auth, (req, res) => {
     Template.findOneAndUpdate({ _id: req.body.templateId }, 
         { downloads:(req.body.download+1)}, 
+        (err, doc) => {
+        if (err) return res.json({ success: false, err });
+        return res.status(200).send({
+            success: true
+        });    
+    }) .setOptions({ runValidators: true })
+    .exec();   
+});
+
+router.post("/increaseView", auth, (req, res) => {
+    Template.findOneAndUpdate({ _id: req.body.templateId }, 
+        { views:(req.body.view+1)}, 
         (err, doc) => {
         if (err) return res.json({ success: false, err });
         return res.status(200).send({
