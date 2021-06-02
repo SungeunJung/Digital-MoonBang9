@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'; 
-import { Col, Card, Row, Typography, message } from 'antd';
+import { Col, Card, Row, Typography, message, Button } from 'antd';
 import ImageSlider from '../../../utils/ImageSlider'
 import axios from 'axios';
 import './MyHistory.css'
@@ -107,7 +107,7 @@ function MyHistory(props) {
             <br /><br />
             {PostSize >= Limit &&
                 <div className="Myhistory-loadMore">
-                    <button onClick={onLoadMore}>Load More</button>
+                    <Button onClick={onLoadMore}>더 보기</Button>
                 </div>
             }
             

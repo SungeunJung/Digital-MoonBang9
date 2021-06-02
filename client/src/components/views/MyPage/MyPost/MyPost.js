@@ -17,7 +17,7 @@ function MyPost(props) {
     const [Current, setCurrent] = useState(1)
     const [Count, setCount] = useState(0)
     const [CountArr, setCountArr] = useState([0,0,0])
-    const [Limit, setLimit] = useState(3)
+    const [Limit, setLimit] = useState(10)
     let countArr = [0,0,0];
     const user = useSelector(state => state.user);
 
@@ -213,7 +213,7 @@ function MyPost(props) {
                 </TabPane>
             </Tabs>
             <div className="Mypost-pagination">
-                <Pagination defaultCurrent={1} defaultPageSize={3} total={Count} 
+                <Pagination defaultCurrent={1} defaultPageSize={10} total={Count} 
                 current={Current} onChange={onPageChange} />
             </div>
         </div>

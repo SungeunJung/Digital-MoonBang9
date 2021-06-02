@@ -197,11 +197,11 @@ function TemplateInfo(props) {
                             disabled={!LinkDisableAction} onClick={onFileDownloadHandler}>
                         <span>다운로드</span>
                     </Button>
-                    <Button className='link' type="primary" shape="round" icon={<ExportOutlined />} size={'large'} 
-                        disabled={LinkDisableAction} onClick={onLinkHandler}>
-                        <span>링크 이동</span>
-                   </Button>
                 </a>
+                <Button className='link' type="primary" shape="round" icon={<ExportOutlined />} size={'large'} 
+                    disabled={LinkDisableAction} onClick={onLinkHandler}>
+                    <span>링크 이동</span>
+                </Button>
                 </div>
             }
                 <div className='like'>

@@ -1,5 +1,5 @@
 .tipPage {
-    width: 75%; 
+    width: 75%;
     margin: 3rem auto;
     font-family: 'cookie-regular';
 }
@@ -17,10 +17,25 @@
 .Tip-cards {
     width: 85%;
     margin: 0.5rem auto;
+    word-break: keep-all;
 }
 .Tip-card {
     width: 250; 
     margin-top: 16;
+}
+.Tip-cardNickname {
+    font-size: 1.1vw;
+    margin-bottom: 0.7vh
+}
+.Tip-cardTitle {
+    font-size: 1.22vw;
+    text-align: center;
+    margin-top: 3.4vh;
+}
+.Tip-cardDescription {
+    height: 150; 
+    overflow: scroll; 
+    margin-top: 22px;
 }
 .Tip-pagination {
     display: flex; 
@@ -34,10 +49,28 @@
         margin: 2.5rem auto;
         padding: 2rem 4rem;
     }
+    .Tip-cardNickname {
+        font-size: 1.5vw;
+        margin-bottom: 0.7vh
+    }
+    .Tip-cardTitle {
+        font-size: 1.62vw;
+        text-align: center;
+        margin-top: 1.4vh;
+    }
 }
 
 @media (max-width: 991px) {
     /*테블릿 세로*/
+    .Tip-cardNickname {
+        font-size: 2.1vw;
+        margin-bottom: 0.6vh
+    }
+    .Tip-cardTitle {
+        font-size: 2.3vw;
+        text-align: center;
+        margin-top: 2.4vh;
+    }
 }
 
 @media (max-width: 767px) {
@@ -55,10 +88,25 @@
         height: auto;
         width: auto;
     }
+    .Tip-cardNickname {
+        font-size: 2.5vw;
+        margin-bottom: 0.2vh
+    }
+    .Tip-cardTitle {
+        font-size: 3vw;
+        text-align: center;
+        margin-top: 6.5vh;
+    }
 }
 
 @media (max-width: 415px) {
     /*모바일 세로*/
+    .tipPage {
+        width: 90%;
+        margin: 3rem auto;
+        padding: 1rem 1rem;
+        font-family: 'cookie-regular';
+    }
     .Tip-headerStyleOut { font-size: 22px; color: #E2E2E2;}
     .Tip-headerStyleOn { font-size: 22px; color: black;}
     .Tip-halfCol-1 { width: 80%; }
@@ -67,4 +115,14 @@
         height: auto;
         width: auto;
     }
+    .Tip-cardNickname {
+        font-size: 4.5vw;
+        margin-bottom: 0.3vh
+    }
+    .Tip-cardTitle {
+        font-size: 5vw;
+        text-align: center;
+        margin-top: 3.5vh;
+    }
+
 }

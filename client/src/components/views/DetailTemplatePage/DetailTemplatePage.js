@@ -12,7 +12,6 @@ function DetailTemplatePage(props) {
     const templateId = props.match.params.templateId 
     const [Template, setTemplate] = useState([])
     const [CommentLists, setCommentLists] = useState([])
-    const [HistoryCount, setHistoryCount] = useState(0)
     const templateVariable = {
         templateId: templateId
     }
@@ -22,7 +21,7 @@ function DetailTemplatePage(props) {
             .then(response => {
                 //window.localStorage.clear()
                 setTemplate(response.data[0])
-               
+                console.log(response.data[0].views)
                 window.localStorage.setItem("link", response.data[0].uploadedUrl)
                 window.localStorage.setItem("file", response.data[0].uploadedFile)
                 window.localStorage.setItem("title", response.data[0].title)
@@ -31,6 +30,19 @@ function DetailTemplatePage(props) {
                 window.localStorage.setItem("category", Number(response.data[0].category))
                 window.localStorage.setItem("detail", Number(response.data[0].detail))
                 window.localStorage.setItem("style", Number(response.data[0].styles))
+                let body = {
+                    templateId: templateId,
+                    view: response.data[0].views
+                }
+                console.log(body)
+                axios.post('/api/template/increaseView', body)
+                    .then(response => {
+                        if (response.data.success) {
+                            console.log('success')
+                        } else {
+                            console.log("Failed to add view count");
+                        }
+                    })
             })
 
         axios.post('/api/comment/getComments', templateVariable)
@@ -58,6 +70,7 @@ function DetailTemplatePage(props) {
                     console.log("Failed to add history");
                 }
             })
+
         
     }, [])
 

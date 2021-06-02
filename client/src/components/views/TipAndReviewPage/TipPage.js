@@ -73,6 +73,8 @@ function TipPage() {
     const renderCards = (Tips && Tips.map((tip, index) => {
         return <Col key={index} lg={8} md={12} xs={24}>
             <NavLink to = {`/tip/post/${tip._id}`}>
+                <br/>
+                <br/>
             <Card
                 type="inner"
                 
@@ -82,18 +84,20 @@ function TipPage() {
                     avatar={
                         tip.writer.image?
                     <Avatar
+                        size={{ xs: 32, md: 33, lg: 35}}
                         src={process.env.REACT_APP_S3_URL+`userProfile/${tip.writer.image}`}
                         alt="image"
                     />:
                     <Avatar style={{ backgroundColor: '#87d068' }} icon={<UserOutlined />} />
                     }
-                    title={tip.writer.nickname}
+                    
+                    title={<p className='Tip-cardNickname'>
+                        {tip.writer.nickname}</p>}
                 />
-                <div style={{ height: 150, overflowY: 'scroll', marginTop: 10 }}>
+                <div style={{height: 150, overflow: 'scroll', marginTop: '22px'}}>
                     <div dangerouslySetInnerHTML={{ __html: tip.description }} />
                 </div>
-                <br/>
-                <b>{tip.title}</b>
+                <p className='Tip-cardTitle'>{tip.title}</p>
                 
             </Card>
             </NavLink>
