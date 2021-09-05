@@ -83,7 +83,7 @@ Git
 
 - 메인화면
 
- <img src=".\images\메인화면.png" width="450px" height="500px" title="메인화면" alt="디지털 문방구"></img></<br/>
+ <img src=".\images\메인화면.png" width="450px" height="500px" title="메인화면" alt="디지털 문방구"></img><br/>
 
 </br>
 
