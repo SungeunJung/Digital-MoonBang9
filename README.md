@@ -66,6 +66,19 @@ Git
 
 </br>
 
+> ## 사용기술
+
+- #### Node.js와 Express.js로 서버 구축
+- #### multer를 사용하여 파일 업로드 구현
+- #### MongoDB를 연결하여 데이터 관리
+- #### Nodemailer 모듈을 사용하여 회원가입시 필요한 이메일 인증 구현
+- #### AWS에서 제공하는 온라인 스토리지 웹 서비스인 S3를 사용하여 파일 저장
+- #### React와 React UI library인 Ant Design을 사용하여 UI 디자인
+- #### Kakao API 연동하여 링크 공유 기능 구현
+
+
+</br></br>
+
 > ## 결과물
 
 - 메인화면
